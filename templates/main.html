@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <title>Home</title>
+</head>
+<body>
+    <p>Hello World!</p>
+    <ul>
+        <li>Author: {{all_articles["articles"][0]['author']}}</li>
+    </ul>
+</body>
+</html>
