@@ -1,4 +1,4 @@
-# -- Testing done by Kapilesh Pennichetty --
+# --- Testing done by Kapilesh Pennichetty ---
 from newsapi import NewsApiClient
 from flask import Flask, render_template
 newsapi = NewsApiClient(api_key='eadbfa9229d14334b96c95ccd2d733e1')
