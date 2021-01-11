@@ -1,6 +1,8 @@
 # ---------- Import Statements ----------
 from newsapi import NewsApiClient
 from flask import Flask, render_template
+from PIL import Image
+import urllib
 import datetime
 
 
