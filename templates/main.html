@@ -30,15 +30,20 @@
         <p>A news app by Kapilesh Pennichetty and Sanjay Balasubramanian.</p>
         <p>For an enhanced experience, add this app to your home screen.</p>
     </div>
-    <div>
-        {% for article in allarticles %}
-        <ul>
-            <li>Title: {{article['title']}}</li>
-            <li>Author: {{article['author']}}</li>
-            <li>{{article['description']}}</li>
-            <li><a href = {{article['url']}} target="_blank" rel="noopener noreferrer">Link to Article</a></li>
-        </ul>
-        {% endfor %}
-    </div>
+    {% for article in all_articles %}
+        <div class="jumbotron-fluid">
+            <ul>
+                <div class = "container">
+                    <div class="page-header">
+                        <li>Title: {{article['title']}}</li>
+                        <li>Author: {{article['author']}}</li>
+                        <li>{{article['publishedAt'][0:10]}}</li>
+                    </div>
+                <li>{{article['description']}}</li>
+                <li><a href = {{article['url']}} target="_blank" rel="noopener noreferrer">Link to Article</a></li>
+                </div>
+            </ul>
+        </div>
+    {% endfor %}
 </body>
 </html>
