@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 
 # ---------- Defining Functions and Variables ----------
-stats = newsapi.get_everything(q='Donald Trump', from_param=from_date, to=to_date, sort_by='relevancy', language='en')
+stats = newsapi.get_everything(q='top-headlines', from_param=from_date, to=to_date, sort_by='publishedAt', language='en')
 all_articles = stats["articles"]
 
 # ----- Webpages -----
