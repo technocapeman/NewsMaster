@@ -2,15 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="NewsMaster">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-192.png">
+    <link rel="apple-touch-startup-image" href="/images/icon-512.png">
+    <link rel="apple-touch-startup-image" href="/images/icon-512.png">
     <title>Home</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/icon-96.png') }}">
+
 </head>
 <body>
-    <p>Hello World!</p>
-    <ul>
-        <li>Author: {{all_articles["articles"][0]['author']}}</li>
-    </ul>
+    <div class="container-fluid">
+        <div class="page-header">
+            <h1>NewsMaster</h1>
+        </div>
+        <p>A news app by Kapilesh Pennichetty and Sanjay Balasubramanian.</p>
+        <p>For an enhanced experience, add this app to your home screen.</p>
+    </div>
+    <div>
+        {% for article in allarticles %}
+        <ul>
+            <li>Title: {{allarticles[article]['title']}}</li>
+            <li>Author: {{allarticles[article]['author']}}</li>
+            <li>{{allarticles[article]['description']}}</li>
+            <li><a href = {{allarticles[article]['url']}} target="_blank" rel="noopener noreferrer">Link to Article</a></li>
+            <li>{article += 1}</li>
+        </ul>
+        {% endfor %}
+    </div>
 </body>
 </html>
