@@ -3,6 +3,34 @@ from newsapi import NewsApiClient
 from flask import Flask, render_template
 import datetime
 
+# ---------- Sources ----------
+"""
+- Flask PWA Developement Process: https://www.flaskpwa.com/
+Helped in the process of learning to develop a Progressive Web App. 
+- W3 Schools: https://w3schools.com/
+Helped in implementing Bootstrap templates and CSS.
+- Stack Overflow: https://stackoverflow.com 
+Helped in passing data from Python to HTML page: 
+https://stackoverflow.com/questions/51669102/how-to-pass-data-to-html-page-using-flask 
+- Flask Documentation: 
+https://flask.palletsprojects.com/en/1.1.x/
+Helped in the process of learning the Flask Web Development Framework.
+-  Jinja Documentation: 
+https://jinja.palletsprojects.com/en/2.11.x/
+Helped in the process of learning how to initiate a 
+for-each loop for html attributes, and learning how to access Python functions through HTML.
+- How to code a WEB APP using Flask (Flask Python Tutorial for Beginners) ft ~*doggo roulette*~ by Kylie Ying:
+https://youtu.be/8q3qje9K5uU
+Helped in the process of learning how to use Flask to develop webpages and web-based applications.
+- Flask Tutorial #1 - How to Make Websites with Python by Tech with Tim:
+https://youtu.be/mqhxxeeTbu0
+Helped in the process of learning the basics of Flask.
+- Python Library for News API: https://github.com/mattlisiv/newsapi-python
+Helped implement the News API in developing the Progressive Web App.
+- Documentation for News API: https://newsapi.org/docs
+Helped learn the functions, inputs, and outputs of the News API.
+"""
+
 # ---------- API and Program Prerequisites (Kapilesh Pennichetty) ----------
 from_date = datetime.date.today() - datetime.timedelta(30)
 to_date = datetime.date.today()
