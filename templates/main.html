@@ -51,12 +51,12 @@
 	</div>
 
 	<!---------- Display All Articles from News API (Kapilesh Pennichetty) ---------->
-	{% for article in all_articles %} <!-- Beginning of For-Each Loop to display all articles (Kapilesh Pennichetty) -->
+	{% for article in all_top_articles %} <!-- Beginning of For-Each Loop to display all articles (Kapilesh Pennichetty) -->
 		<!-- Declaring Bootstrap Template for Articles (Kapilesh Pennichetty) -->
 		<div class="jumbotron jumbotron-fluid" style="font-family: 'Lato', sans-serif">
 			<div class="container-fluid">
 				<div class="page-header">
-					<h3>{{article['title']}}</h3>
+					<h3><a href = {{article['url']}} target="_blank" rel="noopener noreferrer" style="color:#ffffff">{{article['title']}}</a></h3>
 					<h5>Source: {{article['source']['name']}}</h5>
 					<h5>Author: {{article['author']}}</h5>
 					<h5>Date: {{article['publishedAt'][0:10]}}</h5>
@@ -64,7 +64,7 @@
 				<p>{{article['description']}}</p>
 				<img src= {{article['urlToImage']}} style="max-width: 350px"> <!-- Image -->
 					<p><a href = {{article['url']}} target="_blank" rel="noopener noreferrer" style="font-family: 'Lato', sans-serif; color: #1fbed6; font-weight:bold">Learn More</a></p>
-					</div>
+			</div>
         </div>
 	{% endfor %} <!-- End of For-Each Loop (Kapilesh Pennichetty) -->
 
