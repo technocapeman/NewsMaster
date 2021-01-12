@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<title>Home</title>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 
@@ -62,7 +62,7 @@
 					<h5>Date: {{article['publishedAt'][0:10]}}</h5>
 				</div>
 				<p>{{article['description']}}</p>
-				<img src= {{article['urlToImage']}} width="350px" height="175px"> <!-- Image -->
+				<img src= {{article['urlToImage']}} style="max-width: 350px"> <!-- Image -->
 					<p><a href = {{article['url']}} target="_blank" rel="noopener noreferrer" style="font-family: 'Lato', sans-serif; color: #1fbed6; font-weight:bold">Learn More</a></p>
 					</div>
         </div>
