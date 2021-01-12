@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!---------- Importing Fonts and Bootstrap Templates (Kapilesh Pennichetty) ---------->
     <meta charset="UTF-8">
+    <title>Home</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,8 +17,9 @@
     <meta name="apple-mobile-web-app-title" content="NewsMaster">
     <link rel="apple-touch-icon" sizes="180x180" href="images/icon-192.png">
     <link rel="apple-touch-startup-image" href="images/icon-512.png">
-    <title>Home</title>
     <link rel="icon" href="{{ url_for('static', filename='images/icon-96.png') }}">
+
+    <!---------- CSS for main.html (Kapilesh Pennichetty) ---------->
     <style>
     .container-fluid {
         font-family: font-family: 'Lato', sans-serif;
@@ -28,9 +31,11 @@
 
 </head>
 <body>
+    <!---------- Header of main.html (Kapilesh Pennichetty) ---------->
+    <!-- Declaring Bootstrap Template for Header (Kapilesh Pennichetty) -->
     <div class="container-fluid" style="font-family: 'Lato', sans-serif;
     background-color: #2f2f2f;
-    color: #ffffff;">
+    color: #ffffff">
         <div class="page-header" style="background-color: #2f2f2f;
     color: #1fbed6;
     font-family: 'Roboto Condensed', sans-serif;
@@ -39,7 +44,10 @@
         </div>
         <p style="font-size: 25px">The world at your fingertips.</p>
     </div>
-    {% for article in all_articles %}
+
+    <!---------- Display All Articles from News API (Kapilesh Pennichetty) ---------->
+    {% for article in all_articles %} <!-- Beginning of For-Each Loop to display all articles (Kapilesh Pennichetty) -->
+        <!-- Declaring Bootstrap Template for Articles (Kapilesh Pennichetty) -->
         <div class="jumbotron jumbotron-fluid" style="font-family: 'Lato', sans-serif">
             <div class = "container-fluid">
                 <div class="page-header">
@@ -49,12 +57,13 @@
                     <h5>Date: {{article['publishedAt'][0:10]}}</h5>
                 </div>
                 <p>{{article['description']}}</p>
-                <img src= {{article['urlToImage']}} width="350px" height="175px">
+                <img src= {{article['urlToImage']}} width="350px" height="175px"> <!-- Image -->
                 <p><a href = {{article['url']}} target="_blank" rel="noopener noreferrer" style="font-family: 'Lato', sans-serif; color: #1fbed6; font-weight:bold">Learn More</a></p>
                 </div>
-            </ul>
         </div>
-    {% endfor %}
+    {% endfor %} <!-- End of For-Each Loop (Kapilesh Pennichetty) -->
+
+    <!-- Footer of Webpage (Kapilesh Pennichetty) -->
     <footer>
         <p align="center" style="font-family: 'Lato', sans-serif; color: #000000; font-weight:bold"><span>&#169;</span> 2021 Kapilesh Pennichetty and Sanjay Balasubramanian</p>
     </footer>
