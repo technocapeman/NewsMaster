@@ -1,7 +1,8 @@
 # ---------- Import Statements (Kapilesh Pennichetty) ----------
 from newsapi import NewsApiClient
 from flask import Flask, render_template
-import datetime
+from datetime import date, timedelta
+
 
 # ---------- Sources ----------
 """
@@ -31,33 +32,72 @@ Helped implement the News API in the Progressive Web App.
 Helped in the process of learning the functions, inputs, and outputs of the News API.
 """
 
+
 # ---------- API and Program Prerequisites (Kapilesh Pennichetty) ----------
-from_date = datetime.date.today() - datetime.timedelta(30)
-to_date = datetime.date.today()
+from_date = date.today() - timedelta(30)  # Defining a variable to tell the API to return articles
+# as far as 30 days back using datetime module.
+to_date = date.today()  # Defining a variable to tell the API to return articles until today using datetime module.
+trusted_news_sources = ["bbc-news", "abc-news", "abc-news-au", "al-jazeera-english", "ars-technica", "associated-press",
+                        "australian-financial-review", "axios", "bbc-sport", "bleacher-report", "bloomberg",
+                        "breitbart-news", "business-insider", "business-insider-uk", "cbc-news", "cbs-news", "cnn",
+                        "cnn-es", "crypto-coins-news", "engadget", "entertainment-weekly", "espn", "financial-post",
+                        "football-italia", "fortune", "four-four-two", "fox-news", "fox-sports", "google-news",
+                        "google-news-au", "google-news-ca", "google-news-in", "google-news-uk", "ign", "independent",
+                        "mashable", "medical-news-today", "msnbc", "mtv-news", "mtv-news-uk", "national-geographic",
+                        "national-review", "nbc-news", "new-scientist", "news-com-au", "newsweek", "new-york-magazine",
+                        "nfl-news", "nhl-news", "politico", "polygon", "recode", "reuters", "talksport", "techcrunch",
+                        "techradar", "the-globe-and-mail", "the-hill", "the-hindu", "the-huffington-post",
+                        "the-irish-times", "the-jerusalem-post", "the-next-web", "the-times-of-india", "the-verge",
+                        "the-wall-street-journal", "the-washington-post", "the-washington-times", "time", "usa-today",
+                        "vice-news", "wired"]
+
+
+def formatted_trusted_news_sources():  # Formats the trusted_news_sources list for use with the News API.
+    news_outlets = ""  # Blank string to append as needed using for-each loop.
+    for source in trusted_news_sources:
+        source += ","  # Adding a comma to separate the news sources as per the API format.
+        news_outlets += source  # Appending newly formatted news sources to a variable news_outlets to be fed into
+        # the API.
+    trusted_news = news_outlets[0:-1]  # Removing the comma from the last news source.
+    return trusted_news
+
 
 # -- News API Prerequisites (Kapilesh Pennichetty) --
-newsapi = NewsApiClient(api_key='eadbfa9229d14334b96c95ccd2d733e1')
+newsapi = NewsApiClient(api_key='eadbfa9229d14334b96c95ccd2d733e1')  # Registering API Key for Use and Abstracting
+# Key Away
 
-# -- Flask Framework Initialization (Kapilesh Pennichetty) --
+# -- Flask Framework Prerequisites (Kapilesh Pennichetty) --
 app = Flask(__name__)
 
+
 # ---------- Defining Functions and Variables (Kapilesh Pennichetty) ----------
-stats = newsapi.get_everything(
-    q='top-headlines',
-    from_param=from_date,
-    to=to_date,
-    sort_by='publishedAt',
+top_headlines_stats = newsapi.get_top_headlines(  # Requesting data from the News API about the top headlines
+    sources=formatted_trusted_news_sources(),
     language='en')
-all_articles = stats["articles"]
+all_top_articles = top_headlines_stats["articles"]  # Separating articles from the search query data
+
+"""
+To be used when developing search bar, filters, and sorting:
+all_articles = newsapi.get_everything(sources=formatted_trusted_news_sources(),  # Requesting data from the News API 
+# about all articles
+                                      from_param=from_date,
+                                      to=to_date,
+                                      language='en',
+                                      sort_by='relevancy')
+                                      
+Reminder: Be sure to pass the variable all_articles to the HTML page.
+"""
 
 
 # ----- Webpages (Kapilesh Pennichetty) -----
 # -- Home Page (Kapilesh Pennichetty) --
-@app.route("/")
-def home():
-    return render_template('main.html', all_articles=all_articles)
+@app.route("/")  # Telling Flask that the url with "/" appended at the end should lead to the home page.
+def home():  # The home page shows trending articles.
+    return render_template('main.html', all_top_articles=all_top_articles)  # Rendering the HTML for the home page,
+    # passing required variables from Python to the HTML page using Jinja.
 
 
 # ---------- Initializing Flask App (Kapilesh Pennichetty) ----------
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
+    app.run(host='0.0.0.0', port=5000, debug=True,
+            threaded=True)  # Telling Flask to run the app with the constraints given.
