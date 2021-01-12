@@ -7,7 +7,8 @@ from datetime import date, timedelta
 # ---------- Sources ----------
 """
 - Flask PWA Developement Process: https://www.flaskpwa.com/
-Helped in the process of learning to develop a Progressive Web App using the Flask framework. The file at static/manifest.json was derived from the manifest.json in the website.
+Helped in the process of learning to develop a Progressive Web App using the Flask framework. The file at 
+static/manifest.json was derived from the manifest.json in the website.
 - W3 Schools: https://w3schools.com/
 Helped in implementing Bootstrap templates and CSS.
 - Stack Overflow (Used only for reading through previously asked questions): https://stackoverflow.com
@@ -78,13 +79,18 @@ all_top_articles = top_headlines_stats["articles"]  # Separating articles from t
 
 """
 To be used when developing search bar, filters, and sorting:
-all_articles = newsapi.get_everything(sources=formatted_trusted_news_sources(),  # Requesting data from the News API 
+all_articles_stats = newsapi.get_everything(sources=formatted_trusted_news_sources(),  # Requesting data from the News 
+# API 
 # about all articles
                                       from_param=from_date,
                                       to=to_date,
                                       language='en',
+                                      sources=formatted_trusted_news_sources(),
+                                      language='en',
                                       sort_by='relevancy')
                                       
+all_articles = all_articles_stats["articles"]  # Separating articles from the search query data
+
 Reminder: Be sure to pass the variable all_articles to the HTML page.
 """
 
