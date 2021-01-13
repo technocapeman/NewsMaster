@@ -45,12 +45,12 @@ trusted_news_sources = ["bbc-news", "abc-news", "abc-news-au", "al-jazeera-engli
                         "football-italia", "fortune", "four-four-two", "fox-news", "fox-sports", "google-news",
                         "google-news-au", "google-news-ca", "google-news-in", "google-news-uk", "ign", "independent",
                         "mashable", "medical-news-today", "msnbc", "mtv-news", "mtv-news-uk", "national-geographic",
-                        "national-review", "nbc-news", "new-scientist", "news-com-au", "newsweek", "new-york-magazine",
-                        "nfl-news", "nhl-news", "politico", "polygon", "recode", "reuters", "talksport", "techcrunch",
-                        "techradar", "the-globe-and-mail", "the-hill", "the-hindu", "the-huffington-post",
-                        "the-irish-times", "the-jerusalem-post", "the-next-web", "the-times-of-india", "the-verge",
-                        "the-wall-street-journal", "the-washington-post", "the-washington-times", "time", "usa-today",
-                        "vice-news", "wired"]
+                        "national-review", "nbc-news", "news24", "new-scientist", "news-com-au", "newsweek",
+                        "new-york-magazine", "nfl-news", "nhl-news", "politico", "polygon", "recode", "reuters", "rte",
+                        "talksport", "techcrunch", "techradar", "the-globe-and-mail", "the-hill", "the-hindu",
+                        "the-huffington-post", "the-irish-times", "the-jerusalem-post", "the-next-web",
+                        "the-times-of-india", "the-verge", "the-wall-street-journal", "the-washington-post",
+                        "the-washington-times", "time", "usa-today", "vice-news", "wired"]
 
 
 def formatted_trusted_news_sources():  # Formats the trusted_news_sources list for use with the News API.
