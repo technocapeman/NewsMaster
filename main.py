@@ -2,6 +2,8 @@
 from newsapi import NewsApiClient
 from flask import Flask, render_template
 from datetime import date, timedelta
+import schedule
+import time
 
 
 # ---------- Sources ----------
@@ -13,7 +15,9 @@ static/manifest.json was derived from the manifest.json in the website.
 Helped in implementing Bootstrap templates and CSS.
 - Stack Overflow (Used only for reading through previously asked questions): https://stackoverflow.com
 Helped in learning how to passing data from Python to HTML page: 
-https://stackoverflow.com/questions/51669102/how-to-pass-data-to-html-page-using-flask 
+https://stackoverflow.com/questions/51669102/how-to-pass-data-to-html-page-using-flask
+Helped in dynamically calculating 30 days into the past using Python:
+https://stackoverflow.com/questions/703907/how-would-i-compute-exactly-30-days-into-the-past-with-python-down-to-the-minut 
 - Flask Documentation: 
 https://flask.palletsprojects.com/en/1.1.x/
 Helped in the process of learning the Flask Web Development Framework.
@@ -31,6 +35,8 @@ Helped in the process of learning the basics of Flask.
 Helped implement the News API in the Progressive Web App.
 - Documentation for News API: https://newsapi.org/docs
 Helped in the process of learning the functions, inputs, and outputs of the News API.
+- Python Schedule Documentation: https://schedule.readthedocs.io/en/stable/
+Helped in scheduling tasks in Python.
 """
 
 
@@ -41,7 +47,7 @@ to_date = date.today()  # Defining a variable to tell the API to return articles
 trusted_news_sources = ["bbc-news", "abc-news", "abc-news-au", "al-jazeera-english", "ars-technica", "associated-press",
                         "australian-financial-review", "axios", "bbc-sport", "bleacher-report", "bloomberg",
                         "breitbart-news", "business-insider", "business-insider-uk", "cbc-news", "cbs-news", "cnn",
-                        "cnn-es", "crypto-coins-news", "engadget", "entertainment-weekly", "espn", "financial-post",
+                        "crypto-coins-news", "engadget", "entertainment-weekly", "espn", "financial-post",
                         "football-italia", "fortune", "four-four-two", "fox-news", "fox-sports", "google-news",
                         "google-news-au", "google-news-ca", "google-news-in", "google-news-uk", "ign", "independent",
                         "mashable", "medical-news-today", "msnbc", "mtv-news", "mtv-news-uk", "national-geographic",
@@ -53,6 +59,15 @@ trusted_news_sources = ["bbc-news", "abc-news", "abc-news-au", "al-jazeera-engli
                         "the-washington-times", "time", "usa-today", "vice-news", "wired"]
 
 
+# -- News API Prerequisites (Kapilesh Pennichetty) --
+newsapi = NewsApiClient(api_key='eadbfa9229d14334b96c95ccd2d733e1')  # Registering API Key for Use and Abstracting
+# Key Away
+
+# -- Flask Framework Prerequisites (Kapilesh Pennichetty) --
+app = Flask(__name__)
+
+
+# ---------- Defining Functions and Variables (Kapilesh Pennichetty) ----------
 def formatted_trusted_news_sources():  # Formats the trusted_news_sources list for use with the News API.
     news_outlets = ""  # Blank string to append as needed using for-each loop.
     for source in trusted_news_sources:
@@ -63,19 +78,17 @@ def formatted_trusted_news_sources():  # Formats the trusted_news_sources list f
     return trusted_news
 
 
-# -- News API Prerequisites (Kapilesh Pennichetty) --
-newsapi = NewsApiClient(api_key='eadbfa9229d14334b96c95ccd2d733e1')  # Registering API Key for Use and Abstracting
-# Key Away
+def get_top_headlines_stats():
+    top_headlines_stats = newsapi.get_top_headlines(  # Requesting data from the News API about the top headlines
+        sources=formatted_trusted_news_sources(),
+        language='en')
+    return top_headlines_stats
 
-# -- Flask Framework Prerequisites (Kapilesh Pennichetty) --
-app = Flask(__name__)
 
+def get_top_articles():
+    all_top_articles = get_top_headlines_stats()["articles"]  # Separating articles from the search query data
+    return all_top_articles
 
-# ---------- Defining Functions and Variables (Kapilesh Pennichetty) ----------
-top_headlines_stats = newsapi.get_top_headlines(  # Requesting data from the News API about the top headlines
-    sources=formatted_trusted_news_sources(),
-    language='en')
-all_top_articles = top_headlines_stats["articles"]  # Separating articles from the search query data
 
 """
 To be used when developing search bar, filters, and sorting:
@@ -99,7 +112,7 @@ Reminder: Be sure to pass the variable all_articles to the HTML page.
 # -- Home Page (Kapilesh Pennichetty) --
 @app.route("/")  # Telling Flask that the url with "/" appended at the end should lead to the home page.
 def home():  # The home page shows trending articles.
-    return render_template('main.html', all_top_articles=all_top_articles)  # Rendering the HTML for the home page,
+    return render_template('main.html', all_top_articles=get_top_articles())  # Rendering the HTML for the home page,
     # passing required variables from Python to the HTML page using Jinja.
 
 
@@ -107,3 +120,12 @@ def home():  # The home page shows trending articles.
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True,
             threaded=True)  # Telling Flask to run the app with the constraints given.
+
+
+# ---------- Retrieve Articles using Scheduler (Kapilesh Pennichetty) ----------
+schedule.every(30).minutes.do(get_top_headlines_stats)  # Requests articles and stats from the API per set time
+schedule.every(30).minutes.do(get_top_articles)  # Separates articles from search query data per set time
+
+while True:  # Runs scheduled tasks when required
+    schedule.run_pending()
+    time.sleep(1)
