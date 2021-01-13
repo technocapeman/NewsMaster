@@ -1,8 +1,8 @@
 {
   "name": "NewsMaster",
   "short_name": "NewsMaster",
-  "theme_color": "#bad5de",
-  "background_color": "#152238",
+  "theme_color": "#2f2f2f",
+  "background_color": "#ffffff",
   "icons": [
     {
       "src": "/static/images/icon-64.png",
