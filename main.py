@@ -123,9 +123,9 @@ if __name__ == "__main__":
 
 
 # ---------- Retrieve Articles using Scheduler (Kapilesh Pennichetty) ----------
-schedule.every(30).minutes.do(get_top_headlines_stats)  # Requests articles and stats from the API per set time
-schedule.every(30).minutes.do(get_top_articles)  # Separates articles from search query data per set time
+schedule.every(1).hour.do(get_top_headlines_stats)  # Requests articles and stats from the API per set time
+schedule.every(1).hour.do(get_top_articles)  # Separates articles from search query data per set time
 
 while True:  # Runs scheduled tasks when required
     schedule.run_pending()
-    time.sleep(1)
+    time.sleep(10)
