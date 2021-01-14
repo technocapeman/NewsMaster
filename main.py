@@ -60,7 +60,7 @@ trusted_news_sources = ["bbc-news", "abc-news", "abc-news-au", "al-jazeera-engli
 
 
 # -- News API Prerequisites (Kapilesh Pennichetty) --
-newsapi = NewsApiClient(api_key='eadbfa9229d14334b96c95ccd2d733e1')  # Registering API Key for Use and Abstracting
+newsapi = NewsApiClient(api_key='YOUR_NEWSAPI_KEY_HERE')  # Registering API Key for Use and Abstracting
 # Key Away
 
 # -- Flask Framework Prerequisites (Kapilesh Pennichetty) --
@@ -123,9 +123,9 @@ if __name__ == "__main__":
 
 
 # ---------- Retrieve Articles using Scheduler (Kapilesh Pennichetty) ----------
-schedule.every(30).minutes.do(get_top_headlines_stats)  # Requests articles and stats from the API per set time
-schedule.every(30).minutes.do(get_top_articles)  # Separates articles from search query data per set time
+schedule.every(1).hour.do(get_top_headlines_stats)  # Requests articles and stats from the API per set time
+schedule.every(1).hour.do(get_top_articles)  # Separates articles from search query data per set time
 
 while True:  # Runs scheduled tasks when required
     schedule.run_pending()
-    time.sleep(1)
+    time.sleep(10)
