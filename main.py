@@ -51,12 +51,15 @@ Helped in scheduling tasks in Python.
 https://dev.to/hasansajedi/running-a-method-as-a-background-process-in-python-21li"""
 
 # ---------- API and Program Prerequisites (Kapilesh Pennichetty) ----------
-from_date = date.today() - timedelta(30)  # Defining a variable to tell the API to return articles
+from_date = date.today() - timedelta(
+    30)  # Defining a variable to tell the API to return articles
 # as far as 30 days back using datetime module.
-to_date = date.today()  # Defining a variable to tell the API to return articles until today using datetime module.
+to_date = date.today(
+)  # Defining a variable to tell the API to return articles until today using datetime module.
 
 # -- News API Prerequisites (Kapilesh Pennichetty) --
-newsapi = NewsApiClient(api_key='YOUR_NEWSAPI_KEY_HERE')  # Registering API Key for Use and Abstracting
+newsapi = NewsApiClient(api_key='YOUR_NEWSAPI_KEY_HERE'
+                        )  # Registering API Key for Use and Abstracting
 # Key Away
 
 # -- Flask Framework Prerequisites (Kapilesh Pennichetty) --
@@ -65,19 +68,25 @@ app = Flask(__name__)
 # ---------- Defining Classes, Functions, and Variables (Kapilesh Pennichetty) ----------
 
 # ----- Format News Sources -----
-trusted_news_sources = ["bbc-news", "abc-news", "abc-news-au", "al-jazeera-english", "ars-technica", "associated-press",
-                        "australian-financial-review", "axios", "bbc-sport", "bleacher-report", "bloomberg",
-                        "breitbart-news", "business-insider", "business-insider-uk", "cbc-news", "cbs-news", "cnn",
-                        "crypto-coins-news", "engadget", "entertainment-weekly", "espn", "financial-post",
-                        "football-italia", "fortune", "four-four-two", "fox-news", "fox-sports", "google-news",
-                        "google-news-au", "google-news-ca", "google-news-in", "google-news-uk", "ign", "independent",
-                        "mashable", "medical-news-today", "msnbc", "mtv-news", "mtv-news-uk", "national-geographic",
-                        "national-review", "nbc-news", "news24", "new-scientist", "newsweek", "new-york-magazine",
-                        "nfl-news", "nhl-news", "politico", "polygon", "recode", "reuters", "rte", "talksport",
-                        "techcrunch", "techradar", "the-globe-and-mail", "the-hill", "the-hindu", "the-huffington-post",
-                        "the-irish-times", "the-jerusalem-post", "the-next-web", "the-times-of-india", "the-verge",
-                        "the-wall-street-journal", "the-washington-post", "the-washington-times", "time", "usa-today",
-                        "vice-news", "wired"]
+trusted_news_sources = [
+    "bbc-news", "abc-news", "abc-news-au", "al-jazeera-english",
+    "ars-technica", "associated-press", "australian-financial-review", "axios",
+    "bbc-sport", "bleacher-report", "bloomberg", "breitbart-news",
+    "business-insider", "business-insider-uk", "cbc-news", "cbs-news", "cnn",
+    "crypto-coins-news", "engadget", "entertainment-weekly", "espn",
+    "financial-post", "football-italia", "fortune", "four-four-two",
+    "fox-news", "fox-sports", "google-news", "google-news-au",
+    "google-news-ca", "google-news-in", "google-news-uk", "ign", "independent",
+    "mashable", "medical-news-today", "msnbc", "mtv-news", "mtv-news-uk",
+    "national-geographic", "national-review", "nbc-news", "news24",
+    "new-scientist", "newsweek", "new-york-magazine", "nfl-news", "nhl-news",
+    "politico", "polygon", "recode", "reuters", "rte", "talksport",
+    "techcrunch", "techradar", "the-globe-and-mail", "the-hill", "the-hindu",
+    "the-huffington-post", "the-irish-times", "the-jerusalem-post",
+    "the-next-web", "the-times-of-india", "the-verge",
+    "the-wall-street-journal", "the-washington-post", "the-washington-times",
+    "time", "usa-today", "vice-news", "wired"
+]
 
 
 def formatted_trusted_news_sources():
@@ -87,7 +96,8 @@ def formatted_trusted_news_sources():
         source += ","  # Adding a comma to separate the news sources as per the API format.
         news_outlets += source  # Appending newly formatted news sources to a variable news_outlets to be fed into
         # the API.
-    trusted_news = news_outlets[0:-1]  # Removing the comma from the last news source.
+    trusted_news = news_outlets[
+        0:-1]  # Removing the comma from the last news source.
     return trusted_news
 
 
@@ -101,7 +111,8 @@ def get_top_headlines_stats():
 
 
 def get_top_articles():  # Filters out article data from API metadata
-    all_top_articles = get_top_headlines_stats()["articles"]  # Separating articles from the search query data
+    all_top_articles = get_top_headlines_stats()[
+        "articles"]  # Separating articles from the search query data
     return all_top_articles
 
 
@@ -122,11 +133,15 @@ all_articles = all_articles_stats["articles"]  # Separating articles from the se
 Reminder: Be sure to pass the variable all_articles to the HTML page.
 """
 
-schedule.every(1).hour.do(get_top_headlines_stats)  # Requests articles and stats from the API per set time
-schedule.every(1).hour.do(get_top_articles)  # Separates articles from search query data per set time
+schedule.every(1).hour.do(
+    get_top_headlines_stats
+)  # Requests articles and stats from the API per set time
+schedule.every(1).hour.do(
+    get_top_articles)  # Separates articles from search query data per set time
 
 
-class AutoSchedule(object):  # Class that Allows Scheduler to Run in a Background Thread
+class AutoSchedule(
+        object):  # Class that Allows Scheduler to Run in a Background Thread
     def __init__(self, interval=1):
         """Declares and Initiates a Background Thread for fetching news articles."""
         self.interval = interval
@@ -143,10 +158,15 @@ class AutoSchedule(object):  # Class that Allows Scheduler to Run in a Backgroun
 
 # ----- Webpages (Kapilesh Pennichetty) -----
 
+
 # -- Home Page (Kapilesh Pennichetty) --
-@app.route("/")  # Telling Flask that the url with "/" appended at the end should lead to the home page.
+@app.route(
+    "/"
+)  # Telling Flask that the url with "/" appended at the end should lead to the home page.
 def home():  # The home page shows trending articles.
-    return render_template('main.html', all_top_articles=get_top_articles())  # Rendering the HTML for the home page,
+    return render_template(
+        'main.html', all_top_articles=get_top_articles()
+    )  # Rendering the HTML for the home page,
     # passing required variables from Python to the HTML page using Jinja.
 
 
@@ -154,8 +174,10 @@ def home():  # The home page shows trending articles.
 
 # ----- Initializing Flask App (Kapilesh Pennichetty) -----
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True,
-            threaded=True)  # Telling Flask to run the app with the constraints given.
+    app.run(
+        host='0.0.0.0', port=5000, debug=True, threaded=True
+    )  # Telling Flask to run the app with the constraints given.
 
 # ----- Other Tasks -----
-AutoSchedule()  # Run methods (functions) in the AutoSchedule Class (Kapilesh Pennichetty)
+AutoSchedule(
+)  # Run methods (functions) in the AutoSchedule Class (Kapilesh Pennichetty)
