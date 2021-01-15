@@ -83,8 +83,9 @@ trusted_news_sources = [
     "polygon", "recode", "reuters", "rte", "talksport", "techcrunch",
     "techradar", "the-globe-and-mail", "the-hill", "the-hindu",
     "the-huffington-post", "the-irish-times", "the-jerusalem-post",
-    "the-next-web", "the-times-of-india", "the-verge", "the-wall-street-journal",
-    "the-washington-post", "the-washington-times", "time", "usa-today", "vice-news", "wired"
+    "the-next-web", "the-times-of-india", "the-verge",
+    "the-wall-street-journal", "the-washington-post", "the-washington-times",
+    "time", "usa-today", "vice-news", "wired"
 ]
 
 
