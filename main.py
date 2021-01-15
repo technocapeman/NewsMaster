@@ -65,9 +65,9 @@ newsapi = NewsApiClient(api_key='421c30c9f3514f82947322b9061b3099'
 # -- Flask Framework Prerequisites (Kapilesh Pennichetty) --
 app = Flask(__name__)
 
-# ---------- Defining Classes, Functions, and Variables (Kapilesh Pennichetty) ----------
+# ---------- Defining Classes, Functions, and Variables ----------
 
-# ----- Format News Sources -----
+# ----- Format News Sources (Kapilesh Pennichetty) -----
 trusted_news_sources = [
     "bbc-news", "abc-news", "abc-news-au", "al-jazeera-english",
     "ars-technica", "associated-press", "australian-financial-review", "axios",
@@ -101,7 +101,7 @@ def formatted_trusted_news_sources():
     return trusted_news
 
 
-# ----- Fetch Articles -----
+# ----- Fetch Articles (Kapilesh Pennichetty) -----
 def get_top_headlines_stats():
     """Fetches Article Data and Metadata from the API"""
     top_headlines_stats = newsapi.get_top_headlines(  # Requesting data from the News API about the top headlines
@@ -156,7 +156,7 @@ class AutoSchedule(
             time.sleep(self.interval)
 
 
-# ----- Webpages (Kapilesh Pennichetty) -----
+# ----- Webpages -----
 
 
 # -- Home Page (Kapilesh Pennichetty) --
