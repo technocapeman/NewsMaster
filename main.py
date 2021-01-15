@@ -165,7 +165,7 @@ class AutoSchedule(
 )  # Telling Flask that the url with "/" appended at the end should lead to the home page.
 def home():  # The home page shows trending articles.
     return render_template(
-        'main.html', all_top_articles=get_top_articles()
+        'home.html', all_top_articles=get_top_articles()
     )  # Rendering the HTML for the home page,
     # passing required variables from Python to the HTML page using Jinja.
 
