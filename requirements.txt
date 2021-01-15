@@ -1,3 +1,4 @@
 flask
 newsapi-python
 schedule
+gunicorn
