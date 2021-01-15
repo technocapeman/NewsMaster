@@ -1,0 +1,3 @@
+flask
+newsapi-python
+schedule
