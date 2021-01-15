@@ -76,7 +76,7 @@ trusted_news_sources = [
     "engadget", "entertainment-weekly", "espn", "financial-post",
     "football-italia", "fortune", "four-four-two", "fox-news", "fox-sports",
     "google-news", "google-news-au", "google-news-ca", "google-news-in",
-    "google-news-uk", "ign", "independent", "mashable", "medical-news-today",
+    "google-news-uk", "independent", "mashable", "medical-news-today",
     "msnbc", "mtv-news", "mtv-news-uk", "national-geographic",
     "national-review", "nbc-news", "new-scientist", "newsweek",
     "new-york-magazine", "nfl-news", "nhl-news", "politico", "polygon",
