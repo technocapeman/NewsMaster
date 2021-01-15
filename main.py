@@ -78,14 +78,13 @@ trusted_news_sources = [
     "fox-news", "fox-sports", "google-news", "google-news-au",
     "google-news-ca", "google-news-in", "google-news-uk", "ign", "independent",
     "mashable", "medical-news-today", "msnbc", "mtv-news", "mtv-news-uk",
-    "national-geographic", "national-review", "nbc-news", "news24",
-    "new-scientist", "newsweek", "new-york-magazine", "nfl-news", "nhl-news",
-    "politico", "polygon", "recode", "reuters", "rte", "talksport",
-    "techcrunch", "techradar", "the-globe-and-mail", "the-hill", "the-hindu",
+    "national-geographic", "national-review", "nbc-news", "new-scientist",
+    "newsweek", "new-york-magazine", "nfl-news", "nhl-news", "politico",
+    "polygon", "recode", "reuters", "rte", "talksport", "techcrunch",
+    "techradar", "the-globe-and-mail", "the-hill", "the-hindu",
     "the-huffington-post", "the-irish-times", "the-jerusalem-post",
-    "the-next-web", "the-times-of-india", "the-verge",
-    "the-wall-street-journal", "the-washington-post", "the-washington-times",
-    "time", "usa-today", "vice-news", "wired"
+    "the-next-web", "the-times-of-india", "the-verge", "the-wall-street-journal",
+    "the-washington-post", "the-washington-times", "time", "usa-today", "vice-news", "wired"
 ]
 
 
