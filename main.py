@@ -78,7 +78,7 @@ trusted_news_sources = [
     "google-news", "google-news-au", "google-news-ca", "google-news-in",
     "google-news-uk", "independent", "mashable", "medical-news-today",
     "msnbc", "mtv-news", "mtv-news-uk", "national-geographic",
-    "national-review", "nbc-news", "new-scientist", "newsweek",
+    "national-review", "nbc-news", "new-scientist", "news-com-au", "newsweek",
     "new-york-magazine", "nfl-news", "nhl-news", "politico", "polygon",
     "recode", "reuters", "rte", "talksport", "techcrunch", "techradar",
     "the-globe-and-mail", "the-hill", "the-hindu", "the-huffington-post",
