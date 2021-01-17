@@ -73,7 +73,7 @@ trusted_news_sources = [
     "ars-technica", "associated-press", "australian-financial-review", "axios",
     "bbc-sport", "bleacher-report", "bloomberg", "breitbart-news",
     "business-insider", "cbc-news", "cbs-news", "cnn", "crypto-coins-news",
-    "engadget", "entertainment-weekly", "espn", "financial-post",
+    "engadget", "espn", "financial-post",
     "football-italia", "fortune", "four-four-two", "fox-news", "fox-sports",
     "google-news", "google-news-au", "google-news-ca", "google-news-in",
     "google-news-uk", "independent", "mashable", "medical-news-today",
@@ -97,7 +97,7 @@ def formatted_trusted_news_sources():
         news_outlets += source  # Appending newly formatted news sources to a variable news_outlets to be fed into
         # the API.
     trusted_news = news_outlets[
-        0:-1]  # Removing the comma from the last news source.
+                   0:-1]  # Removing the comma from the last news source.
     return trusted_news
 
 
@@ -141,7 +141,7 @@ schedule.every(1).hour.do(
 
 
 class AutoSchedule(
-        object):  # Class that Allows Scheduler to Run in a Background Thread
+    object):  # Class that Allows Scheduler to Run in a Background Thread
     def __init__(self, interval=1):
         """Declares and Initiates a Background Thread for fetching news articles."""
         self.interval = interval
