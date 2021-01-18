@@ -11,7 +11,7 @@ from newsapi import NewsApiClient
 # ---------- API and Program Prerequisites (Kapilesh Pennichetty) ----------
 
 # -- News API Prerequisites (Kapilesh Pennichetty) --
-newsapi = NewsApiClient(api_key='421c30c9f3514f82947322b9061b3099')  # Registering API Key for Use and Abstracting
+newsapi = NewsApiClient(api_key='b1bb64ed6eab4df98a3dd59687ca412f')  # Registering API Key for Use and Abstracting
 # Key Away (Source: https://newsapi.org/docs)
 
 # -- Flask Framework Prerequisites (Kapilesh Pennichetty) --
@@ -139,8 +139,8 @@ if __name__ == "__main__":
 # -- Scheduler Tasks (Kapilesh Pennichetty) --
 
 # Adding tasks to Scheduler (Source: https://schedule.readthedocs.io/en/stable/)
-schedule.every(1).hour.do(get_top_headlines_stats)  # Requests articles and stats from the API per set time
-schedule.every(1).hour.do(get_top_articles)  # Separates articles from search query data per set time
+schedule.every(15).minutes.do(get_top_headlines_stats)  # Requests articles and stats from the API per set time
+schedule.every(15).minutes.do(get_top_articles)  # Separates articles from search query data per set time
 
 # Run methods (functions) in the AutoSchedule Class
 AutoSchedule()
