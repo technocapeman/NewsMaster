@@ -139,8 +139,8 @@ if __name__ == "__main__":
 # -- Scheduler Tasks (Kapilesh Pennichetty) --
 
 # Adding tasks to Scheduler (Source: https://schedule.readthedocs.io/en/stable/)
-schedule.every(1).hour.do(get_top_headlines_stats)  # Requests articles and stats from the API per set time
-schedule.every(1).hour.do(get_top_articles)  # Separates articles from search query data per set time
+schedule.every(15).minutes.do(get_top_headlines_stats)  # Requests articles and stats from the API per set time
+schedule.every(15).minutes.do(get_top_articles)  # Separates articles from search query data per set time
 
 # Run methods (functions) in the AutoSchedule Class
 AutoSchedule()
