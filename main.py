@@ -11,7 +11,7 @@ from newsapi import NewsApiClient
 # ---------- API and Program Prerequisites (Kapilesh Pennichetty) ----------
 
 # -- News API Prerequisites (Kapilesh Pennichetty) --
-newsapi = NewsApiClient(api_key='b1bb64ed6eab4df98a3dd59687ca412f')  # Registering API Key for Use and Abstracting
+newsapi = NewsApiClient(api_key='20ca56b0d34349b59d3461d638a18f16')  # Registering API Key for Use and Abstracting
 # Key Away (Source: https://newsapi.org/docs)
 
 # -- Flask Framework Prerequisites (Kapilesh Pennichetty) --
