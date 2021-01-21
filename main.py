@@ -84,7 +84,9 @@ def separate_top_articles_stats():
     return all_top_articles, num_of_articles, status
 
 
-top_article_stats = separate_top_articles_stats()
+def top_headlines():
+    top_headlines_stats = separate_top_articles_stats()
+    return top_headlines_stats
 
 """
 To be used when developing search bar, filters, and sorting:
@@ -132,8 +134,8 @@ class AutoSchedule(object):
 @app.route("/")  # Telling Flask that the url with "/" appended at the end should lead to the home page.
 def home():
     """Home page that shows trending articles."""
-    return render_template('home.html', top_articles=top_article_stats[0], top_articles_num=top_article_stats[1],
-                           top_articles_status=top_article_stats[2])
+    return render_template('home.html', top_articles=top_headlines()[0], top_articles_num=top_headlines()[1],
+                           top_articles_status=top_headlines()[2])
     # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
 
 
@@ -150,8 +152,7 @@ if __name__ == "__main__":
 # -- Scheduler Tasks (Kapilesh Pennichetty) --
 
 # Adding tasks to Scheduler (Source: https://schedule.readthedocs.io/en/stable/)
-schedule.every(15).minutes.do(separate_top_articles_stats)  # Separates articles from search query data per set time
-schedule.every(15).minutes.do(top_article_stats=separate_top_articles_stats())
+schedule.every(15).minutes.do(top_headlines)
 
 # Run methods (functions) in the AutoSchedule Class
 AutoSchedule()
