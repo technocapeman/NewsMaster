@@ -11,7 +11,7 @@ from newsapi import NewsApiClient
 # ---------- API and Program Prerequisites (Kapilesh Pennichetty) ----------
 
 # -- News API Prerequisites (Kapilesh Pennichetty) --
-newsapi = NewsApiClient(api_key='20ca56b0d34349b59d3461d638a18f16')  # Registering API Key for Use and Abstracting
+newsapi = NewsApiClient(api_key='ee4fcdf872be45afb0adc63701a5e2e0')  # Registering API Key for Use and Abstracting
 # Key Away (Source: https://newsapi.org/docs)
 
 # -- Flask Framework Prerequisites (Kapilesh Pennichetty) --
@@ -41,6 +41,7 @@ trusted_news_sources = [
     "vice-news", "wired"
 ]
 
+
 def format_trusted_news_sources():
     """Formats the trusted_news_sources list for use with the News API."""
     news_outlets = ""  # Blank string to append as needed using for-each loop.
@@ -57,6 +58,7 @@ def format_trusted_news_sources():
 # -- Defining Article Date Range (Kapilesh Pennichetty) --
 # (Source: https://stackoverflow.com/questions/703907/how-would-i-compute-exactly-30-days-into-the-past-with-python-down-to-the-minut)
 
+
 from_date = date.today() - timedelta(30)  # Defining a variable to tell the API to return articles
 # as far as 30 days back using datetime module.
 
@@ -72,11 +74,17 @@ def get_top_headlines_stats():
     return top_headlines_stats
 
 
-def get_top_articles():
+def separate_top_articles_stats():
     """Filters out article data from API metadata"""
-    all_top_articles = get_top_headlines_stats()[
+    top_headlines_stats = get_top_headlines_stats()
+    all_top_articles = top_headlines_stats[
         "articles"]  # Separating articles from the search query data
-    return all_top_articles
+    num_of_articles = top_headlines_stats["totalResults"]  # Separating num of articles from search query data
+    status = top_headlines_stats["status"]  # Status of Search Query
+    return all_top_articles, num_of_articles, status
+
+
+top_article_stats = separate_top_articles_stats()
 
 """
 To be used when developing search bar, filters, and sorting:
@@ -96,6 +104,8 @@ Reminder: Be sure to pass the variable all_articles to the HTML page.
 """
 
 # -- Using Scheduler to Fetch Articles (Kapilesh Pennichetty) --
+
+
 class AutoSchedule(object):
     """Class that Allows Scheduler to Run in a Background Thread"""
 
@@ -122,8 +132,9 @@ class AutoSchedule(object):
 @app.route("/")  # Telling Flask that the url with "/" appended at the end should lead to the home page.
 def home():
     """Home page that shows trending articles."""
-    return render_template('home.html', all_top_articles=get_top_articles())  # Rendering the HTML for the home page,
-    # passing required variables from Python to the HTML page using Jinja.
+    return render_template('home.html', top_articles=top_article_stats[0], top_articles_num=top_article_stats[1],
+                           top_articles_status=top_article_stats[2])
+    # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
 
 
 # ---------- Main Code ----------
@@ -139,8 +150,8 @@ if __name__ == "__main__":
 # -- Scheduler Tasks (Kapilesh Pennichetty) --
 
 # Adding tasks to Scheduler (Source: https://schedule.readthedocs.io/en/stable/)
-schedule.every(15).minutes.do(get_top_headlines_stats)  # Requests articles and stats from the API per set time
-schedule.every(15).minutes.do(get_top_articles)  # Separates articles from search query data per set time
+schedule.every(15).minutes.do(separate_top_articles_stats)  # Separates articles from search query data per set time
+schedule.every(15).minutes.do(top_article_stats=separate_top_articles_stats())
 
 # Run methods (functions) in the AutoSchedule Class
 AutoSchedule()
