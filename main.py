@@ -6,12 +6,13 @@ from datetime import date, timedelta
 import schedule
 from flask import Flask, render_template
 from newsapi import NewsApiClient
+import copy
 
 
 # ---------- API and Program Prerequisites (Kapilesh Pennichetty) ----------
 
 # -- News API Prerequisites (Kapilesh Pennichetty) --
-newsapi = NewsApiClient(api_key='ee4fcdf872be45afb0adc63701a5e2e0')  # Registering API Key for Use and Abstracting
+newsapi = NewsApiClient(api_key='3e88e82111764c11b749ae15e08e4588')  # Registering API Key for Use and Abstracting
 # Key Away (Source: https://newsapi.org/docs)
 
 # -- Flask Framework Prerequisites (Kapilesh Pennichetty) --
@@ -76,7 +77,7 @@ def get_top_headlines_stats():
 
 def separate_top_articles_stats():
     """Filters out article data from API metadata"""
-    top_headlines_stats = get_top_headlines_stats()
+    top_headlines_stats = copy.deepcopy(get_top_headlines_stats())
     all_top_articles = top_headlines_stats[
         "articles"]  # Separating articles from the search query data
     num_of_articles = top_headlines_stats["totalResults"]  # Separating num of articles from search query data
