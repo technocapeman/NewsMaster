@@ -153,7 +153,7 @@ if __name__ == "__main__":
 # -- Scheduler Tasks (Kapilesh Pennichetty) --
 
 # Adding tasks to Scheduler (Source: https://schedule.readthedocs.io/en/stable/)
-schedule.every(15).minutes.do(top_headlines)
+schedule.every(30).minutes.do(top_headlines)
 
 # Run methods (functions) in the AutoSchedule Class
 AutoSchedule()
