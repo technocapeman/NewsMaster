@@ -12,7 +12,7 @@ import copy
 # ---------- API and Program Prerequisites (Kapilesh Pennichetty) ----------
 
 # -- News API Prerequisites (Kapilesh Pennichetty) --
-newsapi = NewsApiClient(api_key='3e88e82111764c11b749ae15e08e4588')  # Registering API Key for Use and Abstracting
+newsapi = NewsApiClient(api_key='428986bb592c483eba55cfd6ee9e9d43')  # Registering API Key for Use and Abstracting
 # Key Away (Source: https://newsapi.org/docs)
 
 # -- Flask Framework Prerequisites (Kapilesh Pennichetty) --
@@ -153,7 +153,7 @@ if __name__ == "__main__":
 # -- Scheduler Tasks (Kapilesh Pennichetty) --
 
 # Adding tasks to Scheduler (Source: https://schedule.readthedocs.io/en/stable/)
-schedule.every(15).minutes.do(top_headlines)
+schedule.every(30).minutes.do(top_headlines)
 
 # Run methods (functions) in the AutoSchedule Class
 AutoSchedule()
