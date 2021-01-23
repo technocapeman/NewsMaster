@@ -1,13 +1,11 @@
 # ---------- Import Statements (Kapilesh Pennichetty) ----------
-import threading
-import time
-from datetime import date, timedelta
+from copy import deepcopy
+from threading import Thread
+from time import sleep
 
 import schedule
 from flask import Flask, render_template
 from newsapi import NewsApiClient
-import copy
-
 
 # ---------- API and Program Prerequisites (Kapilesh Pennichetty) ----------
 
@@ -18,17 +16,16 @@ newsapi = NewsApiClient(api_key='YOUR_NEWSAPI_KEY_HERE')  # Registering API Key 
 # -- Flask Framework Prerequisites (Kapilesh Pennichetty) --
 app = Flask(__name__)  # Source: https://flask.palletsprojects.com/en/1.1.x/
 
-
 # ---------- Defining Classes, Functions, and Variables ----------
 
-# ----- Format News Sources (Kapilesh Pennichetty) -----
+# ----- Format Trusted News Sources (Kapilesh Pennichetty) -----
 trusted_news_sources = [
     "bbc-news", "abc-news", "abc-news-au", "al-jazeera-english",
     "ars-technica", "associated-press", "australian-financial-review", "axios",
     "bbc-sport", "bleacher-report", "bloomberg", "breitbart-news",
     "business-insider", "cbc-news", "cbs-news", "cnn", "crypto-coins-news",
-    "engadget", "espn", "financial-post",
-    "football-italia", "fortune", "four-four-two", "fox-news", "fox-sports",
+    "engadget", "espn", "financial-post", "football-italia",
+    "fortune", "four-four-two", "fox-news", "fox-sports",
     "google-news", "google-news-au", "google-news-ca", "google-news-in",
     "google-news-uk", "independent", "mashable", "medical-news-today",
     "msnbc", "mtv-news", "mtv-news-uk", "national-geographic",
@@ -54,16 +51,8 @@ def format_trusted_news_sources():
                    0:-1]  # Removing the comma from the last news source.
     return trusted_news
 
+
 # ----- Fetch Articles -----
-
-# -- Defining Article Date Range (Kapilesh Pennichetty) --
-# (Source: https://stackoverflow.com/questions/703907/how-would-i-compute-exactly-30-days-into-the-past-with-python-down-to-the-minut)
-
-
-from_date = date.today() - timedelta(30)  # Defining a variable to tell the API to return articles
-# as far as 30 days back using datetime module.
-
-to_date = date.today()  # Defining a variable to tell the API to return articles until today using datetime module.
 
 
 # -- Fetching and Filtering Article Data (Kapilesh Pennichetty) --
@@ -77,7 +66,7 @@ def get_top_headlines_stats():
 
 def separate_top_articles_stats():
     """Filters out article data from API metadata"""
-    top_headlines_stats = copy.deepcopy(get_top_headlines_stats())
+    top_headlines_stats = deepcopy(get_top_headlines_stats())
     all_top_articles = top_headlines_stats[
         "articles"]  # Separating articles from the search query data
     num_of_articles = top_headlines_stats["totalResults"]  # Separating num of articles from search query data
@@ -86,25 +75,11 @@ def separate_top_articles_stats():
 
 
 def top_headlines():
+    """This function is used to call the separate_top_articles_stats() function so that it doesn't need to be called
+    multiple times for multiple outputs."""
     top_headlines_stats = separate_top_articles_stats()
     return top_headlines_stats
 
-"""
-To be used when developing search bar, filters, and sorting:
-all_articles_stats = newsapi.get_everything(sources=format_trusted_news_sources(),  # Requesting data from the News 
-# API 
-# about all articles
-                                      from_param=from_date,
-                                      to=to_date,
-                                      language='en',
-                                      sources=format_trusted_news_sources(),
-                                      language='en',
-                                      sort_by='relevancy')
-
-all_articles = all_articles_stats["articles"]  # Separating articles from the search query data
-
-Reminder: Be sure to pass the variable all_articles to the HTML page.
-"""
 
 # -- Using Scheduler to Fetch Articles (Kapilesh Pennichetty) --
 
@@ -116,7 +91,7 @@ class AutoSchedule(object):
         """Declares and Initiates a Background Thread for fetching news articles (Source:
     https://dev.to/hasansajedi/running-a-method-as-a-background-process-in-python-21li)"""
         self.interval = interval
-        thread = threading.Thread(target=self.run, args=())  # Declaring Thread
+        thread = Thread(target=self.run, args=())  # Declaring Thread
         thread.daemon = True  # Assigning thread property of background task (daemon)
         thread.start()
 
@@ -125,7 +100,7 @@ class AutoSchedule(object):
         https://schedule.readthedocs.io/en/stable/) """
         while True:
             schedule.run_pending()
-            time.sleep(self.interval)
+            sleep(self.interval)
 
 
 # ----- Webpages (Source: https://flask.palletsprojects.com/en/1.1.x/ and
@@ -144,9 +119,8 @@ def home():
 
 # ----- Initializing Flask App (Kapilesh Pennichetty) -----
 if __name__ == "__main__":
-    app.run(
-        host='0.0.0.0', port=5000, debug=True, threaded=True
-    )  # Telling Flask to run the app with the constraints given. (Source: https://flask.palletsprojects.com/en/1.1.x/)
+    app.run(host="0.0.0.0", debug=True)  # Telling Flask to run the app with the constraints given. (Source:
+    # https://flask.palletsprojects.com/en/1.1.x/)
 
 # ----- Other Tasks -----
 
