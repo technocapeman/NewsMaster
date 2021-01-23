@@ -14,12 +14,9 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-
-	</script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
-
-	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script async src="https://cse.google.com/cse.js?cx=5a17426da7fe17b85"></script>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Lato" rel="stylesheet">
 	<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
@@ -55,10 +52,10 @@
 		</div>
 		<p style="font-size: 25px">The world at your fingertips.</p>
 	</div>
-		<!-- Advanced Search method and Search bar Sanjay Balasubramanian-->
-
-			<script async src="https://cse.google.com/cse.js?cx=5a17426da7fe17b85"></script>
-			<div class="gcse-searchbox-only" style="max-width:350px" ></div>
+	<!-- Advanced Search method and Search bar Sanjay Balasubramanian-->
+	<div class="jumbotron" style="background-color: #2f2f2f; padding-bottom: 25px; padding-top: 25px; padding-left:25px; padding-right:25px">
+		<div class="gcse-searchbox-only" style="width: 35px; position: absolute"></div>
+	</div>
 
 	<!---------- Display All Articles from News API (Kapilesh Pennichetty) ---------->
 	{% for article in top_articles %} <!-- Beginning of For-Each Loop to display all articles (Kapilesh Pennichetty) -->
