@@ -1,4 +1,4 @@
-# ---------- Import Statements (Kapilesh Pennichetty) ----------
+# ---------- Import Statements ----------
 from copy import deepcopy
 from threading import Thread
 from time import sleep
@@ -7,14 +7,16 @@ import schedule
 from flask import Flask, render_template
 from newsapi import NewsApiClient
 
+
 # ---------- API and Program Prerequisites (Kapilesh Pennichetty) ----------
 
 # -- News API Prerequisites (Kapilesh Pennichetty) --
-newsapi = NewsApiClient(api_key='20ca56b0d34349b59d3461d638a18f16')  # Registering API Key for Use and Abstracting
+newsapi = NewsApiClient(api_key='3e88e82111764c11b749ae15e08e4588')  # Registering API Key for Use and Abstracting
 # Key Away (Source: https://newsapi.org/docs)
 
 # -- Flask Framework Prerequisites (Kapilesh Pennichetty) --
 app = Flask(__name__)  # Source: https://flask.palletsprojects.com/en/1.1.x/
+
 
 # ---------- Defining Classes, Functions, and Variables ----------
 
@@ -54,7 +56,6 @@ def format_trusted_news_sources():
 
 # ----- Fetch Articles -----
 
-
 # -- Fetching and Filtering Article Data (Kapilesh Pennichetty) --
 def get_top_headlines_stats():
     """Fetches Article Data and Metadata from the API (Source: https://newsapi.org/docs)"""
@@ -66,38 +67,34 @@ def get_top_headlines_stats():
 
 def separate_top_articles_stats():
     """Filters out article data from API metadata"""
-    top_headlines_stats = deepcopy(get_top_headlines_stats())
+    top_headlines_stats = get_top_headlines_stats()
     all_top_articles = top_headlines_stats[
         "articles"]  # Separating articles from the search query data
-    num_of_articles = top_headlines_stats["totalResults"]  # Separating num of articles from search query data
-    status = top_headlines_stats["status"]  # Status of Search Query
-    return all_top_articles, num_of_articles, status
+    return all_top_articles
 
 
-def top_headlines():
-    """This function is used to call the separate_top_articles_stats() function so that it doesn't need to be called
-    multiple times for multiple outputs."""
-    top_headlines_stats = separate_top_articles_stats()
-    return top_headlines_stats
+def deepcopy_top_articles():
+    """Makes a deepcopy of the top articles from separate_top_articles_stats()."""
+    global top_headlines_copy
+    top_headlines_copy = deepcopy(separate_top_articles_stats())
+    return top_headlines_copy
 
 
-# -- Using Scheduler to Fetch Articles (Kapilesh Pennichetty) --
-
+# -- Configuring Scheduler to Run as a Daemon (Kapilesh Pennichetty) --
 
 class AutoSchedule(object):
     """Class that Allows Scheduler to Run in a Background Thread"""
-
     def __init__(self, interval=1):
         """Declares and Initiates a Background Thread for fetching news articles (Source:
-    https://dev.to/hasansajedi/running-a-method-as-a-background-process-in-python-21li)"""
+        https://dev.to/hasansajedi/running-a-method-as-a-background-process-in-python-21li)"""
         self.interval = interval
         thread = Thread(target=self.run, args=())  # Declaring Thread
-        thread.daemon = True  # Assigning thread property of background task (daemon)
+        thread.daemon = True  # Telling thread to run as a background task (daemon)
         thread.start()
 
     def run(self):
         """Runs a While loop to keep checking if there are any pending scheduled tasks. (Source:
-        https://schedule.readthedocs.io/en/stable/) """
+        https://schedule.readthedocs.io/en/stable/)"""
         while True:
             schedule.run_pending()
             sleep(self.interval)
@@ -110,24 +107,20 @@ class AutoSchedule(object):
 @app.route("/")  # Telling Flask that the url with "/" appended at the end should lead to the home page.
 def home():
     """Home page that shows trending articles."""
-    return render_template('home.html', top_articles=top_headlines()[0], top_articles_num=top_headlines()[1],
-                           top_articles_status=top_headlines()[2])
+    return render_template('home.html', top_articles=top_headlines_copy)
     # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
 
 
 # ---------- Main Code ----------
+deepcopy_top_articles()  # Assign variable for top articles
 
 # ----- Initializing Flask App (Kapilesh Pennichetty) -----
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)  # Telling Flask to run the app with the constraints given. (Source:
     # https://flask.palletsprojects.com/en/1.1.x/)
 
-# ----- Other Tasks -----
+# ----- Scheduler Tasks (Kapilesh Pennichetty) -----
+schedule.every(30).minutes.do(deepcopy_top_articles)  # Adding tasks to Scheduler
+# (Source: https://schedule.readthedocs.io/en/stable/)
 
-# -- Scheduler Tasks (Kapilesh Pennichetty) --
-
-# Adding tasks to Scheduler (Source: https://schedule.readthedocs.io/en/stable/)
-schedule.every(30).minutes.do(top_headlines)
-
-# Run methods (functions) in the AutoSchedule Class
-AutoSchedule()
+AutoSchedule()  # Run methods (functions) in the AutoSchedule Class
