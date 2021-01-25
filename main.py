@@ -1,24 +1,22 @@
 # ---------- Import Statements ----------
 from threading import Thread
 from time import sleep
+
+import requests
 from flask import Flask, render_template
-from newsapi import NewsApiClient
 
 
 # ---------- API and Program Prerequisites (Kapilesh Pennichetty) ----------
 
-# -- News API Prerequisites (Kapilesh Pennichetty) --
-newsapi = NewsApiClient(api_key='YOUR_NEWSAPI_KEY_HERE')  # Registering API Key for Use and Abstracting
-# Key Away (Source: https://newsapi.org/docs)
+api_key = 'YOUR_NEWSAPI_KEY_HERE'  # Defining API Key for use with News API
 
-# -- Flask Framework Prerequisites (Kapilesh Pennichetty) --
-app = Flask(__name__)  # Source: https://flask.palletsprojects.com/en/1.1.x/
+app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojects.com/en/1.1.x/)
 
 
 # ---------- Collection Types and Function Definitions ----------
 
 # ----- List and Format Trusted News Sources (Kapilesh Pennichetty) -----
-trusted_news_sources = [
+trusted_news_sources_list = [
     "bbc-news", "abc-news", "abc-news-au", "al-jazeera-english",
     "ars-technica", "associated-press", "australian-financial-review", "axios",
     "bbc-sport", "bleacher-report", "bloomberg", "breitbart-news",
@@ -38,47 +36,32 @@ trusted_news_sources = [
     "vice-news", "wired"
 ]
 
-
-def format_trusted_news_sources():
-    """Formats the trusted_news_sources list for use with the News API."""
-    news_outlets = ""  # Blank string to append as needed using for-each loop.
-    for source in trusted_news_sources:
-        source += ","  # Adding a comma to separate the news sources as per the API format.
-        news_outlets += source  # Appending newly formatted news sources to a variable news_outlets to be fed into
-        # the API.
-    trusted_news = news_outlets[
-                   0:-1]  # Removing the comma from the last news source.
-    return trusted_news
+trusted_news_sources = ",".join(trusted_news_sources_list)  # Formatting list for use with API
 
 
 # ----- Fetching and Filtering Article Data (Kapilesh Pennichetty) -----
 
 def get_top_headlines_stats():
-    """Fetches Article Data and Metadata from the API (Source: https://newsapi.org/docs)"""
-    top_headlines_stats = newsapi.get_top_headlines(  # Requesting data from the News API about the top headlines
-        sources=format_trusted_news_sources(),
-        language='en')
-    return top_headlines_stats
+    """Fetches Article Data and Metadata from the API (Documentation:
+    https://newsapi.org/docs/endpoints/top-headlines) """
+    url = f'http://newsapi.org/v2/top-headlines?' \
+          f'sources={trusted_news_sources}&' \
+          f'apiKey={api_key}'
+    api_output = requests.get(url)
+    top_headlines_stats = api_output.json()
+    return top_headlines_stats["articles"]
 
 
-def separate_top_articles_stats():
-    """Filters out article data from API metadata"""
-    top_headlines_stats = get_top_headlines_stats()
-    all_top_articles = top_headlines_stats[
-        "articles"]  # Separating articles from the search query data
-    return all_top_articles
-
-
-def repeat_top_headlines():
+def fetch_top_headlines():
     """This function runs an infinite loop to fetch top headlines every 30 minutes"""
     global top_headlines
-    top_headlines = separate_top_articles_stats()
+    top_headlines = get_top_headlines_stats()
     while True:
-        sleep(1800)  # 1800 Seconds = 30 Minutes
-        top_headlines = separate_top_articles_stats()
+        sleep(30*60)  # 30 mins x 60 secs per min = 1800 seconds
+        top_headlines = get_top_headlines_stats()
 
 
-# ----- Webpages (Source: https://flask.palletsprojects.com/en/1.1.x/ and
+# ----- Webpages (Documentation: https://flask.palletsprojects.com/en/1.1.x/ and
 # https://jinja.palletsprojects.com/en/2.11.x/) -----
 
 # -- Home Page (Kapilesh Pennichetty) --
@@ -92,11 +75,12 @@ def home():
 # ---------- Main Code ----------
 
 # ----- Run repeat_top_headlines() in a background thread (Kapilesh Pennichetty) -----
-fetch_articles = Thread(name='background', target=repeat_top_headlines)
+# Reference: https://stackoverflow.com/questions/38254172/infinite-while-true-loop-in-the-background-python
+fetch_articles = Thread(name='background', target=fetch_top_headlines)
 fetch_articles.daemon = True
 fetch_articles.start()
 
 # ----- Run Flask App (Kapilesh Pennichetty) -----
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)  # Telling Flask to run the app with the constraints given. (Source:
+    app.run(host="0.0.0.0", debug=True)  # Telling Flask to run the app with the constraints given. (Documentation:
     # https://flask.palletsprojects.com/en/1.1.x/)
