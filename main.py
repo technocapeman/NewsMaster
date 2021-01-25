@@ -1,9 +1,6 @@
 # ---------- Import Statements ----------
-from copy import deepcopy
 from threading import Thread
 from time import sleep
-
-import schedule
 from flask import Flask, render_template
 from newsapi import NewsApiClient
 
@@ -18,9 +15,9 @@ newsapi = NewsApiClient(api_key='YOUR_NEWSAPI_KEY_HERE')  # Registering API Key 
 app = Flask(__name__)  # Source: https://flask.palletsprojects.com/en/1.1.x/
 
 
-# ---------- Defining Classes, Functions, and Variables ----------
+# ---------- Collection Types and Function Definitions ----------
 
-# ----- Format Trusted News Sources (Kapilesh Pennichetty) -----
+# ----- List and Format Trusted News Sources (Kapilesh Pennichetty) -----
 trusted_news_sources = [
     "bbc-news", "abc-news", "abc-news-au", "al-jazeera-english",
     "ars-technica", "associated-press", "australian-financial-review", "axios",
@@ -54,9 +51,8 @@ def format_trusted_news_sources():
     return trusted_news
 
 
-# ----- Fetch Articles -----
+# ----- Fetching and Filtering Article Data (Kapilesh Pennichetty) -----
 
-# -- Fetching and Filtering Article Data (Kapilesh Pennichetty) --
 def get_top_headlines_stats():
     """Fetches Article Data and Metadata from the API (Source: https://newsapi.org/docs)"""
     top_headlines_stats = newsapi.get_top_headlines(  # Requesting data from the News API about the top headlines
@@ -73,31 +69,13 @@ def separate_top_articles_stats():
     return all_top_articles
 
 
-def deepcopy_top_articles():
-    """Makes a deepcopy of the top articles from separate_top_articles_stats()."""
-    global top_headlines_copy
-    top_headlines_copy = deepcopy(separate_top_articles_stats())
-    return top_headlines_copy
-
-
-# -- Configuring Scheduler to Run as a Daemon (Kapilesh Pennichetty) --
-
-class AutoSchedule(object):
-    """Class that Allows Scheduler to Run in a Background Thread"""
-    def __init__(self, interval=1):
-        """Declares and Initiates a Background Thread for fetching news articles (Source:
-        https://dev.to/hasansajedi/running-a-method-as-a-background-process-in-python-21li)"""
-        self.interval = interval
-        thread = Thread(target=self.run, args=())  # Declaring Thread
-        thread.daemon = True  # Telling thread to run as a background task (daemon)
-        thread.start()
-
-    def run(self):
-        """Runs a While loop to keep checking if there are any pending scheduled tasks. (Source:
-        https://schedule.readthedocs.io/en/stable/)"""
-        while True:
-            schedule.run_pending()
-            sleep(self.interval)
+def repeat_top_headlines():
+    """This function runs an infinite loop to fetch top headlines every 30 minutes"""
+    global top_headlines
+    top_headlines = separate_top_articles_stats()
+    while True:
+        sleep(1800)  # 1800 Seconds = 30 Minutes
+        top_headlines = separate_top_articles_stats()
 
 
 # ----- Webpages (Source: https://flask.palletsprojects.com/en/1.1.x/ and
@@ -107,20 +85,18 @@ class AutoSchedule(object):
 @app.route("/")  # Telling Flask that the url with "/" appended at the end should lead to the home page.
 def home():
     """Home page that shows trending articles."""
-    return render_template('home.html', top_articles=top_headlines_copy)
+    return render_template('home.html', top_articles=top_headlines)
     # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
 
 
 # ---------- Main Code ----------
-deepcopy_top_articles()  # Assign variable for top articles
 
-# ----- Initializing Flask App (Kapilesh Pennichetty) -----
+# ----- Run repeat_top_headlines() in a background thread (Kapilesh Pennichetty) -----
+fetch_articles = Thread(name='background', target=repeat_top_headlines)
+fetch_articles.daemon = True
+fetch_articles.start()
+
+# ----- Run Flask App (Kapilesh Pennichetty) -----
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)  # Telling Flask to run the app with the constraints given. (Source:
     # https://flask.palletsprojects.com/en/1.1.x/)
-
-# ----- Scheduler Tasks (Kapilesh Pennichetty) -----
-schedule.every(30).minutes.do(deepcopy_top_articles)  # Adding tasks to Scheduler
-# (Source: https://schedule.readthedocs.io/en/stable/)
-
-AutoSchedule()  # Run methods (functions) in the AutoSchedule Class
