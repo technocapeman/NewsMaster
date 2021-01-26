@@ -9,7 +9,9 @@ from flask import Flask, render_template
 
 # ---------- API and Program Prerequisites (Kapilesh Pennichetty) ----------
 
-api_key = 'YOUR_NEWSAPI_KEY_HERE'  # Defining API Key for use with News API
+newsapi_key = 'YOUR_NEWSAPI_KEY_HERE'  # Defining API Key for use with News API
+
+ipstackapi_key = 'YOUR_IPSTACK_API_KEY_HERE'  # Defining API Key for use with IPStack API
 
 app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojects.com/en/1.1.x/)
 
@@ -19,6 +21,7 @@ app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojec
 # ------- Trending News (Kapilesh Pennichetty) -------
 
 # ----- List and Format Trusted News Sources (Kapilesh Pennichetty) -----
+
 trusted_news_sources_list = [
     "bbc-news", "abc-news", "abc-news-au", "al-jazeera-english",
     "ars-technica", "associated-press", "australian-financial-review", "axios",
@@ -49,7 +52,7 @@ def get_top_headlines_stats():
     https://newsapi.org/docs/endpoints/top-headlines)"""
     url = f'http://newsapi.org/v2/top-headlines?' \
           f'sources={trusted_news_sources}&' \
-          f'apiKey={api_key}'
+          f'apiKey={newsapi_key}'
     api_output = requests.get(url)
     top_headlines_stats = api_output.json()
     return top_headlines_stats["articles"]
@@ -73,8 +76,21 @@ def background_fetch():
 
 # ------- Weather (Sanjay Balasubramanian) -------
 
-ext_ip = requests.get('https://api.ipify.org').text  # This line was done by Kapilesh Pennichetty
-# (Reference: https://stackoverflow.com/questions/2311510/getting-a-machines-external-ip-address-with-python)
+def get_location():
+    """This function retrieves the location of a person using their IP address. (Done by Kapilesh Pennichetty)"""
+    ext_ip = requests.get('https://api.ipify.org').text
+    # (Reference: https://stackoverflow.com/questions/2311510/getting-a-machines-external-ip-address-with-python)
+    url = f'http://api.ipstack.com/{ext_ip}&' \
+          f'output=json?' \
+          f'access_key={ipstackapi_key}'  # IPStack API Documentation: https://ipstack.com/documentation
+    api_output = requests.get(url)
+    location_data = api_output.json()
+    city = location_data["city"]
+    state = location_data["region_name"]
+    state_abbreviation = location_data["region_code"]
+    country = location_data["country_name"]
+    country_abbreviation = location_data["country_code"]
+    # return only the variables required for an accurate weather search
 
 # Start writing function definitions for weather here
 
@@ -83,6 +99,7 @@ ext_ip = requests.get('https://api.ipify.org').text  # This line was done by Kap
 # https://jinja.palletsprojects.com/en/2.11.x/) -------
 
 # ----- Home Page (Kapilesh Pennichetty) -----
+
 @app.route("/")  # Telling Flask that the url with "/" appended at the end should lead to the home page.
 def home():
     """Home page that shows trending articles."""
@@ -90,6 +107,7 @@ def home():
     # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
 
 # ----- Weather Page (Kapilesh Pennichetty) -----
+
 @app.route("/weather")
 def weather():
     """Page that shows weather info."""
