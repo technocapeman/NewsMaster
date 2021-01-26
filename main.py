@@ -65,7 +65,7 @@ def fetch_top_headlines():
 
 
 def background_fetch():
-    """This function repeatedly calls fetch_top_headlines() every 30 minutes
+    """This function repeatedly calls fetch_top_headlines() every 45 minutes
      (Documentation: https://schedule.readthedocs.io/en/stable/index.html)."""
     fetch_top_headlines()
     schedule.every(45).minutes.do(fetch_top_headlines)
