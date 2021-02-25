@@ -74,7 +74,7 @@ def background_fetch():
         sleep(1)
 
 
-# ------- Weather (Sanjay Balasubramanian) -------
+# ------- Weather (Kapilesh Pennichetty and Sanjay Balasubramanian) -------
 
 def get_location():
     """This function retrieves the location of a person using their IP address. (Done by Kapilesh Pennichetty)"""
