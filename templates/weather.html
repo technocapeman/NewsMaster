@@ -1,10 +1,510 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Weather</title>
-</head>
-<body>
+        <!---------- Importing Fonts(Sanjay Balasubramanian) ---------->
+        <html lang="en">
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>Weather App</title>
+          <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
+        </head>
+        <body>
+        <!---------- CSS for webpage(Sanjay Balasubramanian) ---------->
+       <style>
+           * {
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+              box-sizing: border-box;
+            }
+
+           body {
+              margin: 12px;
+              font-size: 100%;
+              font-family: 'Open Sans', sans-serif;
+              color: #1fbed6;
+              height: 100%;
+              background: #2f2f2f;
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+            }
+
+           @media screen and (min-width: 700px) {
+              body {
+                margin: 20px;
+              }
+            }
+
+           .main-container {
+              display: flex;
+              flex-wrap: wrap;
+            }
+
+           @media screen and (min-width: 920px) {
+              .main-container {
+                width: 880px;
+                margin: 8px auto;
+                font-size: 1.1em;
+              }
+            }
+
+
+           /* location-and-date */
+           .location-and-date {
+              width: 100%;
+            }
+
+           .location-and-date__location {
+              margin: 0;
+              font-size: 2em;
+              font-weight: 600;
+            }
+
+
+
+           /* current-temperature */
+           .current-temperature {
+              display: flex;
+              margin-top: 0.25em;
+              width: 100%;
+            }
+
+           .current-temperature__icon-container {
+              flex-grow: 1.25;
+              text-align: center;
+            }
+
+           .current-temperature__content-container {
+              flex-grow: 1;
+              text-align: center;
+            }
+
+           .current-temperature__icon {
+              width: 10.5em;
+            }
+
+           .current-temperature__value {
+              font-size: 5.25em;
+              font-weight: 300;
+            }
+
+           .current-temperature__summary {
+              margin-top: -0.5em;
+              margin-left: -0.6em;
+              text-align: center;
+              font-size: 1.125em;
+            }
+
+
+
+           /* current-stats */
+           .current-stats {
+              display: flex;
+              justify-content: space-around;
+              padding-bottom: 1em;
+              width: 100%;
+              border-top: 1px solid rgba(255,255,255,0.5);
+              border-bottom: 1px solid rgba(255,255,255,0.5);
+            }
+
+           @media screen and (min-width: 700px) {
+           .current-stats {
+                margin-bottom: 1em;
+                padding-bottom: 0;
+                border-top: none;
+                border-bottom: none;
+                border-left: 1px solid rgba(255,255,255,0.5);
+              }
+            }
+
+           .current-stats__value {
+              margin-top: 1em;
+              font-size: 1.44em;
+            }
+
+           .current-stats__label {
+              color: rgba(255,255,255,0.6);
+            }
+
+           @media screen and (min-width: 700px) {
+           .current-temperature,
+           .current-stats {
+                width: 50%;
+              }
+            }
+
+
+
+           /* weather-by-hour */
+           .weather-by-hour {
+              display: none;
+              width: 100%;
+            }
+
+           @media screen and (min-width: 700px) {
+           .weather-by-hour {
+                display: block;
+              }
+            }
+
+           .weather-by-hour__container {
+              display: flex;
+              justify-content: space-between;
+            }
+
+           .weather-by-hour__heading,
+           .next-5-days__heading {
+              color: rgba(255,255,255,0.8);
+              font-size: 1em;
+              font-weight: normal;
+            }
+
+           @media screen and (min-width: 768px) {
+           .weather-by-hour__heading,
+           .next-5-days__heading {
+                font-size: 1.125em;
+              }
+            }
+
+           .weather-by-hour__item {
+              padding: 0.8em 0;
+              width: 13%;
+              border-radius: 5px;
+              background-color: rgba(0,0,0,0.15);
+              font-size: 1.125em;
+              text-align: center;
+            }
+
+           @media screen and (min-width: 880px) {
+           .weather-by-hour__item {
+                width: 6.05em;
+              }
+            }
+
+           .weather-by-hour__hour {
+              margin-bottom: 0.5em;
+            }
+
+
+
+           /* next-5-days */
+           .next-5-days {
+              width: 100%;
+              margin-top: 1em;
+            }
+
+           .next-5-days__container {
+              display: flex;
+              flex-wrap: wrap;
+            }
+
+           .next-5-days__row {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-around;
+              align-items: center;
+              margin-bottom: 0.3em;
+              padding: 0.8em 0;
+              width: 100%;
+              border-radius: 5px;
+              background-color: rgba(0,0,0,0.20);
+              font-size: 1.19em;
+              text-align: center;
+            }
+
+           .next-5-days__label {
+              color: rgba(255,255,255,0.6);
+              font-size: 0.83em;
+            }
+
+           .next-5-days__date,
+           .next-5-days__high,
+           .next-5-days__low,
+           .next-5-days__icon,
+           .next-5-days__rain,
+           .next-5-days__wind {
+              width: 33.33333%;
+              font-size: 0.95em;
+            }
+
+           .next-5-days__date,
+           .next-5-days__high,
+           .next-5-days__low {
+              margin-bottom: 0.6em;
+            }
+
+           @media screen and (min-width: 450px) {
+           .next-5-days__date,
+           .next-5-days__high,
+           .next-5-days__low,
+           .next-5-days__icon,
+           .next-5-days__rain,
+           .next-5-days__wind {
+                width: 16.666666%;
+                margin-bottom: initial;
+              }
+
+           .next-5-days__date {
+                order: -2;
+              }
+
+           .next-5-days__icon {
+                order: -1;
+              }
+            }
+       </style>
+
+       <!---------- Header of weather.html(Sanjay Balasubramanian) ---------->
+        <main class="main-container">
+
+          <div class="location-and-date">
+            <h1 class="location-and-date__location">Austin, TX</h1>
+            <div>Sunday 4th August</div>
+          </div>
+
+        <!---------- Current Temperature details(Sanjay Balasubramanian) ---------->
+          <div class="current-temperature">
+            <div class="current-temperature__icon-container">
+              <img src="icons/mostly-sunny.svg" class="current-temperature__icon" alt="">
+            </div>
+            <div class="current-temperature__content-container">
+              <div class="current-temperature__value">21&deg;</div>
+              <div class="current-temperature__summary">Mostly Sunny</div>
+            </div>
+          </div>
+
+
+          <div class="current-stats">
+            <div>
+              <div class="current-stats__value">23&deg;</div>
+              <div class="current-stats__label">High</div>
+              <div class="current-stats__value">14&deg;</div>
+              <div class="current-stats__label">Low</div>
+            </div>
+            <div>
+              <div class="current-stats__value">7mph</div>
+              <div class="current-stats__label">Wind</div>
+              <div class="current-stats__value">0%</div>
+              <div class="current-stats__label">Rain</div>
+            </div>
+            <div>
+              <div class="current-stats__value">05:27</div>
+              <div class="current-stats__label">Sunrise</div>
+              <div class="current-stats__value">20:57</div>
+              <div class="current-stats__label">Sunset</div>
+            </div>
+          </div>
+
+            <!---------- Hourly temperature details (Sanjay Balasubramanian) ---------->
+          <div class="weather-by-hour">
+            <h2 class="weather-by-hour__heading">Today's weather</h2>
+            <div class="weather-by-hour__container">
+              <div class="weather-by-hour__item">
+                <div class="weather-by-hour__hour">3am</div>
+                <img src="icons/mostly-sunny.svg" alt="Mostly sunny">
+                <div>14&deg;</div>
+              </div>
+              <div class="weather-by-hour__item">
+                <div class="weather-by-hour__hour">6am</div>
+                <img src="icons/mostly-sunny.svg" alt="Mostly sunny">
+                <div>16&deg;</div>
+              </div>
+              <div class="weather-by-hour__item">
+                <div class="weather-by-hour__hour">9am</div>
+                <img src="icons/mostly-sunny.svg" alt="Mostly sunny">
+                <div>17&deg;</div>
+              </div>
+              <div class="weather-by-hour__item">
+                <div class="weather-by-hour__hour">12pm</div>
+                <img src="icons/mostly-sunny.svg" alt="Mostly sunny">
+                <div>19&deg;</div>
+              </div>
+              <div class="weather-by-hour__item">
+                <div class="weather-by-hour__hour">3pm</div>
+                <img src="icons/sunny.svg" alt="Sunny">
+                <div>21&deg;</div>
+              </div>
+              <div class="weather-by-hour__item">
+                <div class="weather-by-hour__hour">6pm</div>
+                <img src="icons/sunny.svg" alt="Sunny">
+                <div>20&deg;</div>
+              </div>
+              <div class="weather-by-hour__item">
+                <div class="weather-by-hour__hour">9pm</div>
+                <img src="icons/mostly-sunny.svg" alt="Mostly sunny">
+                <div>18&deg;</div>
+              </div>
+            </div>
+          </div>
+
+            <!---------- Weekly temperature details(Sanjay Balasubramanian) ---------->
+          <div class="next-5-days">
+            <h2 class="next-5-days__heading">Next 5 days</h2>
+            <div class="next-5-days__container">
+
+              <div class="next-5-days__row">
+
+                <div class="next-5-days__date">
+                  Tue
+                  <div class="next-5-days__label">30/7</div>
+                </div>
+
+                <div class="next-5-days__low">
+                  10&deg;
+                  <div class="next-5-days__label">Low</div>
+                </div>
+
+                <div class="next-5-days__high">
+                  21&deg;
+                  <div class="next-5-days__label">High</div>
+                </div>
+
+                <div class="next-5-days__icon">
+                  <img src="icons/sunny.svg" alt="Sunny">
+                </div>
+
+                <div class="next-5-days__rain">
+                  0%
+                  <div class="next-5-days__label">Rain</div>
+                </div>
+
+                <div class="next-5-days__wind">
+                  12mph
+                  <div class="next-5-days__label">Wind</div>
+                </div>
+
+              </div>
+              <div class="next-5-days__row">
+
+                <div class="next-5-days__date">
+                  Wed
+                  <div class="next-5-days__label">31/7</div>
+                </div>
+
+                <div class="next-5-days__low">
+                  9&deg;
+                  <div class="next-5-days__label">Low</div>
+                </div>
+
+                <div class="next-5-days__high">
+                  18&deg;
+                  <div class="next-5-days__label">High</div>
+                </div>
+
+        <div class="next-5-days__icon">
+          <img src="icons/mostly-sunny.svg" alt="Mostly sunny">
+        </div>
+
+        <div class="next-5-days__rain">
+          3%
+          <div class="next-5-days__label">Rain</div>
+        </div>
+
+        <div class="next-5-days__wind">
+          7mph
+          <div class="next-5-days__label">Wind</div>
+        </div>
+
+      </div>
+      <div class="next-5-days__row">
+
+        <div class="next-5-days__date">
+          Thur
+          <div class="next-5-days__label">1/8</div>
+        </div>
+
+        <div class="next-5-days__low">
+          7&deg;
+          <div class="next-5-days__label">Low</div>
+        </div>
+
+        <div class="next-5-days__high">
+          15&deg;
+          <div class="next-5-days__label">High</div>
+        </div>
+
+        <div class="next-5-days__icon">
+          <img src="icons/mostly-sunny.svg" alt="Mostly sunny">
+        </div>
+
+        <div class="next-5-days__rain">
+          75%
+          <div class="next-5-days__label">Rain</div>
+        </div>
+
+        <div class="next-5-days__wind">
+          11mph
+          <div class="next-5-days__label">Wind</div>
+        </div>
+
+      </div>
+      <div class="next-5-days__row">
+
+        <div class="next-5-days__date">
+          Tue
+          <div class="next-5-days__label">2/8</div>
+        </div>
+
+        <div class="next-5-days__low">
+          12&deg;
+          <div class="next-5-days__label">Low</div>
+        </div>
+
+        <div class="next-5-days__high">
+          24&deg;
+          <div class="next-5-days__label">High</div>
+        </div>
+
+        <div class="next-5-days__icon">
+          <img src="icons/sunny.svg" alt="Sunny">
+        </div>
+
+        <div class="next-5-days__rain">
+          2%
+          <div class="next-5-days__label">Rain</div>
+        </div>
+
+        <div class="next-5-days__wind">
+          8mph
+          <div class="next-5-days__label">Wind</div>
+        </div>
+
+      </div>
+      <div class="next-5-days__row">
+
+        <div class="next-5-days__date">
+          Tue
+          <div class="next-5-days__label">30/7</div>
+        </div>
+
+        <div class="next-5-days__low">
+          10&deg;
+          <div class="next-5-days__label">Low</div>
+        </div>
+
+        <div class="next-5-days__high">
+          21&deg;
+          <div class="next-5-days__label">High</div>
+        </div>
+
+        <div class="next-5-days__icon">
+          <img src="icons/mostly-sunny.svg" alt="Mostly sunny">
+        </div>
+
+        <div class="next-5-days__rain">
+          0%
+          <div class="next-5-days__label">Rain</div>
+        </div>
+
+        <div class="next-5-days__wind">
+          12mph
+          <div class="next-5-days__label">Wind</div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</main>
 
 </body>
 </html>
