@@ -86,25 +86,27 @@ def scrapejson(jsonurl):
 
 
 def get_weather(location):  # location can be IP address, city, or ZIP
-    """This function takes the location and outputs the current weather. THIS IS THE MASTER FUNCTION. (Made by
-    Kapilesh Pennichetty)"""
+    """This function takes the location and outputs the current weather. (Made by
+    Kapilesh Pennichetty and Sanjay Balasubramanian)"""
     url = f"https://api.weatherapi.com/v1/current.json?" \
           f"key={weatherapi_key}&" \
           f"q={location}"
-    stats = {"temp_f": 0, "wind_mph": 0, "wind_dir": "", "humidity": 0, "feelslike_f": 0}
+    stats = {"temp_f": 0, "wind_mph": 0, "wind_dir": "", "humidity": 0, "precip_in": 0.0, "uv": 0.0, "feelslike_f": 0}
     try:
-        weather_data = scrapejson(url)
+        weather_data = scrapejson(url)['current']
         if "error" in weather_data:
             return False
         else:
             for stat in stats:
                 stats[stat] = weather_data[stat]
+            description = weather_data['condition']['text']
             current_temp = stats["temp_f"]
             wind_speed = stats["wind_mph"]
             wind_direction = stats["wind_dir"]
             humidity = stats["humidity"]
+            uv_index = stats["uv"]
             feels_like = stats["feelslike_f"]
-            return current_temp, wind_speed, wind_direction, humidity, feels_like
+            return description, current_temp, wind_speed, wind_direction, humidity, uv_index, feels_like
     except:
         return False
 
