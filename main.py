@@ -6,15 +6,13 @@ import requests
 import schedule
 from flask import Flask, render_template
 
-
 # ---------- API and Program Prerequisites (Kapilesh Pennichetty) ----------
 
 newsapi_key = 'YOUR_NEWSAPI_KEY_HERE'  # Defining API Key for use with News API
 
-ipstackapi_key = 'c4b64d4441b6342c27001dc87593d4f0'  # Defining API Key for use with IPStack API
+weatherapi_key = 'YOUR_WEATHERAPI_KEY_HERE'  # Defining API Key for use with Weather API
 
 app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojects.com/en/1.1.x/)
-
 
 # ---------- Functions and Data ----------
 
@@ -75,24 +73,57 @@ def background_fetch():
 
 
 # ------- Weather (Kapilesh Pennichetty and Sanjay Balasubramanian) -------
+ext_ip = requests.get('https://api.ipify.org').text
 
-def get_location():
-    """This function retrieves the location of a person using their IP address. (Done by Kapilesh Pennichetty)"""
-    ext_ip = requests.get('https://api.ipify.org').text
-    # (Reference: https://stackoverflow.com/questions/2311510/getting-a-machines-external-ip-address-with-python)
-    url = f'http://api.ipstack.com/{ext_ip}&' \
-          f'output=json?' \
-          f'access_key={ipstackapi_key}'  # IPStack API Documentation: https://ipstack.com/documentation
-    api_output = requests.get(url)
-    location_data = api_output.json()
-    city = location_data["city"]
-    state = location_data["region_name"]
-    state_abbreviation = location_data["region_code"]
-    country = location_data["country_name"]
-    country_abbreviation = location_data["country_code"]
-    # return only the variables required for an accurate weather search
+major_cities = ["Austin", "New York City", "London", "Sydney", "Tokyo"]
 
-# Start writing function definitions for weather here
+
+def scrapejson(jsonurl):
+    """This function scrapes a URL to get the JSON file at the URL. (Made by Kapilesh Pennichetty)"""
+    api_output = requests.get(jsonurl)
+    data = api_output.json()
+    return data
+
+
+def get_weather(location):  # location can be IP address, city, or ZIP
+    """This function takes the location and outputs the current weather. THIS IS THE MASTER FUNCTION. (Made by
+    Kapilesh Pennichetty)"""
+    url = f"https://api.weatherapi.com/v1/current.json?" \
+          f"key={weatherapi_key}&" \
+          f"q={location}"
+    stats = {"temp_f": 0, "wind_mph": 0, "wind_dir": "", "humidity": 0, "feelslike_f": 0}
+    try:
+        weather_data = scrapejson(url)
+        if "error" in weather_data:
+            return False
+        else:
+            for stat in stats:
+                stats[stat] = weather_data[stat]
+            current_temp = stats["temp_f"]
+            wind_speed = stats["wind_mph"]
+            wind_direction = stats["wind_dir"]
+            humidity = stats["humidity"]
+            feels_like = stats["feelslike_f"]
+            return current_temp, wind_speed, wind_direction, humidity, feels_like
+    except:
+        return False
+
+
+def major_cities_weather():
+    """This function finds and returns the weather of the major cities. (Done by Kapilesh Pennichetty)"""
+    cities_weather = []
+
+    for city in major_cities:
+        city_weather = get_weather(city)
+        cities_weather.append(city_weather)
+
+    Austin_Weather = cities_weather[0]
+    NYC_Weather = cities_weather[1]
+    London_Weather = cities_weather[2]
+    Sydney_Weather = cities_weather[3]
+    Tokyo_Weather = cities_weather[4]
+
+    return Austin_Weather, NYC_Weather, London_Weather, Sydney_Weather, Tokyo_Weather
 
 
 # ------- Webpages (Documentation: https://flask.palletsprojects.com/en/1.1.x/ and
@@ -105,6 +136,7 @@ def home():
     """Home page that shows trending articles."""
     return render_template('home.html', top_articles=top_headlines)
     # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
+
 
 # ----- Weather Page (Kapilesh Pennichetty) -----
 
