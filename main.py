@@ -106,7 +106,8 @@ def get_weather(location):  # location can be IP address, city, or ZIP
             humidity = stats["humidity"]
             uv_index = stats["uv"]
             feels_like = stats["feelslike_f"]
-            return description, current_temp, wind_speed, wind_direction, humidity, uv_index, feels_like
+            precipitation = stats["precip_in"]
+            return description, current_temp, wind_speed, wind_direction, humidity, uv_index, feels_like, precipitation
     except:
         return False
 
@@ -142,12 +143,61 @@ def home():
 
 # ----- Weather Page (Kapilesh Pennichetty) -----
 
+def weather_commentary(current_temp):
+    temperature = int(current_temp)
+    temperature_level = {
+                0:  "It's scorching hot. Stay inside and be cool!",
+                1:  "It's hot and sunny. Don't forget that sunscreen!",
+                2:  "It's nice and warm today. Time to flex those flip-flops",
+                3:  "It's nice and cool today . Go play outside in this great weather",
+                4:  "It's gonna be cold today. Make sure you keep yourself warm!",
+                5:  "Brrrrrrr!!! Remember to wear your protective wear so you don't freeze.",
+                6:  "It's Freezing Cold. Staying inside and a cup of Hot chocolate would be nice. "
+    }
+
+    if temperature >= 95:
+        return temperature_level[0]
+    elif 80 <= temperature <= 94:
+        return temperature_level[1]
+    elif 69 <= temperature <= 79:
+        return temperature_level[2]
+    elif 59 <= temperature <= 68:
+        return temperature_level[3]
+    elif 40 <= temperature <= 57:
+        return temperature_level[4]
+    elif 25 <= temperature <= 39:
+        return temperature_level[5]
+    elif temperature <= 24:
+        return temperature_level[6]
+
+"""Precipitation_WARNING = data['daily']['data'][0]['precipProbability']
+
+Precipitation_level = {
+                    0:  "there is a slight chance of rain. " \
+                        "You might want to grab an umbrella ☔",
+                    1:  "there is a high chance of rain. " \
+                        "Grab an umbrella on your way out! ☔",
+                    2:  "it is raining right now!",
+                    3:  "it is definitely going to rain today! " \
+                        "GRAB YOUR UMBRELLA. ☔"
+                }
+
+    if Precipitation_WARNING == 0:
+        Precipitation_commentary = weather_commentary(temperature)
+    elif 0 < Precipitation_WARNING <= .5:
+        Precipitation_commentary = Precipitation_level[0]
+    elif .5 < Precipitation_WARNING < .75:
+        Precipitation_commentary = Precipitation_level[1]
+    elif Precipitation_WARNING == 1:
+        Precipitation_commentary = Precipitation_level[2]
+    else:
+        Precipitation_commentary = Precipitation_level[3]
+"""
 @app.route("/weather")
 def weather():
     """Page that shows weather info."""
-    return render_template('weather.html')  # Rendering the HTML for the home page, passing required variables from
+    return render_template('weather.html', austin_weather=major_cities_weather()[0])  # Rendering the HTML for the home page, passing required variables from
     # Python to HTML page using Jinja.
-
 
 # ---------- Main Code ----------
 
