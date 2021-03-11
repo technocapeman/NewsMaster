@@ -6,7 +6,7 @@ import requests
 import schedule
 from flask import Flask, render_template
 
-# ---------- API and Program Prerequisites (Kapilesh Pennichetty) ----------
+# ---------- API and Program Prerequisites ----------
 
 newsapi_key = 'YOUR_NEWSAPI_KEY_HERE'  # Defining API Key for use with News API
 
@@ -18,7 +18,7 @@ app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojec
 
 # ------- Trending News (Kapilesh Pennichetty) -------
 
-# ----- List and Format Trusted News Sources (Kapilesh Pennichetty) -----
+# ----- List and Format Trusted News Sources -----
 
 trusted_news_sources_list = [
     "bbc-news", "abc-news", "abc-news-au", "al-jazeera-english",
@@ -141,7 +141,7 @@ def home():
     # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
 
 
-# ----- Weather Page (Kapilesh Pennichetty) -----
+# ----- Weather Page -----
 
 def weather_commentary(current_temp):
     temperature = int(current_temp)
@@ -196,7 +196,7 @@ Precipitation_level = {
 @app.route("/weather")
 def weather():
     """Page that shows weather info."""
-    return render_template('weather.html', austin_weather=major_cities_weather()[0])  # Rendering the HTML for the home page, passing required variables from
+    return render_template('weather.html', austin_weather=major_cities_weather()[0], NYC_weather=major_cities_weather()[0], london_weather=major_cities_weather()[0], sydney_weather=major_cities_weather()[0], tokyo_weather=major_cities_weather()[0])  # Rendering the HTML for the home page, passing required variables from
     # Python to HTML page using Jinja.
 
 # ---------- Main Code ----------
