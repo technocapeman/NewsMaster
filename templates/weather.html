@@ -4,7 +4,7 @@
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>Weather App</title>
+          <title>Weather</title>
           <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
         </head>
         <body>
@@ -36,35 +36,146 @@
            .main-container {
               display: flex;
               flex-wrap: wrap;
-            }
+                    }
+                    body {
+                      margin: 0;
+                    }
 
-           @media screen and (min-width: 920px) {
-              .main-container {
-                width: 880px;
-                margin: 8px auto;
-                font-size: 1.1em;
-              }
-            }
+                    /* header */
 
+                    .header {
+                      text-color: #1fbed6b;
+                      background-color: #2f2f2f;
+                      box-shadow: 1px 1px 5px 0 rgba(0,0,0,1);
+                      position: absolute;
+                      width: 100%;
+                    }
 
-           /* location-and-date */
-           .location-and-date {
-              width: 100%;
-            }
+                    .header ul {
+                      margin: 0;
+                      padding: 0;
+                      list-style: none;
+                      overflow: hidden;
+                      background-color: #2f2f2f;
+                    }
 
-           .location-and-date__location {
-              margin: 0;
-              font-size: 2em;
-              font-weight: 600;
-            }
+                    .header li a {
+                      display: block;
+                      padding: 20px 20px;
+                      border-right: 1px solid #f4f4f4;
+                      text-decoration: none;
+                    }
 
+                    .header li a:hover,
+                    .header .menu-btn:hover {
+                      background-color: #4f4f4f;
+                    }
 
+                    .header .logo {
+                      display: block;
+                      float: left;
+                      font-size: 2em;
+                      padding: 10px 20px;
+                      text-decoration: none;
+                    }
 
+                    /* menu */
+
+                    .header .menu {
+                      clear: both;
+                      max-height: 0;
+                      transition: max-height .2s ease-out;
+                    }
+
+                    /* menu icon */
+
+                    .header .menu-icon {
+                      cursor: pointer;
+                      display: inline-block;
+                      float: right;
+                      padding: 28px 20px;
+                      position: relative;
+                      user-select: none;
+                    }
+
+                    .header .menu-icon .navicon {
+                      background: #1fbed6;
+                      display: block;
+                      height: 2px;
+                      position: relative;
+                      transition: background .2s ease-out;
+                      width: 18px;
+                    }
+
+                    .header .menu-icon .navicon:before,
+                    .header .menu-icon .navicon:after {
+                      background: #1fbed6;
+                      content: '';
+                      display: block;
+                      height: 100%;
+                      position: absolute;
+                      transition: all .2s ease-out;
+                      width: 100%;
+                    }
+
+                    .header .menu-icon .navicon:before {
+                      top: 5px;
+                    }
+
+                    .header .menu-icon .navicon:after {
+                      top: -5px;
+                    }
+
+                    /* menu btn */
+
+                    .header .menu-btn {
+                      display: none;
+                    }
+
+                    .header .menu-btn:checked ~ .menu {
+                      max-height: 240px;
+                    }
+
+                    .header .menu-btn:checked ~ .menu-icon .navicon {
+                      background: transparent;
+                    }
+
+                    .header .menu-btn:checked ~ .menu-icon .navicon:before {
+                      transform: rotate(-45deg);
+                    }
+
+                    .header .menu-btn:checked ~ .menu-icon .navicon:after {
+                      transform: rotate(45deg);
+                    }
+
+                    .header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+                    .header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+                      top: 0;
+                    }
+
+                    /* 48em = 768px */
+
+                    @media (min-width: 48em) {
+                      .header li {
+                        float: left;
+                      }
+                      .header li a {
+                        padding: 20px 30px;
+                      }
+                      .header .menu {
+                        clear: none;
+                        float: right;
+                        max-height: none;
+                      }
+                      .header .menu-icon {
+                        display: none;
+                      }
+                    }
            /* current-temperature */
            .current-temperature {
               align: center
               display: flex;
-              margin-top: 5em;
+              margin-top: 12em;
               width: 100%;
             }
 
@@ -87,6 +198,7 @@
               font-weight: 300;
             }
 
+
            .current-temperature__summary {
               margin-top: -0.5em;
               margin-left: -0.6em;
@@ -100,7 +212,7 @@
            .current-stats {
               display: flex;
               justify-content: space-around;
-              margin-top: 4em;
+              margin-top: 10em;
               padding-bottom: 1em;
               width: 500%;
               border-top: 1px solid rgba(255,255,255,0.5);
@@ -155,22 +267,121 @@
 
             }
 
-           @media screen and (min-width: 450px) {
+           @media screen and (min-width: 0px) {
            .next-7-days__weather {
                 width: 100%;
                 margin-bottom: initial;
                 align: center;
               }
+.popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+  visibility: hidden;
+  opacity: 0;
+  overflow: hiden;
+  transition: .64s ease-in-out;
+}}
+.popup-inner {
+  position: relative;
+  bottom: -100vw;
+  right: -100vh;
+  display: flex;
+  align-items: center;
+  max-width: 800px;
+  max-height: 600px;
+  width: 60%;
+  height: 80%;
+  background-color: #fff;
+  transform: rotate(32deg);
+  transition: .64s ease-in-out;
+}}
 
+.popuptext {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+  height: 100%;
+  padding: 4rem;
+}
+.popuptext h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  color: #0A0A0A;
+}
+.popuptext p {
+  font-size: .875rem;
+  color: #686868;
+  line-height: 1.5;
+}
+
+.popuptext a {
+	text-decoration: none;
+	color:  #47BDFF;
+}
+.popup:target {
+  visibility: visible;
+  opacity: 1;
+}
+.popup:target .popup-inner {
+  bottom: 0;
+  right: 0;
+  transform: rotate(0);
+}
+.closepopup {
+  position: absolute;
+  right: -1rem;
+  top: -1rem;
+  width: 3rem;
+  height: 3rem;
+  font-size: .875rem;
+  font-weight: 300;
+  border-radius: 100%;
+  background-color: #47BDFF;
+  z-index: 4;
+  color: #fff;
+  line-height: 3rem;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+}
 
        </style>
 
        <!---------- Header of weather.html(Sanjay Balasubramanian) ---------->
         <main class="main-container">
+<header class="header">
+  <a href="" class="logo" style="color:#1fbed6">Austin</a>
+  <input class="menu-btn" type="checkbox" id="menu-btn" />
+  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+  <ul class="menu">
 
-          <div class="location-and-date">
-            <h1 class="location-and-date__location" align="center">Austin, TX</h1>
-          </div>
+    <li><a class="button" href="#popup" style="color:#1fbed6" >Weather Advice</a></li>
+    <div class="popup" id="popup">
+    <div class="popup-inner">
+      <div class="popuptext">
+        <h1 align="center" >Weather Advice</h1>
+        <p align="center" > <a href="https://webdevtrick.com">Visit WebDevTrick</a></p>
+      </div>
+      <a class="closepopup" href="#">X</a>
+    </div>
+  </div>
+    </div>
+
+      <li><a href="#Precipitation_Advice" style="color:#1fbed6">Precipitation Advice</a></li>
+    <li><a href="#Major_Cities" style="color:#1fbed6">Major Cities</a></li>
+  </ul>
+</header>
 
                 <!---------- Current Temperature details(Sanjay Balasubramanian) ---------->
           <div class="current-temperature">
@@ -217,3 +428,4 @@
         </main>
     </body>
 </html>
+
