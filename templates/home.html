@@ -2,83 +2,105 @@
 <html lang="en">
 
 <head>
-	<!---------- Sources ---------->
-	<!--
-	- Jinja Documentation: https://jinja.palletsprojects.com/en/2.11.x/
-	- W3 Schools: https://w3schools.com/
-	-->
+    <!---------- Sources ---------->
+    <!--
+    - Jinja Documentation: https://jinja.palletsprojects.com/en/2.11.x/
+    - W3 Schools: https://w3schools.com/
+    -->
 
-	<!---------- Importing Fonts and Bootstrap Templates ---------->
-	<meta charset="UTF-8">
-	<title>News</title>
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<script async src="https://cse.google.com/cse.js?cx=5a17426da7fe17b85"></script>
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Lato" rel="stylesheet">
-	<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-title" content="NewsMaster">
-	<link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/icon-192.png') }}">
-	<link rel="apple-touch-startup-image" href="{{ url_for('static', filename='images/icon-512.png') }}">
-	<link rel="icon" href="{{ url_for('static', filename='images/icon-96.png') }}">
+    <!---------- Importing Fonts and Bootstrap Templates ---------->
+    <meta charset="UTF-8">
+    <title>News</title>
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <meta content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1" name="viewport">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script async src="https://cse.google.com/cse.js?cx=5a17426da7fe17b85"></script>
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Lato" rel="stylesheet">
+    <link href="{{ url_for('static', filename='manifest.json') }}" rel="manifest">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="NewsMaster" name="apple-mobile-web-app-title">
+    <link href="{{ url_for('static', filename='images/icon-192.png') }}" rel="apple-touch-icon" sizes="180x180">
+    <link href="{{ url_for('static', filename='images/icon-512.png') }}" rel="apple-touch-startup-image">
+    <link href="{{ url_for('static', filename='images/icon-96.png') }}" rel="icon">
 
-	<!---------- CSS for home.html (Kapilesh Pennichetty) ---------->
-	<style>
+    <!---------- CSS for home.html (Kapilesh Pennichetty) ---------->
+    <style>
 		.container-fluid {
 			font-family: font-family: 'Lato', sans-serif;
 			font-size 25px;
 			background-color: #2f2f2f;
 			color: #ffffff;
 		}
-	</style>
+		.alignleft {
+			float: left;
+		}
+		.alignright {
+			float: right;
+		}
+
+
+    </style>
 
 </head>
 
 <body>
-	<!---------- Header of home.html (Kapilesh Pennichetty) ---------->
-	<!-- Declaring Bootstrap Template for Header (Kapilesh Pennichetty) -->
-	<div class="container-fluid" style="font-family: 'Lato', sans-serif;
+<!---------- Header of home.html (Kapilesh Pennichetty) ---------->
+<!-- Declaring Bootstrap Template for Header (Kapilesh Pennichetty) -->
+<div class="container-fluid" style="font-family: 'Lato', sans-serif;
     background-color: #2f2f2f;
     color: #ffffff">
-		<div class="page-header" style="background-color: #2f2f2f;
+    <div class="page-header" style="background-color: #2f2f2f;
     color: #1fbed6;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 45px;">
-			<h1><a href="/" style="color: #1fbed6">NewsMaster</a></h1>
-		</div>
-		<p style="font-size: 25px">The world at your fingertips.</p>
-	</div>
+        <div id="textbox">
+            <h1 class="alignleft"><a href="/" style="color: #1fbed6">NewsMaster</a></h1>
+            <h1 class="alignright"><a href="/weather" style="color: #1fbed6"><img
+                    height="75px" src="{{ url_for('static', filename='images/NewsMaster_Weather.png') }}" width="75px"></a>
+            </h1>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <p style="font-size: 25px">The world at your fingertips.</p>
+</div>
 
-	<!-- Google-Powered Search Bar (Sanjay Balasubramanian) -->
-	<div class="jumbotron jumbotron-fluid" style="background-color: #2f2f2f; padding-bottom: 25px; padding-top: 25px; padding-left: 15px; padding-right: 15px">
-		<div class="gcse-searchbox-only"></div>
-	</div>
+<!-- Google-Powered Search Bar (Sanjay Balasubramanian) -->
+<div class="jumbotron jumbotron-fluid"
+     style="background-color: #2f2f2f; padding-bottom: 25px; padding-top: 25px; padding-left: 15px; padding-right: 15px">
+    <div class="gcse-searchbox-only"></div>
+</div>
 
-	<!---------- Display All Articles from News API using Jinja (Kapilesh Pennichetty) ---------->
-	{% for article in top_articles %} <!-- Beginning of For-Each Loop to display all articles (Kapilesh Pennichetty) -->
-		<div class="jumbotron jumbotron-fluid" style="font-family: 'Lato', sans-serif"> <!-- Declaring Bootstrap Template for Articles (Kapilesh Pennichetty) -->
-			<div class="container-fluid">
-				<div class="page-header">
-					<h3><a href={{article['url']}} target="_blank" rel="noopener noreferrer" style="color:#ffffff">{{article['title']}}</a></h3>
-					<h5>Source: {{article['source']['name']}}</h5>
-					<h5>Date: {{article['publishedAt'][0:10]}} (UTC)</h5>
-				</div>
-				{% if article['description'] != None %}
-					<p>{{article['description']}}</p>
-				{% endif %}
-					<a href = {{article['url']}} target="_blank" rel="noopener noreferrer"><object data={{article['urlToImage']}} type="image/jpg" style="max-width: 350px"></object></a> <!-- Image -->
-				<p><a href = {{article['url']}} target="_blank" rel="noopener noreferrer" style="font-family: 'Lato', sans-serif; color: #1fbed6; font-weight:bold">Learn More</a></p>
-			</div>
-		</div>
-	{% endfor %} <!-- End of For-Each Loop (Kapilesh Pennichetty) -->
+<!---------- Display All Articles from News API using Jinja (Kapilesh Pennichetty) ---------->
+{% for article in top_articles %} <!-- Beginning of For-Each Loop to display all articles (Kapilesh Pennichetty) -->
+<div class="jumbotron jumbotron-fluid" style="font-family: 'Lato', sans-serif">
+    <!-- Declaring Bootstrap Template for Articles (Kapilesh Pennichetty) -->
+    <div class="container-fluid">
+        <div class="page-header">
+            <h3><a href={{article['url']}} rel="noopener noreferrer" style="color:#ffffff" target="_blank">{{article['title']}}</a>
+            </h3>
+            <h5>Source: {{article['source']['name']}}</h5>
+            <h5>Date: {{article['publishedAt'][0:10]}} (UTC)</h5>
+        </div>
+        {% if article['description'] != None %}
+        <p>{{article['description']}}</p>
+        {% endif %}
+        <a href={{article['url']}} rel="noopener noreferrer" target="_blank">
+            <object data={{article['urlToImage']}} style="max-width: 350px" type="image/jpg"></object>
+        </a> <!-- Image -->
+        <p><a href={{article['url']}} rel="noopener noreferrer"
+              style="font-family: 'Lato', sans-serif; color: #1fbed6; font-weight:bold"
+              target="_blank">Learn More</a></p>
+    </div>
+</div>
+{% endfor %} <!-- End of For-Each Loop (Kapilesh Pennichetty) -->
 
-    <!-- Footer of Webpage (Kapilesh Pennichetty) -->
-    <footer>
-        <p align="center" style="font-family: 'Lato', sans-serif; color: #000000; font-weight:bold"><span>&#169;</span> 2021 Kapilesh Pennichetty and Sanjay Balasubramanian</p>
-    </footer>
+<!-- Footer of Webpage (Kapilesh Pennichetty) -->
+<footer>
+    <p align="center" style="font-family: 'Lato', sans-serif; color: #000000; font-weight:bold"><span>&#169;</span> 2021
+        Kapilesh Pennichetty and Sanjay Balasubramanian</p>
+</footer>
 </body>
 </html>
