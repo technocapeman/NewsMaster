@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-        <!---------- Importing Fonts(Sanjay Balasubramanian) ---------->
-        <html lang="en">
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>Weather</title>
-          <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
-        </head>
-        <body>
-        <!---------- CSS for webpage(Sanjay Balasubramanian) ---------->
-        <style>
+<!---------- Importing Fonts(Sanjay Balasubramanian) ---------->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Weather</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!---------- CSS for webpage(Sanjay Balasubramanian) ---------->
+<style>
            * {
               -webkit-font-smoothing: antialiased;
               -moz-osx-font-smoothing: grayscale;
@@ -286,7 +286,7 @@
   z-index: 2;
   visibility: hidden;
   opacity: 0;
-  overflow: hiden;
+  overflow: hidden;
   transition: .64s ease-in-out;
 }}
 .popup-inner {
@@ -356,76 +356,81 @@
   text-decoration: none;
 }
 
-       </style>
 
-       <!---------- Header of weather.html(Sanjay Balasubramanian) ---------->
-        <main class="main-container">
-<header class="header">
-  <a href="" class="logo" style="color:#1fbed6">Austin</a>
-  <input class="menu-btn" type="checkbox" id="menu-btn" />
-  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-  <ul class="menu">
+</style>
 
-    <li><a class="button" href="#popup" style="color:#1fbed6" >Weather Advice</a></li>
-    <div class="popup" id="popup">
-    <div class="popup-inner">
-      <div class="popuptext">
-        <h1 align="center" >Weather Advice</h1>
-        <p align="center" > <a href="https://webdevtrick.com">Visit WebDevTrick</a></p>
-      </div>
-      <a class="closepopup" href="#">X</a>
-    </div>
-  </div>
-    </div>
+<!---------- Header of weather.html(Sanjay Balasubramanian) ---------->
+<main class="main-container">
+    <header class="header">
+        <a class="logo" href="" style="color:#1fbed6">Austin</a>
+        <input class="menu-btn" id="menu-btn" type="checkbox"/>
+        <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+        <ul class="menu">
 
-      <li><a href="#Precipitation_Advice" style="color:#1fbed6">Precipitation Advice</a></li>
-    <li><a href="#Major_Cities" style="color:#1fbed6">Major Cities</a></li>
-  </ul>
-</header>
+            <li><a class="button" href="#popup" style="color:#1fbed6">Weather Advice</a></li>
+            <div class="popup" id="popup">
+                <div class="popup-inner">
+                    <div class="popuptext">
+                        <h1 align="center">Weather Advice</h1>
+                        <p align="center"><a href="https://webdevtrick.com">Visit WebDevTrick</a></p>
+                    </div>
+                    <a class="closepopup" href="#">X</a>
+                </div>
+            </div>
+            </div>
 
-                <!---------- Current Temperature details(Sanjay Balasubramanian) ---------->
-          <div class="current-temperature">
-            <div class="current-temperature__icon-container"></div>
-            <div class="current-temperature__content-container">
-              <div class="current-temperature__value" >{{ austin_weather[1] }} &#8457;</div>
-            </div>
-          </div>
-            <div class="current-stats">
-            <div>
-              <div class="current-stats__value">{{ austin_weather[0] }}</div>
-              <div class="current-stats__label">Description</div>
-              <div class="current-stats__value">{{ austin_weather[6] }} &#8457;</div>
-              <div class="current-stats__label">Feels Like</div>
-            </div>
-            <div>
-              <div class="current-stats__value">{{ austin_weather[2] }} mph</div>
-              <div class="current-stats__label">Wind Speed</div>
-              <div class="current-stats__value">{{ austin_weather[3] }}</div>
-              <div class="current-stats__label">Wind Direction</div>
-            </div>
-            <div>
-              <div class="current-stats__value">{{ austin_weather[7] }} in</div>
-              <div class="current-stats__label">Precipitation</div>
-              <div class="current-stats__value">{{ austin_weather[4] }}%</div>
-              <div class="current-stats__label">Humidity</div>
-            </div>
+            <li><a href="#Precipitation_Advice" style="color:#1fbed6">Precipitation Advice</a></li>
+            <li><a href="#Major_Cities" style="color:#1fbed6">Major Cities</a></li>
+        </ul>
+    </header>
+
+    <!---------- Current Temperature details(Sanjay Balasubramanian) ---------->
+    <div class="current-temperature">
+        <div class="current-temperature__icon-container"></div>
+        <div class="current-temperature__content-container">
+            <div class="current-temperature__value">{{ austin_weather[1] }} &#8457;</div>
         </div>
-            <div class="next-7-days">
-            <div class="next-7-days__container">
+    </div>
+    <div class="current-stats">
+        <div>
+            <div class="current-stats__value">{{ austin_weather[0] }}</div>
+            <div class="current-stats__label">Description</div>
+            <div class="current-stats__value">{{ austin_weather[6] }} &#8457;</div>
+            <div class="current-stats__label">Feels Like</div>
+        </div>
+        <div>
+            <div class="current-stats__value">{{ austin_weather[2] }} mph</div>
+            <div class="current-stats__label">Wind Speed</div>
+            <div class="current-stats__value">{{ austin_weather[3] }}</div>
+            <div class="current-stats__label">Wind Direction</div>
+        </div>
+        <div>
+            <div class="current-stats__value">{{ austin_weather[7] }} in</div>
+            <div class="current-stats__label">Precipitation</div>
+            <div class="current-stats__value">{{ austin_weather[4] }}%</div>
+            <div class="current-stats__label">Humidity</div>
+        </div>
+    </div>
+    <div class="next-7-days">
+        <div class="next-7-days__container">
 
-                <div class="next-7-days__weather">
-                    <h1>
-                    <a class="weatherwidget-io" href="https://forecast7.com/en/30d27n97d74/austin/?unit=us" data-label_1="AUSTIN" data-label_2="7-day Forecast" data-icons="Climacons Animated" data-mode="Forecast" data-theme="original" data-basecolor="#2f2f2f" data-textcolor="#1fbed6" >AUSTIN WEATHER</a>
+            <div class="next-7-days__weather">
+                <h1>
+                    <a class="weatherwidget-io" data-basecolor="#2f2f2f"
+                       data-icons="Climacons Animated" data-label_1="AUSTIN" data-label_2="7-day Forecast"
+                       data-mode="Forecast" data-textcolor="#1fbed6" data-theme="original" href="https://forecast7.com/en/30d27n97d74/austin/?unit=us">AUSTIN
+                        WEATHER</a>
                     <script>
                     !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+
                     </script>
-                    </h1>
-                </div>
-                </div>
+                </h1>
+            </div>
+        </div>
 
-                </div>
+    </div>
 
-        </main>
-    </body>
+</main>
+</body>
 </html>
 
