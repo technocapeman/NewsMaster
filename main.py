@@ -203,9 +203,9 @@ def weather():
             4])  # Rendering the HTML for the home page, passing required variables from
     # Python to HTML page using Jinja.
 
-"""@app.route("/get_my_ip", methods=["GET"])
+@app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
-    return request.environ['HTTP_X_FORWARDED_FOR']"""
+    return request.environ['HTTP_X_FORWARDED_FOR']
 # ---------- Main Code ----------
 
 # ----- Run background_fetch() in a background thread (Kapilesh Pennichetty) -----
