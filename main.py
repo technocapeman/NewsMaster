@@ -207,10 +207,11 @@ def weather():
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
     ip_info = jsonify(request.environ['HTTP_X_FORWARDED_FOR'])
-    if "," in ip_info:
+    return ip_info
+    """if "," in ip_info:
         return ip_info[0, ip_info.index(",")]
     else:
-        return ip_info
+        return ip_info"""
 
 
 # ---------- Main Code ----------
