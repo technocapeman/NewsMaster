@@ -4,7 +4,7 @@ from time import sleep
 
 import requests
 import schedule
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 
 # ---------- API and Program Prerequisites ----------
 
@@ -198,12 +198,14 @@ Precipitation_level = {
 def weather():
     """Page that shows weather info."""
     return render_template('weather.html', austin_weather=major_cities_weather()[0],
-                           NYC_weather=major_cities_weather()[0], london_weather=major_cities_weather()[0],
-                           sydney_weather=major_cities_weather()[0], tokyo_weather=major_cities_weather()[
-            0])  # Rendering the HTML for the home page, passing required variables from
+                           NYC_weather=major_cities_weather()[1], london_weather=major_cities_weather()[2],
+                           sydney_weather=major_cities_weather()[3], tokyo_weather=major_cities_weather()[
+            4])  # Rendering the HTML for the home page, passing required variables from
     # Python to HTML page using Jinja.
 
-
+@app.route("/get_my_ip", methods=["GET"])
+def get_my_ip():
+    return jsonify({'ip': request.remote_addr}), 200
 # ---------- Main Code ----------
 
 # ----- Run background_fetch() in a background thread (Kapilesh Pennichetty) -----
