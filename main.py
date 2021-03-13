@@ -205,7 +205,7 @@ def weather():
 
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
-    return jsonify({'ip': request.remote_addr}), 200
+    return request.environ['REMOTE_ADDR']
 # ---------- Main Code ----------
 
 # ----- Run background_fetch() in a background thread (Kapilesh Pennichetty) -----
