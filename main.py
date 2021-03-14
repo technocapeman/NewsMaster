@@ -118,7 +118,7 @@ def get_weather(location):  # location can be IP address, city, or ZIP
             uv_index = stats["uv"]
             feels_like = stats["feelslike_f"]
             precipitation = stats["precip_in"]
-            location = weather_data["location"]["name"]
+            location = scrapejson(url)["location"]["name"]
             return description, current_temp, wind_speed, wind_direction, humidity, uv_index, feels_like, precipitation, location
     except:
         return False
@@ -215,7 +215,7 @@ def weather():
     else:
         ip_addr = ip_info
 
-    return render_template('weather.html', auto_weather=get_weather(get_location("2600:1700:201:ec39:953e:8cde:7a7c:5491")),
+    return render_template('weather.html', auto_weather=get_weather(get_location(ip_addr)),
                            austin_weather=major_cities_weather()[0],
                            NYC_weather=major_cities_weather()[1], london_weather=major_cities_weather()[2],
                            sydney_weather=major_cities_weather()[3], tokyo_weather=major_cities_weather()[
