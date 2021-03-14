@@ -357,12 +357,13 @@
 }
 
 
+
 </style>
 
 <!---------- Header of weather.html(Sanjay Balasubramanian) ---------->
 <main class="main-container">
     <header class="header">
-        <a class="logo" href="" style="color:#1fbed6">{{ auto_weather[8] }}</a>
+        <a class="logo" href="" style="color:#1fbed6">{{ auto_weather["location"] }}</a>
         <input class="menu-btn" id="menu-btn" type="checkbox"/>
         <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
         <ul class="menu">
@@ -372,7 +373,7 @@
                 <div class="popup-inner">
                     <div class="popuptext">
                         <h1 align="center">Weather Advice</h1>
-                        <p align="center"><a href="https://webdevtrick.com">Visit WebDevTrick</a></p>
+                        <p align="center">Weather Advice</p>
                     </div>
                     <a class="closepopup" href="#">X</a>
                 </div>
@@ -388,26 +389,26 @@
     <div class="current-temperature">
         <div class="current-temperature__icon-container"></div>
         <div class="current-temperature__content-container">
-            <div class="current-temperature__value">{{ auto_weather[1] }} &#8457;</div>
+            <div class="current-temperature__value">{{ auto_weather["temp_f"] }} &#8457;</div>
         </div>
     </div>
     <div class="current-stats">
         <div>
-            <div class="current-stats__value">{{ auto_weather[0] }}</div>
+            <div class="current-stats__value">{{ auto_weather["description"] }}</div>
             <div class="current-stats__label">Description</div>
-            <div class="current-stats__value">{{ auto_weather[6] }} &#8457;</div>
+            <div class="current-stats__value">{{ auto_weather["feelslike_f"] }} &#8457;</div>
             <div class="current-stats__label">Feels Like</div>
         </div>
         <div>
-            <div class="current-stats__value">{{ auto_weather[2] }} mph</div>
+            <div class="current-stats__value">{{ auto_weather["wind_mph"] }} mph</div>
             <div class="current-stats__label">Wind Speed</div>
-            <div class="current-stats__value">{{ auto_weather[3] }}</div>
+            <div class="current-stats__value">{{ auto_weather["wind_dir"] }}</div>
             <div class="current-stats__label">Wind Direction</div>
         </div>
         <div>
-            <div class="current-stats__value">{{ auto_weather[7] }} in</div>
+            <div class="current-stats__value">{{ auto_weather["precip_in"] }} in</div>
             <div class="current-stats__label">Precipitation</div>
-            <div class="current-stats__value">{{ auto_weather[4] }}%</div>
+            <div class="current-stats__value">{{ auto_weather["humidity"] }}%</div>
             <div class="current-stats__label">Humidity</div>
         </div>
     </div>
@@ -418,10 +419,12 @@
                 <h1>
                     <a class="weatherwidget-io" data-basecolor="#2f2f2f"
                        data-icons="Climacons Animated" data-label_1="AUSTIN" data-label_2="7-day Forecast"
-                       data-mode="Forecast" data-textcolor="#1fbed6" data-theme="original" href="https://forecast7.com/en/30d27n97d74/austin/?unit=us">AUSTIN
+                       data-mode="Forecast" data-textcolor="#1fbed6" data-theme="original"
+                       href="https://forecast7.com/en/30d27n97d74/austin/?unit=us">AUSTIN
                         WEATHER</a>
                     <script>
                     !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+
 
                     </script>
                 </h1>
