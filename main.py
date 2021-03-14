@@ -4,6 +4,7 @@ from time import sleep
 
 import requests
 import schedule
+import json
 from flask import Flask, render_template, request, jsonify
 
 # ---------- API and Program Prerequisites ----------
@@ -207,12 +208,12 @@ def weather():
 
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
-    ip_info = request.environ['HTTP_X_FORWARDED_FOR']
+    ip_info_json = jsonify(request.environ['HTTP_X_FORWARDED_FOR'])
+    ip_info = json.loads(ip_info_json)
     if "," in ip_info:
         return ip_info[:ip_info.index(",")]
     else:
         return ip_info
-
 
 # ---------- Main Code ----------
 
