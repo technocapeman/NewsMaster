@@ -90,9 +90,7 @@ def get_location(ip_address):
     """This function retrieves the location of a person using their IP address. (Done by Kapilesh Pennichetty)"""
     ext_ip = requests.get('https://api.ipify.org').text
     # (Reference: https://stackoverflow.com/questions/2311510/getting-a-machines-external-ip-address-with-python)
-    url = f'http://api.ipstack.com/{ip_address}&' \
-          f'output=json?' \
-          f'access_key={ipstackapi_key}'  # IPStack API Documentation: https://ipstack.com/documentation
+    url = f'http://ip-api.com/json/{ip_address}'
     location_data = scrapejson(url)
     city = location_data["city"]
     return city
@@ -207,8 +205,6 @@ Precipitation_level = {
         Precipitation_commentary = Precipitation_level[3]
 """
 
-print(get_weather("2600:1700:201:ec39:953e:8cde:7a7c:5491"))
-
 
 @app.route("/weather", methods=["GET"])
 def weather():
@@ -230,12 +226,14 @@ def weather():
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
     ip_info = request.environ['HTTP_X_FORWARDED_FOR']
-    if "," in ip_info:
+    """if "," in ip_info:
         ip_addr = ip_info[:ip_info.index(",")]
     else:
         ip_addr = ip_info
 
-    return ip_addr
+    return ip_addr"""
+
+    return ip_info
 
 
 # ---------- Main Code ----------
