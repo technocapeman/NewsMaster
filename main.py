@@ -107,7 +107,8 @@ def get_weather(location):  # location can be IP address, city, or ZIP
             uv_index = stats["uv"]
             feels_like = stats["feelslike_f"]
             precipitation = stats["precip_in"]
-            return description, current_temp, wind_speed, wind_direction, humidity, uv_index, feels_like, precipitation
+            location = weather_data["location"]["name"]
+            return description, current_temp, wind_speed, wind_direction, humidity, uv_index, feels_like, precipitation, location
     except:
         return False
 
@@ -197,7 +198,7 @@ Precipitation_level = {
 @app.route("/weather")
 def weather():
     """Page that shows weather info."""
-    return render_template('weather.html', austin_weather=major_cities_weather()[0],
+    return render_template('weather.html', auto_weather=get_weather(get_my_ip()), austin_weather=major_cities_weather()[0],
                            NYC_weather=major_cities_weather()[1], london_weather=major_cities_weather()[2],
                            sydney_weather=major_cities_weather()[3], tokyo_weather=major_cities_weather()[
             4])  # Rendering the HTML for the home page, passing required variables from
