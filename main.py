@@ -198,12 +198,8 @@ Precipitation_level = {
 @app.route("/weather", methods=["GET"])
 def weather():
     """Page that shows weather info."""
-    ip_info = request.environ['HTTP_X_FORWARDED_FOR']
-    if "," in ip_info:
-        ip_addr = ip_info[:ip_info.index(",")]
-    else:
-        ip_addr = ip_info
-    return render_template('weather.html', auto_weather=get_weather(ip_addr),
+    return render_template('weather.html', auto_weather=get_weather(
+        request.environ['HTTP_X_FORWARDED_FOR'][:request.environ['HTTP_X_FORWARDED_FOR'].index(",")]),
                            austin_weather=major_cities_weather()[0],
                            NYC_weather=major_cities_weather()[1], london_weather=major_cities_weather()[2],
                            sydney_weather=major_cities_weather()[3], tokyo_weather=major_cities_weather()[
