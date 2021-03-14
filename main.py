@@ -210,13 +210,13 @@ def weather():
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
     ip_info = request.environ['HTTP_X_FORWARDED_FOR']
-    return type(ip_info)
+    return str(type(ip_info))
     """if "," in ip_info:
         return ip_info[:ip_info.index(",")]
     else:
         return ip_info"""
 
-print(get_my_ip())
+
 # ---------- Main Code ----------
 
 # ----- Run background_fetch() in a background thread (Kapilesh Pennichetty) -----
