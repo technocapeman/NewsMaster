@@ -12,6 +12,8 @@ newsapi_key = 'YOUR_NEWSAPI_KEY_HERE'  # Defining API Key for use with News API
 
 weatherapi_key = 'YOUR_WEATHERAPI_KEY_HERE'  # Defining API Key for use with Weather API
 
+ipstackapi_key = 'c4b64d4441b6342c27001dc87593d4f0'  # Defining API Key for use with IPStack API
+
 app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojects.com/en/1.1.x/)
 
 # ---------- Functions and Data ----------
@@ -84,6 +86,16 @@ def scrapejson(jsonurl):
     data = api_output.json()
     return data
 
+def get_location(ip_address):
+    """This function retrieves the location of a person using their IP address. (Done by Kapilesh Pennichetty)"""
+    ext_ip = requests.get('https://api.ipify.org').text
+    # (Reference: https://stackoverflow.com/questions/2311510/getting-a-machines-external-ip-address-with-python)
+    url = f'http://api.ipstack.com/{ip_address}&' \
+          f'output=json?' \
+          f'access_key={ipstackapi_key}'  # IPStack API Documentation: https://ipstack.com/documentation
+    location_data = scrapejson(url)
+    city = location_data["city"]
+    return city
 
 def get_weather(location):  # location can be IP address, city, or ZIP
     """This function takes the location and outputs the current weather. (Made by
@@ -194,12 +206,12 @@ Precipitation_level = {
         Precipitation_commentary = Precipitation_level[3]
 """
 
+print(get_weather("2600:1700:201:ec39:953e:8cde:7a7c:5491"))
 
 @app.route("/weather", methods=["GET"])
 def weather():
     """Page that shows weather info."""
-    return render_template('weather.html', auto_weather=get_weather(
-        request.environ['HTTP_X_FORWARDED_FOR'][:request.environ['HTTP_X_FORWARDED_FOR'].index(",")]),
+    return render_template('weather.html', auto_weather=get_weather(get_location(get_my_ip())),
                            austin_weather=major_cities_weather()[0],
                            NYC_weather=major_cities_weather()[1], london_weather=major_cities_weather()[2],
                            sydney_weather=major_cities_weather()[3], tokyo_weather=major_cities_weather()[
