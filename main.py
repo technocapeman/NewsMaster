@@ -12,8 +12,6 @@ newsapi_key = 'YOUR_NEWSAPI_KEY_HERE'  # Defining API Key for use with News API
 
 weatherapi_key = 'YOUR_WEATHERAPI_KEY_HERE'  # Defining API Key for use with Weather API
 
-ipstackapi_key = 'c4b64d4441b6342c27001dc87593d4f0'  # Defining API Key for use with IPStack API
-
 app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojects.com/en/1.1.x/)
 
 # ---------- Functions and Data ----------
@@ -76,8 +74,6 @@ def background_fetch():
 
 # ------- Weather (Kapilesh Pennichetty and Sanjay Balasubramanian) -------
 
-major_cities = ["Austin", "New York City", "London", "Sydney", "Tokyo"]
-
 
 def scrapejson(jsonurl):
     """This function scrapes a URL to get the JSON file at the URL. (Made by Kapilesh Pennichetty)"""
@@ -86,59 +82,40 @@ def scrapejson(jsonurl):
     return data
 
 
-def get_location(ip_address):
-    """This function retrieves the location of a person using their IP address. (Done by Kapilesh Pennichetty)"""
-    ext_ip = requests.get('https://api.ipify.org').text
-    # (Reference: https://stackoverflow.com/questions/2311510/getting-a-machines-external-ip-address-with-python)
-    url = f'http://ip-api.com/json/{ip_address}'
-    location_data = scrapejson(url)
-    city = location_data["city"]
-    return city
-
-
 def get_weather(location):  # location can be IP address, city, or ZIP
     """This function takes the location and outputs the current weather. (Made by
     Kapilesh Pennichetty and Sanjay Balasubramanian)"""
     url = f"https://api.weatherapi.com/v1/current.json?" \
           f"key={weatherapi_key}&" \
           f"q={location}"
-    stats = {"temp_f": 0, "wind_mph": 0, "wind_dir": "", "humidity": 0, "precip_in": 0.0, "uv": 0.0, "feelslike_f": 0}
+    stats = {"temp_f": 0, "wind_mph": 0, "wind_dir": "", "humidity": 0, "precip_in": 0.0, "uv": 0.0, "feelslike_f": 0,
+             "description": "", "location": ""}
     try:
         weather_data = scrapejson(url)['current']
         if "error" in weather_data:
             return False
         else:
             for stat in stats:
-                stats[stat] = weather_data[stat]
-            description = weather_data['condition']['text']
-            current_temp = stats["temp_f"]
-            wind_speed = stats["wind_mph"]
-            wind_direction = stats["wind_dir"]
-            humidity = stats["humidity"]
-            uv_index = stats["uv"]
-            feels_like = stats["feelslike_f"]
-            precipitation = stats["precip_in"]
-            location = scrapejson(url)["location"]["name"]
-            return description, current_temp, wind_speed, wind_direction, humidity, uv_index, feels_like, precipitation, location
+                if stat == "description":
+                    stats[stat] = weather_data['condition'][stat]
+                elif stat == "location":
+                    stats[stat] = scrapejson(url)[stat]["name"]
+                else:
+                    stats[stat] = weather_data[stat]
+            return stats
     except:
         return False
 
 
 def major_cities_weather():
     """This function finds and returns the weather of the major cities. (Done by Kapilesh Pennichetty)"""
-    cities_weather = []
+    cities_weather = {"Austin": {}, "New York City": {}, "London": {}, "Sydney": {}, "Tokyo": {}}
 
-    for city in major_cities:
+    for city in cities_weather:
         city_weather = get_weather(city)
-        cities_weather.append(city_weather)
+        cities_weather[city] = city_weather
 
-    Austin_Weather = cities_weather[0]
-    NYC_Weather = cities_weather[1]
-    London_Weather = cities_weather[2]
-    Sydney_Weather = cities_weather[3]
-    Tokyo_Weather = cities_weather[4]
-
-    return Austin_Weather, NYC_Weather, London_Weather, Sydney_Weather, Tokyo_Weather
+    return cities_weather
 
 
 # ------- Webpages (Documentation: https://flask.palletsprojects.com/en/1.1.x/ and
@@ -215,25 +192,13 @@ def weather():
     else:
         ip_addr = ip_info
 
-    return render_template('weather.html', auto_weather=get_weather(get_location(ip_addr)),
-                           austin_weather=major_cities_weather()[0],
-                           NYC_weather=major_cities_weather()[1], london_weather=major_cities_weather()[2],
-                           sydney_weather=major_cities_weather()[3], tokyo_weather=major_cities_weather()[
-            4])  # Rendering the HTML for the home page, passing required variables from
+    return render_template('weather.html', auto_weather=get_weather(ip_addr),
+                           austin_weather=major_cities_weather()["Austin"],
+                           NYC_weather=major_cities_weather()["New York City"],
+                           london_weather=major_cities_weather()["London"],
+                           sydney_weather=major_cities_weather()["Sydney"], tokyo_weather=major_cities_weather()[
+            "Tokyo"])  # Rendering the HTML for the home page, passing required variables from
     # Python to HTML page using Jinja.
-
-
-@app.route("/get_my_ip", methods=["GET"])
-def get_my_ip():
-    ip_info = request.environ['HTTP_X_FORWARDED_FOR']
-    """if "," in ip_info:
-        ip_addr = ip_info[:ip_info.index(",")]
-    else:
-        ip_addr = ip_info
-
-    return ip_addr"""
-
-    return ip_info
 
 
 # ---------- Main Code ----------
