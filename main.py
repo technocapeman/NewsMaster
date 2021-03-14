@@ -88,7 +88,7 @@ def get_weather(location):  # location can be IP address, city, or ZIP
     url = f"https://api.weatherapi.com/v1/current.json?" \
           f"key={weatherapi_key}&" \
           f"q={location}"
-    stats = {"temp_f": 0, "wind_mph": 0, "wind_dir": "", "humidity": 0, "precip_in": 0.0, "uv": 0.0, "feelslike_f": 0,
+    stats = {"temp_f": 0, "wind_mph": 0, "wind_dir": "", "humidity": 0, "precip_in": 0.0, "feelslike_f": 0,
              "text": "", "location": ""}
     weather_data = scrapejson(url)['current']
     if "error" in weather_data:
