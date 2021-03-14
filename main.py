@@ -208,7 +208,7 @@ def weather():
 
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
-    ip_info = request.environ['REMOTE_ADDR']
+    ip_info = request.environ['PROXY_ADD_X_FORWARDED_FOR']
     if "," in ip_info:
         return str(ip_info[:ip_info.index(",")])
     else:
