@@ -215,7 +215,7 @@ def weather():
     else:
         ip_addr = ip_info
 
-    return render_template('weather.html', auto_weather=get_weather(get_location(ip_addr)),
+    return render_template('weather.html', auto_weather=get_weather(get_location("2600:1700:201:ec39:953e:8cde:7a7c:5491")),
                            austin_weather=major_cities_weather()[0],
                            NYC_weather=major_cities_weather()[1], london_weather=major_cities_weather()[2],
                            sydney_weather=major_cities_weather()[3], tokyo_weather=major_cities_weather()[
