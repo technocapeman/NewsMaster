@@ -208,12 +208,11 @@ def weather():
 
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
-    ip_info_json = jsonify(request.environ['HTTP_X_FORWARDED_FOR'])
-    ip_info = json.loads(ip_info_json)
+    ip_info = request.environ['HTTP_X_FORWARDED_FOR']
     if "," in ip_info:
-        return ip_info[:ip_info.index(",")]
+        return str(ip_info[:ip_info.index(",")])
     else:
-        return ip_info
+        return str(ip_info)
 
 # ---------- Main Code ----------
 
