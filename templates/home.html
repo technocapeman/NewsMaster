@@ -43,6 +43,7 @@
 
 
 
+
     </style>
 
 </head>
@@ -61,19 +62,25 @@
             <h1 class="alignleft"><a href="/" style="color: #1fbed6">NewsMaster</a></h1>
             <h1 class="alignright">
                 <a href="/weather" style="color: #1fbed6">
-                {% if (weather_desc == 'Sunny') or (weather_desc == 'Clear') %}
-                    <img height="75px" src="{{ url_for('static', filename='images/Sunny-newsmaster.png') }}" width="75px">
-                {% elif (weather_desc == 'Cloudy') %}
-                    <img height="75px" src="{{ url_for('static', filename='images/Cloudy-newsmaster.png') }}" width="75px">
-                {% elif ('thunder' in weather_desc) %}
-                    <img height="75px" src="{{ url_for('static', filename='images/storm-newsmaster.png') }}" width="75px">
-                {% elif ('rain' in weather_desc) or ('drizzle' in weather_desc) %}
-                    <img height="75px" src="{{ url_for('static', filename='images/rainy-newsmaster.png') }}" width="75px">
-                {% elif (weather_desc == 'Blizzard') or ('snow' in weather_desc) %}
-                    <img height="75px" src="{{ url_for('static', filename='images/snow-newsmaster.png') }}" width="75px">
-                {% else %}
-                    <img height="75px" src="{{ url_for('static', filename='images/NewsMaster_Weather.png') }}" width="75px">
-                {% endif %}
+                    {% if (weather_desc == 'Sunny') or (weather_desc == 'Clear') %}
+                    <img height="75px" src="{{ url_for('static', filename='images/Sunny-newsmaster.png') }}"
+                         width="75px">
+                    {% elif (weather_desc == 'Cloudy') %}
+                    <img height="75px" src="{{ url_for('static', filename='images/Cloudy-newsmaster.png') }}"
+                         width="75px">
+                    {% elif ('thunder' in weather_desc) %}
+                    <img height="75px" src="{{ url_for('static', filename='images/storm-newsmaster.png') }}"
+                         width="75px">
+                    {% elif ('rain' in weather_desc) or ('drizzle' in weather_desc) %}
+                    <img height="75px" src="{{ url_for('static', filename='images/rainy-newsmaster.png') }}"
+                         width="75px">
+                    {% elif (weather_desc == 'Blizzard') or ('snow' in weather_desc) %}
+                    <img height="75px" src="{{ url_for('static', filename='images/snow-newsmaster.png') }}"
+                         width="75px">
+                    {% else %}
+                    <img height="75px" src="{{ url_for('static', filename='images/NewsMaster_Weather.png') }}"
+                         width="75px">
+                    {% endif %}
                 </a>
             </h1>
             <div style="clear: both;"></div>
