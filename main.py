@@ -1,10 +1,10 @@
 # ---------- Import Statements ----------
+import json
 from threading import Thread
 from time import sleep
 
 import requests
 import schedule
-import json
 from flask import Flask, render_template, request, jsonify
 
 # ---------- API and Program Prerequisites ----------
@@ -199,7 +199,8 @@ Precipitation_level = {
 @app.route("/weather")
 def weather():
     """Page that shows weather info."""
-    return render_template('weather.html', auto_weather=get_weather(get_my_ip()), austin_weather=major_cities_weather()[0],
+    return render_template('weather.html', auto_weather=get_weather(get_my_ip()),
+                           austin_weather=major_cities_weather()[0],
                            NYC_weather=major_cities_weather()[1], london_weather=major_cities_weather()[2],
                            sydney_weather=major_cities_weather()[3], tokyo_weather=major_cities_weather()[
             4])  # Rendering the HTML for the home page, passing required variables from
@@ -208,11 +209,13 @@ def weather():
 
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
-    ip_info = request.environ['HTTP_X_FORWARDED_FOR']
+    ip_info_json = jsonify(request.environ['HTTP_X_FORWARDED_FOR'])
+    ip_info = str(json.loads(ip_info_json))
     if "," in ip_info:
-        return str(ip_info[:ip_info.index(",")])
+        return ip_info[:ip_info.index(",")]
     else:
-        return str(ip_info)
+        return ip_info
+
 
 # ---------- Main Code ----------
 
