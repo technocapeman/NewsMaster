@@ -89,22 +89,19 @@ def get_weather(location):  # location can be IP address, city, or ZIP
           f"key={weatherapi_key}&" \
           f"q={location}"
     stats = {"temp_f": 0, "wind_mph": 0, "wind_dir": "", "humidity": 0, "precip_in": 0.0, "uv": 0.0, "feelslike_f": 0,
-             "description": "", "location": ""}
-    try:
-        weather_data = scrapejson(url)['current']
-        if "error" in weather_data:
-            return False
-        else:
-            for stat in stats:
-                if stat == "description":
-                    stats[stat] = weather_data['condition'][stat]
-                elif stat == "location":
-                    stats[stat] = scrapejson(url)[stat]["name"]
-                else:
-                    stats[stat] = weather_data[stat]
-            return stats
-    except:
+             "text": "", "location": ""}
+    weather_data = scrapejson(url)['current']
+    if "error" in weather_data:
         return False
+    else:
+        for stat in stats:
+            if stat == "text":
+                stats[stat] = weather_data['condition'][stat]
+            elif stat == "location":
+                stats[stat] = scrapejson(url)[stat]["name"]
+            else:
+                stats[stat] = weather_data[stat]
+        return stats
 
 
 def major_cities_weather():
