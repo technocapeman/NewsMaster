@@ -120,10 +120,15 @@ def major_cities_weather():
 
 # ----- Home Page (Kapilesh Pennichetty) -----
 
-@app.route("/")  # Telling Flask that the url with "/" appended at the end should lead to the home page.
+@app.route("/", methods=['GET'])  # Telling Flask that the url with "/" appended at the end should lead to the home page.
 def home():
     """Home page that shows trending articles."""
-    return render_template('home.html', top_articles=top_headlines)
+    ip_info = request.environ['HTTP_X_FORWARDED_FOR']
+    if "," in ip_info:
+        ip_addr = ip_info[:ip_info.index(",")]
+    else:
+        ip_addr = ip_info
+    return render_template('home.html', top_articles=top_headlines, weather_desc=get_weather(ip_addr)["text"])
     # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
 
 
