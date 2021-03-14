@@ -120,7 +120,8 @@ def major_cities_weather():
 
 # ----- Home Page (Kapilesh Pennichetty) -----
 
-@app.route("/", methods=['GET'])  # Telling Flask that the url with "/" appended at the end should lead to the home page.
+@app.route("/",
+           methods=['GET'])  # Telling Flask that the url with "/" appended at the end should lead to the home page.
 def home():
     """Home page that shows trending articles."""
     ip_info = request.environ['HTTP_X_FORWARDED_FOR']
@@ -187,7 +188,7 @@ Precipitation_level = {
 
 @app.route("/weather", methods=["GET"])
 def weather():
-    """Page that shows weather info."""
+    """Page that shows weather info. (Done by Kapilesh Pennichetty and Sanjay Balasubramanian)"""
     ip_info = request.environ['HTTP_X_FORWARDED_FOR']
     if "," in ip_info:
         ip_addr = ip_info[:ip_info.index(",")]
