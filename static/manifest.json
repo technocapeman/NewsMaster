@@ -1,26 +1,26 @@
 {
   "name": "NewsMaster",
   "short_name": "NewsMaster",
-  "theme_color": "#2f2f2f",
-  "background_color": "#ffffff",
+  "theme_color": "#1fbed6",
+  "background_color": "#2f2f2f",
   "icons": [
     {
-      "src": "/static/images/icon-64.png",
+      "src": "/static/images/logo.png",
       "type": "image/png",
       "sizes": "64x64"
     },
     {
-      "src": "/static/images/icon-96.png",
+      "src": "/static/images/logo.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "/static/images/icon-192.png",
+      "src": "/static/images/logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/static/images/icon-512.png",
+      "src": "/static/images/logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
