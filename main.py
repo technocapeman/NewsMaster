@@ -89,7 +89,7 @@ def get_weather(location):  # location can be IP address, city, or ZIP
           f"key={weatherapi_key}&" \
           f"q={location}"
     stats = {"temp_f": 0, "wind_mph": 0, "wind_dir": "", "humidity": 0, "precip_in": 0.0, "feelslike_f": 0,
-             "text": "", "location": ""}
+             "text": "", "icon": "", "location": ""}
     weather_data = scrapejson(url)['current']
     if "error" in weather_data:
         return False
@@ -97,6 +97,8 @@ def get_weather(location):  # location can be IP address, city, or ZIP
         for stat in stats:
             if stat == "text":
                 stats[stat] = weather_data['condition'][stat]
+            elif stat == "icon":
+                stats[stat] = "https:" + weather_data['condition'][stat]
             elif stat == "location":
                 stats[stat] = scrapejson(url)[stat]["name"]
             else:
@@ -129,7 +131,7 @@ def home():
         ip_addr = ip_info[:ip_info.index(",")]
     else:
         ip_addr = ip_info
-    return render_template('home.html', top_articles=top_headlines, weather_desc=get_weather(ip_addr)["text"])
+    return render_template('home.html', top_articles=top_headlines, weather_icon=get_weather(ip_addr)["icon"])
     # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
 
 
