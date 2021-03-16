@@ -117,8 +117,8 @@ def major_cities_weather():
     return cities_weather
 
 
-def weather_commentary(current_temp):
-    """Gives weather advice to the end user. (Done by Sanjay Balasubramanian)"""
+def temp_commentary(current_temp):
+    """Gives temperature advice to the end user. (Done by Sanjay Balasubramanian)"""
     temperature = int(current_temp)
     temperature_level = {
         0: "It's scorching hot. Stay inside and be cool!",
@@ -196,8 +196,8 @@ def weather():
                            london_weather=major_cities_weather()["London"],
                            sydney_weather=major_cities_weather()["Sydney"],
                            tokyo_weather=major_cities_weather()["Tokyo"],
-                           weather_advice=weather_commentary(get_weather("Austin")["temp_f"]),
-                           temp_advice_auto=precip_advice(get_weather(ip_addr)["precip_in"]),
+                           temp_advice_auto=temp_commentary(get_weather(ip_addr)["temp_f"]),
+                           precip_advice_auto=precip_advice(get_weather(ip_addr)["precip_in"]),
                            auto_weather=get_weather(ip_addr))
     # Rendering the HTML for the home page, passing required variables from
     # Python to HTML page using Jinja.
