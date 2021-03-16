@@ -79,20 +79,30 @@
     <!-- Declaring Bootstrap Template for Articles (Kapilesh Pennichetty) -->
     <div class="container-fluid">
         <div class="page-header">
+            {% if (article['title'] != None) and (article['url'] != None) %}
             <h3><a href={{article['url']}} rel="noopener noreferrer" style="color:#ffffff" target="_blank">{{article['title']}}</a>
             </h3>
-            <h5>Source: {{article['source']['name']}}</h5>
-            <h5>Date: {{article['publishedAt'][0:10]}} (UTC)</h5>
+            {% endif %}
+            {% if article['source']['name'] != None %}
+                <h5>Source: {{article['source']['name']}}</h5>
+            {% endif %}
+            {% if article['publishedAt'][0:10] != None %}
+                <h5>Date: {{article['publishedAt'][0:10]}} (UTC)</h5>
+            {% endif %}
         </div>
         {% if article['description'] != None %}
-        <p>{{article['description']}}</p>
+            <p>{{article['description']}}</p>
         {% endif %}
+        {% if article['urlToImage'] != None %}
         <a href={{article['url']}} rel="noopener noreferrer" target="_blank">
             <object data={{article['urlToImage']}} style="max-width: 350px" type="image/jpg"></object>
-        </a> <!-- Image -->
-        <p><a href={{article['url']}} rel="noopener noreferrer"
-              style="font-family: 'Lato', sans-serif; color: #1fbed6; font-weight:bold"
-              target="_blank">Learn More</a></p>
+        </a>
+        {% endif %}
+        {% if article['url'] != None %}
+            <p><a href={{article['url']}} rel="noopener noreferrer"
+                  style="font-family: 'Lato', sans-serif; color: #1fbed6; font-weight:bold"
+                  target="_blank">Learn More</a></p>
+        {% endif %}
     </div>
 </div>
 {% endfor %} <!-- End of For-Each Loop (Kapilesh Pennichetty) -->
