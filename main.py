@@ -4,7 +4,7 @@ from time import sleep
 
 import requests
 import schedule
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 
 # ---------- API and Program Prerequisites ----------
 
@@ -90,31 +90,24 @@ def get_weather(location):  # location can be IP address, city, or ZIP
           f"q={location}"
     stats = {"temp_f": 0, "wind_mph": 0, "wind_dir": "", "humidity": 0, "precip_in": 0.0, "feelslike_f": 0,
              "text": "", "icon": "", "location": ""}
-    weather_data = scrapejson(url)['current']
-    if "error" in weather_data:
-        return False
-    else:
-        for stat in stats:
-            if stat == "text":
-                stats[stat] = weather_data['condition'][stat]
-            elif stat == "icon":
-                stats[stat] = "https:" + weather_data['condition'][stat]
-            elif stat == "location":
-                stats[stat] = scrapejson(url)[stat]["name"]
-            else:
-                stats[stat] = weather_data[stat]
-        return stats
-
-
-def major_cities_weather():
-    """This function finds and returns the weather of the major cities. (Done by Kapilesh Pennichetty)"""
-    cities_weather = {"Austin": {}, "New York City": {}, "London": {}, "Sydney": {}, "Tokyo": {}}
-
-    for city in cities_weather:
-        city_weather = get_weather(city)
-        cities_weather[city] = city_weather
-
-    return cities_weather
+    error_message = "Error: Make sure your parameter is correct."
+    try:
+        weather_data = scrapejson(url)['current']
+        if "error" in weather_data:
+            return error_message
+        else:
+            for stat in stats:
+                if stat == "text":
+                    stats[stat] = weather_data['condition'][stat]
+                elif stat == "icon":
+                    stats[stat] = "https:" + weather_data['condition'][stat]
+                elif stat == "location":
+                    stats[stat] = scrapejson(url)[stat]["name"]
+                else:
+                    stats[stat] = weather_data[stat]
+            return stats
+    except:
+        return error_message
 
 
 def temp_commentary(current_temp):
@@ -181,26 +174,32 @@ def home():
 # ----- Weather Page -----
 
 
-@app.route("/weather", methods=["GET"])
+@app.route("/weather", methods=["GET", "POST"])
 def weather():
     """Page that shows weather info. (Done by Kapilesh Pennichetty and Sanjay Balasubramanian)"""
-    ip_info = request.environ['HTTP_X_FORWARDED_FOR']
-    if "," in ip_info:
-        ip_addr = ip_info[:ip_info.index(",")]
+    if request.method == "POST":
+        location = request.form["nm"]
+        return redirect(url_for("weather_search", place=location))
     else:
-        ip_addr = ip_info
+        ip_info = request.environ['HTTP_X_FORWARDED_FOR']
+        if "," in ip_info:
+            ip_addr = ip_info[:ip_info.index(",")]
+        else:
+            ip_addr = ip_info
 
-    return render_template('weather.html',
-                           austin_weather=major_cities_weather()["Austin"],
-                           NYC_weather=major_cities_weather()["New York City"],
-                           london_weather=major_cities_weather()["London"],
-                           sydney_weather=major_cities_weather()["Sydney"],
-                           tokyo_weather=major_cities_weather()["Tokyo"],
-                           temp_advice_auto=temp_commentary(get_weather(ip_addr)["temp_f"]),
-                           precip_advice_auto=precip_advice(get_weather(ip_addr)["precip_in"]),
-                           auto_weather=get_weather(ip_addr))
-    # Rendering the HTML for the home page, passing required variables from
-    # Python to HTML page using Jinja.
+        return render_template('weather.html',
+                               temp_advice_auto=temp_commentary(get_weather(ip_addr)["temp_f"]),
+                               precip_advice_auto=precip_advice(get_weather(ip_addr)["precip_in"]),
+                               auto_weather=get_weather(ip_addr))
+        # Rendering the HTML for the home page, passing required variables from
+        # Python to HTML page using Jinja.
+
+
+@app.route("/<place>")
+def weather_search(place):
+    return render_template("weather_search.html", temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
+                           search_weather=get_weather(place),
+                           precip_advice_search=precip_advice(get_weather(place)["precip_in"]))
 
 
 # ---------- Main Code ----------
