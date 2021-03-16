@@ -83,8 +83,8 @@ def scrapejson(jsonurl):
 
 
 def get_weather(location):  # location can be IP address, city, or ZIP
-    """This function takes the location and outputs the current weather. (Made by
-    Kapilesh Pennichetty and Sanjay Balasubramanian)"""
+    """This function takes the location and outputs the current weather. (Done by
+    Kapilesh Pennichetty)"""
     url = f"https://api.weatherapi.com/v1/current.json?" \
           f"key={weatherapi_key}&" \
           f"q={location}"
@@ -116,7 +116,9 @@ def major_cities_weather():
 
     return cities_weather
 
+
 def weather_commentary(current_temp):
+    """Gives weather advice to the end user. (Done by Sanjay Balasubramanian)"""
     temperature = int(current_temp)
     temperature_level = {
         0: "It's scorching hot. Stay inside and be cool!",
@@ -145,6 +147,7 @@ def weather_commentary(current_temp):
 
 
 def precip_advice(precip_in):
+    """Gives precipitation advice to the end user (Done by Sanjay Balasubramanian and Kapilesh Pennichetty)"""
     precipitation_level = {0: "There is low to no chance of rain. No need for an umbrella.",
                            1: "There is a moderate chance of rain. Grab an umbrella on your way out just in case. ☔",
                            2: "It is definitely going to rain today! GRAB YOUR UMBRELLA AND YOUR RAINCOAT. ☔ 🧥"}
@@ -165,15 +168,15 @@ def precip_advice(precip_in):
 @app.route("/",
            methods=['GET'])  # Telling Flask that the url with "/" appended at the end should lead to the home page.
 def home():
-    """Home page that shows trending articles."""
-    """ip_info = request.environ['HTTP_X_FORWARDED_FOR']
+    """Home page that shows trending articles. (Done by Kapilesh Pennichetty)"""
+    ip_info = request.environ['HTTP_X_FORWARDED_FOR']
     if "," in ip_info:
         ip_addr = ip_info[:ip_info.index(",")]
     else:
-        ip_addr = ip_info"""
-    return render_template('home.html', top_articles=top_headlines)
+        ip_addr = ip_info
+    return render_template('home.html', top_articles=top_headlines, weather_icon=get_weather(ip_addr)["icon"])
     # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
-""" weather_icon=get_weather(ip_addr)["icon"]"""
+
 
 # ----- Weather Page -----
 
@@ -181,11 +184,11 @@ def home():
 @app.route("/weather", methods=["GET"])
 def weather():
     """Page that shows weather info. (Done by Kapilesh Pennichetty and Sanjay Balasubramanian)"""
-    """ip_info = request.environ['HTTP_X_FORWARDED_FOR']
+    ip_info = request.environ['HTTP_X_FORWARDED_FOR']
     if "," in ip_info:
         ip_addr = ip_info[:ip_info.index(",")]
     else:
-        ip_addr = ip_info"""
+        ip_addr = ip_info
 
     return render_template('weather.html',
                            austin_weather=major_cities_weather()["Austin"],
@@ -194,10 +197,11 @@ def weather():
                            sydney_weather=major_cities_weather()["Sydney"],
                            tokyo_weather=major_cities_weather()["Tokyo"],
                            weather_advice=weather_commentary(get_weather("Austin")["temp_f"]),
-                           precip_advice=precip_advice(get_weather("Austin")["precip_in"]))
+                           temp_advice_auto=precip_advice(get_weather(ip_addr)["precip_in"]),
+                           auto_weather=get_weather(ip_addr))
     # Rendering the HTML for the home page, passing required variables from
     # Python to HTML page using Jinja.
-"""auto_weather=get_weather(ip_addr),"""
+
 
 # ---------- Main Code ----------
 
