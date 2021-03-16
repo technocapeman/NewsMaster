@@ -116,27 +116,6 @@ def major_cities_weather():
 
     return cities_weather
 
-
-# ------- Webpages (Documentation: https://flask.palletsprojects.com/en/1.1.x/ and
-# https://jinja.palletsprojects.com/en/2.11.x/) -------
-
-# ----- Home Page (Kapilesh Pennichetty) -----
-
-@app.route("/",
-           methods=['GET'])  # Telling Flask that the url with "/" appended at the end should lead to the home page.
-def home():
-    """Home page that shows trending articles."""
-    ip_info = request.environ['HTTP_X_FORWARDED_FOR']
-    if "," in ip_info:
-        ip_addr = ip_info[:ip_info.index(",")]
-    else:
-        ip_addr = ip_info
-    return render_template('home.html', top_articles=top_headlines, weather_icon=get_weather(ip_addr)["icon"])
-    # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
-
-
-# ----- Weather Page -----
-
 def weather_commentary(current_temp):
     temperature = int(current_temp)
     temperature_level = {
@@ -165,46 +144,60 @@ def weather_commentary(current_temp):
         return temperature_level[6]
 
 
-"""Precipitation_WARNING = data['daily']['data'][0]['precipProbability']
-Precipitation_level = {
-                    0:  "there is a slight chance of rain. " \
-                        "You might want to grab an umbrella ☔",
-                    1:  "there is a high chance of rain. " \
-                        "Grab an umbrella on your way out! ☔",
-                    2:  "it is raining right now!",
-                    3:  "it is definitely going to rain today! " \
-                        "GRAB YOUR UMBRELLA. ☔"
-                }
-    if Precipitation_WARNING == 0:
-        Precipitation_commentary = weather_commentary(temperature)
-    elif 0 < Precipitation_WARNING <= .5:
-        Precipitation_commentary = Precipitation_level[0]
-    elif .5 < Precipitation_WARNING < .75:
-        Precipitation_commentary = Precipitation_level[1]
-    elif Precipitation_WARNING == 1:
-        Precipitation_commentary = Precipitation_level[2]
+def precip_advice(precip_in):
+    precipitation_level = {0: "There is low to no chance of rain. No need for an umbrella.",
+                           1: "There is a moderate chance of rain. Grab an umbrella on your way out just in case. ☔",
+                           2: "It is definitely going to rain today! GRAB YOUR UMBRELLA AND YOUR RAINCOAT. ☔ 🧥"}
+
+    if precip_in <= .1:
+        return precipitation_level[0]
+    elif .1 < precip_in < .3:
+        return precipitation_level[1]
+    elif precip_in >= 0.3:
+        return precipitation_level[2]
+
+
+# ------- Webpages (Documentation: https://flask.palletsprojects.com/en/1.1.x/ and
+# https://jinja.palletsprojects.com/en/2.11.x/) -------
+
+# ----- Home Page (Kapilesh Pennichetty) -----
+
+@app.route("/",
+           methods=['GET'])  # Telling Flask that the url with "/" appended at the end should lead to the home page.
+def home():
+    """Home page that shows trending articles."""
+    """ip_info = request.environ['HTTP_X_FORWARDED_FOR']
+    if "," in ip_info:
+        ip_addr = ip_info[:ip_info.index(",")]
     else:
-        Precipitation_commentary = Precipitation_level[3]
-"""
+        ip_addr = ip_info"""
+    return render_template('home.html', top_articles=top_headlines)
+    # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
+""" weather_icon=get_weather(ip_addr)["icon"]"""
+
+# ----- Weather Page -----
 
 
 @app.route("/weather", methods=["GET"])
 def weather():
     """Page that shows weather info. (Done by Kapilesh Pennichetty and Sanjay Balasubramanian)"""
-    ip_info = request.environ['HTTP_X_FORWARDED_FOR']
+    """ip_info = request.environ['HTTP_X_FORWARDED_FOR']
     if "," in ip_info:
         ip_addr = ip_info[:ip_info.index(",")]
     else:
-        ip_addr = ip_info
+        ip_addr = ip_info"""
 
-    return render_template('weather.html', auto_weather=get_weather(ip_addr),
+    return render_template('weather.html',
                            austin_weather=major_cities_weather()["Austin"],
                            NYC_weather=major_cities_weather()["New York City"],
                            london_weather=major_cities_weather()["London"],
-                           sydney_weather=major_cities_weather()["Sydney"], tokyo_weather=major_cities_weather()[
-            "Tokyo"])  # Rendering the HTML for the home page, passing required variables from
+                           sydney_weather=major_cities_weather()["Sydney"],
+                           tokyo_weather=major_cities_weather()["Tokyo"],
+                           weather_advice=weather_commentary(get_weather("Austin")["temp_f"]),
+                           precip_advice=precip_advice(get_weather("Austin")["precip_in"]))
+    # Rendering the HTML for the home page, passing required variables from
     # Python to HTML page using Jinja.
-
+"""auto_weather=get_weather(ip_addr),"""
 
 # ---------- Main Code ----------
 

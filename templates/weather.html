@@ -16,7 +16,7 @@
 <body>
 <!---------- CSS for webpage(Sanjay Balasubramanian) ---------->
 <style>
-           * {
+            * {
               -webkit-font-smoothing: antialiased;
               -moz-osx-font-smoothing: grayscale;
               box-sizing: border-box;
@@ -279,148 +279,231 @@
                 margin-bottom: initial;
                 align: center;
               }
-.popup {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 2;
-  visibility: hidden;
-  opacity: 0;
-  overflow: hidden;
-  transition: .64s ease-in-out;
-}}
-.popup-inner {
-  position: relative;
-  bottom: -100vw;
-  right: -100vh;
-  display: flex;
-  align-items: center;
-  max-width: 800px;
-  max-height: 600px;
-  width: 60%;
-  height: 80%;
-  background-color: #fff;
-  transform: rotate(32deg);
-  transition: .64s ease-in-out;
-}}
+            .popup {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              position: fixed;
+              width: 100vw;
+              height: 100vh;
+              bottom: 0;
+              right: 0;
+              background-color: rgba(0, 0, 0, 0.8);
+              z-index: 2;
+              visibility: hidden;
+              opacity: 0;
+              overflow: hiden;
+              transition: .64s ease-in-out;
+            }
+            .popup-inner {
+              position: relative;
+              bottom: -100vw;
+              right: -100vh;
+              display: flex;
+              align-items: center;
+              max-width: 800px;
+              max-height: 600px;
+              width: 60%;
+              height: 80%;
+              background-color: #fff;
+              transform: rotate(32deg);
+              transition: .64s ease-in-out;
+            }
+            .popuptext {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              width: 100%;
+              height: 100%;
+            }
+            .popuptext h1 {
+              font-size: 2rem;
+              font-weight: 600;
+              margin-bottom: 2rem;
+              text-transform: uppercase;
+              color: #0A0A0A;
+            }
+            .popuptext p {
+              font-size: .875rem;
+              color: #686868;
+              line-height: 1.5;
+            }
 
-.popuptext {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 60%;
-  height: 100%;
-  padding: 4rem;
+            .popuptext a {
+                text-decoration: none;
+                color:  #47BDFF;
+            }
+            .popup:target {
+              visibility: visible;
+              opacity: 1;
+            }
+            .popup:target .popup-inner {
+              bottom: 0;
+              right: 0;
+              transform: rotate(0);
+            }
+            .closepopup {
+              position: absolute;
+              right: -1rem;
+              top: -1rem;
+              width: 3rem;
+              height: 3rem;
+              font-size: .875rem;
+              font-weight: 300;
+              border-radius: 100%;
+              background-color: #47BDFF;
+              z-index: 4;
+              color: #fff;
+              line-height: 3rem;
+              text-align: center;
+              cursor: pointer;
+              text-decoration: none;
+            }
+
+            .popuptext2 {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              width: 100%;
+              height: 100%;
+            }
+            .popuptext2 h1 {
+              font-size: 1.7rem;
+              font-weight: 600;
+              margin-bottom: 2rem;
+              text-transform: uppercase;
+              color: #0A0A0A;
+            }
+            .popuptext2 p {
+              font-size: .875rem;
+              color: #686868;
+              line-height: 1.5;
+            }
+
+            .popuptext2 a {
+                text-decoration: none;
+                color:  #47BDFF;
+            }
+
+nav ul ul {
+	display: none;
+	position: absolute;
+	top: 60px; /* the height of the main nav */
 }
-.popuptext h1 {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  text-transform: uppercase;
-  color: #0A0A0A;
-}
-.popuptext p {
-  font-size: .875rem;
-  color: #686868;
-  line-height: 1.5;
+
+/* Display Dropdowns on Hover */
+nav ul li:hover > ul {
+	display:block;
 }
 
-.popuptext a {
-	text-decoration: none;
-	color:  #47BDFF;
-}
-.popup:target {
-  visibility: visible;
-  opacity: 1;
-}
-.popup:target .popup-inner {
-  bottom: 0;
-  right: 0;
-  transform: rotate(0);
-}
-.closepopup {
-  position: absolute;
-  right: -1rem;
-  top: -1rem;
-  width: 3rem;
-  height: 3rem;
-  font-size: .875rem;
-  font-weight: 300;
-  border-radius: 100%;
-  background-color: #47BDFF;
-  z-index: 4;
-  color: #fff;
-  line-height: 3rem;
-  text-align: center;
-  cursor: pointer;
-  text-decoration: none;
+/* First Tier Dropdown */
+nav ul ul li {
+    display: dropdown-items;
+	width:170px;
+	float:none;
 }
 
+nav ul ul ul li {
+	position: relative;
+	top:-60px;
+	left:170px;
+}
 
+       </style>
 
+       <!---------- Header of weather.html(Sanjay Balasubramanian) ---------->
+        <main class="main-container">
+<header class="header">
+  <nav>
+  <a href="" class="logo" style="color:#1fbed6">Austin</a>
+  <input class="menu-btn" type="checkbox" id="menu-btn" />
+  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+  <ul class="menu">
+    <li><a class="button" href="#popup" style="color:#1fbed6" >Weather Advice</a></li>
+        <div class="popup" id="popup">
+        <div class="popup-inner">
+          <div class="popuptext">
+            <h1 align="center" >Weather Advice</h1>
+            <p align="center" > {{ weather_advice }} </p>
+          </div>
+          <a class="closepopup" href="#">X</a>
+        </div>
+      </div>
+        </div>
 
+    <li><a class="button" href="#popup2" style="color:#1fbed6" >Precipitation Advice</a></li>
+    <div class="popup" id="popup2">
+    <div class="popup-inner">
+      <div class="popuptext2">
+        <h1 align="center" >Precipitation Advice</h1>
+        <p align="center" > {{ precip_advice }} </p>
+      </div>
+      <a class="closepopup" href="#">X</a>
+    </div>
+    </div>
+      </div>
 
+    <!--  <li class="nav-item has-dropdown">
+      <li><a href="#Major_Cities" style="color:#1fbed6">Major Cities ▾</a>
+       <ul class="dropdown"> \
 
-</style>
+            <li class="dropdown-item">
+              <a href="#">Tokyo</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="#">Sydney</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="#">Austin</a>
+            </li>
 
-<!---------- Header of weather.html(Sanjay Balasubramanian) ---------->
-<main class="main-container">
-    <header class="header">
-        <a class="logo" href="" style="color:#1fbed6">{{ auto_weather["location"] }}</a>
-        <input class="menu-btn" id="menu-btn" type="checkbox"/>
-        <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-        <ul class="menu">
-
-            <li><a class="button" href="#popup" style="color:#1fbed6">Weather Advice</a></li>
-            <div class="popup" id="popup">
-                <div class="popup-inner">
-                    <div class="popuptext">
-                        <h1 align="center">Weather Advice</h1>
-                        <p align="center">Weather Advice</p>
-                    </div>
-                    <a class="closepopup" href="#">X</a>
-                </div>
-            </div>
-            </div>
-
-            <li><a href="#Precipitation_Advice" style="color:#1fbed6">Precipitation Advice</a></li>
-            <li><a href="#Major_Cities" style="color:#1fbed6">Major Cities</a></li>
-        </ul>
+       </ul>
+      </li> --!>
+  </ul>
+  </nav>
     </header>
 
     <!---------- Current Temperature details (Kapilesh Pennichetty and Sanjay Balasubramanian) ---------->
     <div class="current-temperature">
         <div class="current-temperature__icon-container"></div>
         <div class="current-temperature__content-container">
-            <div class="current-temperature__value">{{ auto_weather["temp_f"] }} &#8457;</div>
+            <div class="current-temperature__value">{{ austin_weather["temp_f"] }} &#8457;</div>
         </div>
     </div>
     <div class="current-stats">
         <div>
-            <div class="current-stats__value">{{ auto_weather["text"] }}</div>
+            <div class="current-stats__value">{{ austin_weather["text"] }}</div>
             <div class="current-stats__label">Description</div>
-            <div class="current-stats__value">{{ auto_weather["feelslike_f"] }} &#8457;</div>
+            <div class="current-stats__value">{{ austin_weather["feelslike_f"] }} &#8457;</div>
             <div class="current-stats__label">Feels Like</div>
         </div>
         <div>
-            <div class="current-stats__value">{{ auto_weather["wind_mph"] }} mph</div>
+            <div class="current-stats__value">{{ austin_weather["wind_mph"] }} mph</div>
             <div class="current-stats__label">Wind Speed</div>
-            <div class="current-stats__value">{{ auto_weather["wind_dir"] }}</div>
+            <div class="current-stats__value">{{ austin_weather["wind_dir"] }}</div>
             <div class="current-stats__label">Wind Direction</div>
         </div>
         <div>
-            <div class="current-stats__value">{{ auto_weather["precip_in"] }} in</div>
+            <div class="current-stats__value">{{ austin_weather["precip_in"] }} in</div>
             <div class="current-stats__label">Precipitation</div>
-            <div class="current-stats__value">{{ auto_weather["humidity"] }}%</div>
+            <div class="current-stats__value">{{ austin_weather["humidity"] }}%</div>
             <div class="current-stats__label">Humidity</div>
         </div>
     </div>
+    <div class="next-7-days">
+            <div class="next-7-days__container">
+
+                <div class="next-7-days__weather">
+                    <h1>
+                    <a class="weatherwidget-io" href="https://forecast7.com/en/30d27n97d74/austin/?unit=us" data-label_1="AUSTIN" data-label_2="7-day Forecast" data-icons="Climacons Animated" data-mode="Forecast" data-theme="original" data-basecolor="#2f2f2f" data-textcolor="#1fbed6" >AUSTIN WEATHER</a>
+                    <script>
+                    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+                    </script>
+                    </h1>
+                </div>
+                </div>
+
+                </div>
     <!--<div class="next-7-days">
         <div class="next-7-days__container">
 
