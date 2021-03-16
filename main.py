@@ -123,11 +123,11 @@ def temp_commentary(current_temp):
     temperature_level = {
         0: "It's scorching hot. Stay inside and be cool!",
         1: "It's hot and sunny. Don't forget that sunscreen!",
-        2: "It's nice and warm today. Time to flex those flip-flops",
-        3: "It's nice and cool today . Go play outside in this great weather",
+        2: "It's nice and warm today. Time to flex those flip-flops!",
+        3: "It's nice and cool today. Go play outside in this great weather!",
         4: "It's gonna be cold today. Make sure you keep yourself warm!",
-        5: "Brrrrrrr!!! Remember to wear your protective wear so you don't freeze.",
-        6: "It's Freezing Cold. Staying inside and a cup of Hot chocolate would be nice. "
+        5: "Brrrrrrr!!! Remember to wear your protective wear so you don't freeze!",
+        6: "It's Freezing Cold. Staying inside and a cup of Hot chocolate would be nice!"
     }
 
     if temperature >= 95:
