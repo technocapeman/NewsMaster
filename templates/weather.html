@@ -409,101 +409,90 @@ nav ul ul ul li {
 	left:170px;
 }
 
-       </style>
 
-       <!---------- Header of weather.html(Sanjay Balasubramanian) ---------->
-        <main class="main-container">
-<header class="header">
-  <nav>
-  <a href="" class="logo" style="color:#1fbed6">Austin</a>
-  <input class="menu-btn" type="checkbox" id="menu-btn" />
-  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-  <ul class="menu">
-    <li><a class="button" href="#popup" style="color:#1fbed6" >Weather Advice</a></li>
-        <div class="popup" id="popup">
-        <div class="popup-inner">
-          <div class="popuptext">
-            <h1 align="center" >Weather Advice</h1>
-            <p align="center" > {{ weather_advice }} </p>
-          </div>
-          <a class="closepopup" href="#">X</a>
-        </div>
-      </div>
-        </div>
 
-    <li><a class="button" href="#popup2" style="color:#1fbed6" >Precipitation Advice</a></li>
-    <div class="popup" id="popup2">
-    <div class="popup-inner">
-      <div class="popuptext2">
-        <h1 align="center" >Precipitation Advice</h1>
-        <p align="center" > {{ precip_advice }} </p>
-      </div>
-      <a class="closepopup" href="#">X</a>
-    </div>
-    </div>
-      </div>
 
-    <!--  <li class="nav-item has-dropdown">
-      <li><a href="#Major_Cities" style="color:#1fbed6">Major Cities ▾</a>
-       <ul class="dropdown"> \
+</style>
 
-            <li class="dropdown-item">
-              <a href="#">Tokyo</a>
-            </li>
-            <li class="dropdown-item">
-              <a href="#">Sydney</a>
-            </li>
-            <li class="dropdown-item">
-              <a href="#">Austin</a>
-            </li>
+<!---------- Header of weather.html(Sanjay Balasubramanian) ---------->
+<main class="main-container">
+    <header class="header">
+        <nav>
+            <a class="logo" href="" style="color:#1fbed6">Austin</a>
+            <input class="menu-btn" id="menu-btn" type="checkbox"/>
+            <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+            <ul class="menu">
+                <li><a class="button" href="#popup" style="color:#1fbed6">Temperature Advice</a></li>
+                <div class="popup" id="popup">
+                    <div class="popup-inner">
+                        <div class="popuptext">
+                            <h1 align="center">Temperature Advice</h1>
+                            <p align="center"> {{ temp_advice_auto }} </p>
+                        </div>
+                        <a class="closepopup" href="#">X</a>
+                    </div>
+                </div>
+                </div>
 
-       </ul>
-      </li> --!>
-  </ul>
-  </nav>
+                <li><a class="button" href="#popup2" style="color:#1fbed6">Precipitation Advice</a></li>
+                <div class="popup" id="popup2">
+                    <div class="popup-inner">
+                        <div class="popuptext2">
+                            <h1 align="center">Precipitation Advice</h1>
+                            <p align="center"> {{ precip_advice }} </p>
+                        </div>
+                        <a class="closepopup" href="#">X</a>
+                    </div>
+                </div>
+                </div>
+
+                <li class="nav-item has-dropdown">
+                    <!-- <li><a href="#Major_Cities" style="color:#1fbed6">Major Cities ▾</a>
+                     <ul class="dropdown"> \
+
+                          <li class="dropdown-item">
+                            <a href="#">Tokyo</a>
+                          </li>
+                          <li class="dropdown-item">
+                            <a href="#">Sydney</a>
+                          </li>
+                          <li class="dropdown-item">
+                            <a href="#">Austin</a>
+                          </li>
+
+                     </ul>
+                    </li> -->
+            </ul>
+        </nav>
     </header>
 
     <!---------- Current Temperature details (Kapilesh Pennichetty and Sanjay Balasubramanian) ---------->
     <div class="current-temperature">
         <div class="current-temperature__icon-container"></div>
         <div class="current-temperature__content-container">
-            <div class="current-temperature__value">{{ austin_weather["temp_f"] }} &#8457;</div>
+            <div class="current-temperature__value">{{ auto_weather["temp_f"] }} &#8457;</div>
         </div>
     </div>
     <div class="current-stats">
         <div>
-            <div class="current-stats__value">{{ austin_weather["text"] }}</div>
+            <div class="current-stats__value">{{ auto_weather["text"] }}</div>
             <div class="current-stats__label">Description</div>
-            <div class="current-stats__value">{{ austin_weather["feelslike_f"] }} &#8457;</div>
+            <div class="current-stats__value">{{ auto_weather["feelslike_f"] }} &#8457;</div>
             <div class="current-stats__label">Feels Like</div>
         </div>
         <div>
-            <div class="current-stats__value">{{ austin_weather["wind_mph"] }} mph</div>
+            <div class="current-stats__value">{{ auto_weather["wind_mph"] }} mph</div>
             <div class="current-stats__label">Wind Speed</div>
-            <div class="current-stats__value">{{ austin_weather["wind_dir"] }}</div>
+            <div class="current-stats__value">{{ auto_weather["wind_dir"] }}</div>
             <div class="current-stats__label">Wind Direction</div>
         </div>
         <div>
-            <div class="current-stats__value">{{ austin_weather["precip_in"] }} in</div>
+            <div class="current-stats__value">{{ auto_weather["precip_in"] }} in</div>
             <div class="current-stats__label">Precipitation</div>
-            <div class="current-stats__value">{{ austin_weather["humidity"] }}%</div>
+            <div class="current-stats__value">{{ auto_weather["humidity"] }}%</div>
             <div class="current-stats__label">Humidity</div>
         </div>
     </div>
-    <div class="next-7-days">
-            <div class="next-7-days__container">
-
-                <div class="next-7-days__weather">
-                    <h1>
-                    <a class="weatherwidget-io" href="https://forecast7.com/en/30d27n97d74/austin/?unit=us" data-label_1="AUSTIN" data-label_2="7-day Forecast" data-icons="Climacons Animated" data-mode="Forecast" data-theme="original" data-basecolor="#2f2f2f" data-textcolor="#1fbed6" >AUSTIN WEATHER</a>
-                    <script>
-                    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-                    </script>
-                    </h1>
-                </div>
-                </div>
-
-                </div>
     <!--<div class="next-7-days">
         <div class="next-7-days__container">
 
@@ -527,8 +516,12 @@ nav ul ul ul li {
     </div>-->
 
 </main>
-<footer style="background-color: #2f2f2f"><p align="center" style="font-family: 'Lato', sans-serif; color: #ffffff; font-weight:bold"><span>&#169;</span> 2021
-        Kapilesh Pennichetty and Sanjay Balasubramanian</p>
-    <p align="center" style="font-family: 'Lato', sans-serif; color: #ffffff; font-weight:bold">Powered by <a style="color: #ffffff" href="https://www.weatherapi.com/" title="Weather API">WeatherAPI.com</a></p></footer>
+<footer style="background-color: #2f2f2f"><p align="center"
+                                             style="font-family: 'Lato', sans-serif; color: #ffffff; font-weight:bold">
+    <span>&#169;</span> 2021
+    Kapilesh Pennichetty and Sanjay Balasubramanian</p>
+    <p align="center" style="font-family: 'Lato', sans-serif; color: #ffffff; font-weight:bold">Powered by <a
+            href="https://www.weatherapi.com/" style="color: #ffffff" title="Weather API">WeatherAPI.com</a></p>
+</footer>
 </body>
 </html>
