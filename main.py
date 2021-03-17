@@ -4,7 +4,7 @@ from time import sleep
 
 import requests
 import schedule
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 
 # ---------- API and Program Prerequisites ----------
 
@@ -186,7 +186,7 @@ def weather():
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/)"""
     if request.method == "POST":
         location = request.form["nm"]
-        return redirect(f"/{location}")
+        return redirect(url_for("weather_search", place=location))
     else:
         ip_info = request.environ['HTTP_X_FORWARDED_FOR']
         if "," in ip_info:
@@ -202,13 +202,13 @@ def weather():
     # Python to HTML page using Jinja.
 
 
-@app.route("/<place>")
+@app.route("/<place>", methods=["GET", "POST"])
 def weather_search(place):
     """Weather Search Results Page (Done by Kapilesh Pennichetty
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
     if request.method == "POST":
         location = request.form["nm"]
-        return redirect(f"/{location}")
+        return redirect(url_for("weather_search", place=location))
     else:
         return render_template("weather_search.html", temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
                                search_weather=get_weather(place),
