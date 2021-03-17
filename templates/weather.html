@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!---------- Importing Fonts(Sanjay Balasubramanian and Kapilesh Pennichetty) ---------->
+<!---------- Importing Fonts(Sanjay Balasubramanian) ---------->
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -12,8 +12,6 @@
     <link href="{{ url_for('static', filename='images/logo.png') }}" rel="apple-touch-icon" sizes="180x180">
     <link href="{{ url_for('static', filename='images/logo.png') }}" rel="apple-touch-startup-image" sizes="512x512">
     <link href="{{ url_for('static', filename='images/logo.png') }}" rel="icon" sizes="96x96">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <!---------- CSS for webpage(Sanjay Balasubramanian) ---------->
@@ -415,13 +413,14 @@ nav ul ul ul li {
 
 
 
+
 </style>
 
 <!---------- Header of weather.html(Sanjay Balasubramanian) ---------->
 <main class="main-container">
     <header class="header">
         <nav>
-            <a class="logo" href="" style="color:#1fbed6">{{ auto_weather["location"] }}</a>
+            <a class="logo" href="" style="color:#1fbed6">{{ search_weather["location"] }}</a>
             <input class="menu-btn" id="menu-btn" type="checkbox"/>
             <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
             <ul class="menu">
@@ -453,7 +452,7 @@ nav ul ul ul li {
         </nav>
     </header>
 
-    <!---------- Search Bar (Kapilesh Pennichetty) ---------->
+    <!---------- Search Form (Kapilesh Pennichetty) ---------->
     <form action="#" method="post" name="Form1">
         <div class="form-group">
             <label>Location:</label>
