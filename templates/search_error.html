@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>{{ search_weather["location"] }} Weather | NewsMaster</title>
+    <title>Search Error | NewsMaster</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
     <link href="{{ url_for('static', filename='manifest.json') }}" rel="manifest">
     <meta content="yes" name="apple-mobile-web-app-capable">
@@ -422,35 +422,9 @@ nav ul ul ul li {
 <main class="main-container">
     <header class="header">
         <nav>
-            <a class="logo" href="/weather" style="color:#1fbed6">{{ search_weather["location"] }}</a>
+            <a class="logo" href="/weather" style="color:#1fbed6">Weather</a>
             <input class="menu-btn" id="menu-btn" type="checkbox"/>
             <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-            <ul class="menu">
-                <li><a class="button" href="#popup" style="color:#1fbed6">Temperature Advice</a></li>
-                <div class="popup" id="popup">
-                    <div class="popup-inner">
-                        <div class="popuptext">
-                            <h1 align="center">Temperature Advice</h1>
-                            <p align="center"> {{ temp_advice_search }} </p>
-                        </div>
-                        <a class="closepopup" href="#">X</a>
-                    </div>
-                </div>
-                </div>
-
-                <li><a class="button" href="#popup2" style="color:#1fbed6">Precipitation Advice</a></li>
-                <div class="popup" id="popup2">
-                    <div class="popup-inner">
-                        <div class="popuptext2">
-                            <h1 align="center">Precipitation Advice</h1>
-                            <p align="center"> {{ precip_advice_search }} </p>
-                        </div>
-                        <a class="closepopup" href="#">X</a>
-                    </div>
-                </div>
-                </div>
-
-            </ul>
         </nav>
     </header>
 
@@ -469,36 +443,15 @@ nav ul ul ul li {
         </form>
     </div>
 
-    <!---------- Current Temperature details (Kapilesh Pennichetty and Sanjay Balasubramanian) ---------->
-    <div class="current-temperature">
-        <div class="current-temperature__icon-container"></div>
-        <div class="current-temperature__content-container">
-            <div class="current-temperature__value">{{ search_weather["temp_f"] }} &#8457;</div>
-        </div>
+    <!---------- Error Message (Kapilesh Pennichetty) ---------->
+    <div style="font-family: 'Lato', sans-serif; text-align: center; width: 100%; margin-top: 6em">
+        <h3>Sorry, we cannot find the requested location.</h3>
+        <h3>Please check your search parameters and try again.</h3>
     </div>
-    <div class="current-stats">
-        <div>
-            <div class="current-stats__value">{{ search_weather["text"] }}</div>
-            <div class="current-stats__label">Description</div>
-            <div class="current-stats__value">{{ search_weather["feelslike_f"] }} &#8457;</div>
-            <div class="current-stats__label">Feels Like</div>
-        </div>
-        <div>
-            <div class="current-stats__value">{{ search_weather["wind_mph"] }} mph</div>
-            <div class="current-stats__label">Wind Speed</div>
-            <div class="current-stats__value">{{ search_weather["wind_dir"] }}</div>
-            <div class="current-stats__label">Wind Direction</div>
-        </div>
-        <div>
-            <div class="current-stats__value">{{ search_weather["precip_in"] }} in</div>
-            <div class="current-stats__label">Precipitation</div>
-            <div class="current-stats__value">{{ search_weather["humidity"] }}%</div>
-            <div class="current-stats__label">Humidity</div>
-        </div>
-    </div>
-
 </main>
-<footer style="background-color: #2f2f2f"><p align="center"
+
+<!------------- Footer (Kapilesh Pennichetty) ---------->
+<footer style="background-color: #2f2f2f; margin-top: 6em"><p align="center"
                                              style="font-family: 'Lato', sans-serif; color: #ffffff; font-weight:bold">
     <span>&#169;</span> 2021
     Kapilesh Pennichetty and Sanjay Balasubramanian</p>
