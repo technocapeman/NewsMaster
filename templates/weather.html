@@ -181,7 +181,7 @@
            .current-temperature {
               align: center
               display: flex;
-              margin-top: 12em;
+              margin-top: 4em;
               width: 100%;
             }
 
@@ -218,7 +218,7 @@
            .current-stats {
               display: flex;
               justify-content: space-around;
-              margin-top: 10em;
+              margin-top: 2em;
               padding-bottom: 1em;
               width: 500%;
               border-top: 1px solid rgba(255,255,255,0.5);
@@ -409,9 +409,11 @@ nav ul ul ul li {
 	left:170px;
 }
 
-
-
-
+.search {
+    margin-top: 5em;
+    width: 100%;
+    text-align: center;
+}
 
 
 </style>
@@ -453,11 +455,19 @@ nav ul ul ul li {
     </header>
 
     <!---------- Search Form (Kapilesh Pennichetty) ---------->
-    <form action="#" method="post">
-        <p>Location:</p>
-        <p><input type="text" name="nm" /></p>
-        <p><input type="submit" value="submit"/></p>
-    </form>
+    <div class="search">
+        <form action="#" method="post">
+            <h3>Search for a Location:</h3>
+            <h3><input name="nm" placeholder="Enter a City Name or ZIP Code" style="width: 280px; height: 35px"
+                       type="text"/>
+                <button style="height:30px; width: 70px; background-color: #1fbed6; border-radius: 7px; border-color: #1fbed6"
+                        type="submit">
+                    <img src="{{ url_for('static', filename='images/Search.png') }}"
+                         style="height:20px; width: 20px; margin-bottom: -5px; margin-top: -3px; margin-right: 2px">
+                </button>
+            </h3>
+        </form>
+    </div>
 
     <!---------- Current Temperature details (Kapilesh Pennichetty and Sanjay Balasubramanian) ---------->
     <div class="current-temperature">
