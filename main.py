@@ -186,7 +186,7 @@ def weather():
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/)"""
     if request.method == "POST":
         location = request.form["nm"]
-        return redirect(url_for("weather_search", place=location))
+        return redirect(f"/{location}")
     else:
         ip_info = request.environ['HTTP_X_FORWARDED_FOR']
         if "," in ip_info:
@@ -206,13 +206,9 @@ def weather():
 def weather_search(place):
     """Weather Search Results Page (Done by Kapilesh Pennichetty
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
-    if request.method == "POST":
-        location = request.form["nm"]
-        return render_template("weather_redirect.html", location_html=location)
-    else:
-        return render_template("weather_search.html", temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
-                               search_weather=get_weather(place),
-                               precip_advice_search=precip_advice(get_weather(place)["precip_in"]))
+    return render_template("weather_search.html", temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
+                           search_weather=get_weather(place),
+                           precip_advice_search=precip_advice(get_weather(place)["precip_in"]))
 
 
 # ---------- Main Code ----------
