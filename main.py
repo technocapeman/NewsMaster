@@ -14,6 +14,12 @@ weatherapi_key = 'YOUR_WEATHERAPI_KEY_HERE'  # Defining API Key for use with Wea
 
 app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojects.com/en/1.1.x/)
 
+# -------- Credits ----------
+"""
+- News headlines, source names, publication dates, descriptions, images, and links to articles are from the News API; please visit newsapi.org for more details
+- Weather data from Weather API, please visit weatherapi.com
+"""
+
 # ---------- Functions and Data ----------
 
 # ------- Trending News (Kapilesh Pennichetty) -------
@@ -176,7 +182,8 @@ def home():
 
 @app.route("/weather", methods=["GET", "POST"])
 def weather():
-    """Page that shows weather info. (Done by Kapilesh Pennichetty and Sanjay Balasubramanian)"""
+    """Page that shows weather info. (Done by Kapilesh Pennichetty and Sanjay Balasubramanian
+    (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/)"""
     if request.method == "POST":
         location = request.form["nm"]
         return redirect(url_for("weather_search", place=location))
@@ -197,9 +204,14 @@ def weather():
 
 @app.route("/<place>")
 def weather_search(place):
-    return render_template("weather_search.html", temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
-                           search_weather=get_weather(place),
-                           precip_advice_search=precip_advice(get_weather(place)["precip_in"]))
+    """Weather Search Results Page (Done by Kapilesh Pennichetty
+    (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
+    if not place:
+        return "Cannot find location. Please make sure that your search input is correct."
+    else:
+        return render_template("weather_search.html", temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
+                               search_weather=get_weather(place),
+                               precip_advice_search=precip_advice(get_weather(place)["precip_in"]))
 
 
 # ---------- Main Code ----------
