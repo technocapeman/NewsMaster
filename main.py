@@ -4,7 +4,7 @@ from time import sleep
 
 import requests
 import schedule
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect
 
 # ---------- API and Program Prerequisites ----------
 
@@ -206,9 +206,13 @@ def weather():
 def weather_search(place):
     """Weather Search Results Page (Done by Kapilesh Pennichetty
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
-    return render_template("weather_search.html", temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
-                           search_weather=get_weather(place),
-                           precip_advice_search=precip_advice(get_weather(place)["precip_in"]))
+    if request.method == "POST":
+        location = request.form["nm"]
+        return redirect(f"/{location}")
+    else:
+        return render_template("weather_search.html", temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
+                               search_weather=get_weather(place),
+                               precip_advice_search=precip_advice(get_weather(place)["precip_in"]))
 
 
 # ---------- Main Code ----------
