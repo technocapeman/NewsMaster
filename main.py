@@ -100,7 +100,7 @@ def get_weather(location):  # location can be IP address, city, or ZIP
     try:
         weather_data = scrapejson(url)['current']
         if "error" in weather_data:
-            return False
+            return "Invalid Input"
         else:
             for stat in stats:
                 if stat == "text":
@@ -113,7 +113,7 @@ def get_weather(location):  # location can be IP address, city, or ZIP
                     stats[stat] = weather_data[stat]
             return stats
     except:
-        return False
+        return "Invalid Input"
 
 
 def temp_commentary(current_temp):
@@ -186,7 +186,10 @@ def weather():
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
     if request.method == "POST":
         location = request.form["nm"]
-        return redirect(url_for("weather_search", place=location))
+        if get_weather(location) == "Invalid Input":
+            return redirect(url_for("search_error"))
+        else:
+            return redirect(url_for("weather_search", place=location))
     else:
         ip_info = request.environ['HTTP_X_FORWARDED_FOR']
         if "," in ip_info:
@@ -208,7 +211,7 @@ def weather_search(place):
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
     if request.method == "POST":
         location = request.form["nm"]
-        if get_weather(location) == False:
+        if get_weather(location) == "Invalid Input":
             return redirect(url_for("search_error"))
         else:
             return redirect(url_for("weather_search", place=location))
