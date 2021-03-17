@@ -17,7 +17,8 @@ app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojec
 # -------- Credits ----------
 """
 - News headlines, source names, publication dates, descriptions, images, and links to articles are from the News API; please visit newsapi.org for more details
-- Weather data from Weather API, please visit weatherapi.com
+- Weather data from Weather API; please visit weatherapi.com for more details.
+- Flask tutorials: https://www.techwithtim.net/tutorials/flask/
 """
 
 # ---------- Functions and Data ----------
@@ -54,7 +55,7 @@ trusted_news_sources = ",".join(trusted_news_sources_list)  # Formatting list fo
 def get_top_headlines_stats():
     """Fetches Article Data and Metadata from the API (Documentation:
     https://newsapi.org/docs/endpoints/top-headlines)"""
-    url = f'http://newsapi.org/v2/top-headlines?' \
+    url = f'https://newsapi.org/v2/top-headlines?' \
           f'sources={trusted_news_sources}&' \
           f'apiKey={newsapi_key}'
     api_output = requests.get(url)
@@ -96,11 +97,10 @@ def get_weather(location):  # location can be IP address, city, or ZIP
           f"q={location}"
     stats = {"temp_f": 0, "wind_mph": 0, "wind_dir": "", "humidity": 0, "precip_in": 0.0, "feelslike_f": 0,
              "text": "", "icon": "", "location": ""}
-    error_message = "Error: Make sure your parameter is correct."
     try:
         weather_data = scrapejson(url)['current']
         if "error" in weather_data:
-            return error_message
+            return False
         else:
             for stat in stats:
                 if stat == "text":
@@ -113,7 +113,7 @@ def get_weather(location):  # location can be IP address, city, or ZIP
                     stats[stat] = weather_data[stat]
             return stats
     except:
-        return error_message
+        return False
 
 
 def temp_commentary(current_temp):
@@ -210,9 +210,22 @@ def weather_search(place):
         location = request.form["nm"]
         return redirect(url_for("weather_search", place=location))
     else:
-        return render_template("weather_search.html", temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
-                               search_weather=get_weather(place),
-                               precip_advice_search=precip_advice(get_weather(place)["precip_in"]))
+        if place == False:
+            return redirect(url_for("search_error"))
+        else:
+            return render_template("weather_search.html",
+                                   temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
+                                   search_weather=get_weather(place),
+                                   precip_advice_search=precip_advice(get_weather(place)["precip_in"]))
+
+
+@app.route("/search_error", methods=["GET", "POST"])
+def search_error():
+    if request.method == "POST":
+        location = request.form["nm"]
+        return redirect(url_for("weather_search", place=location))
+    else:
+        return render_template("search_error.html")
 
 
 # ---------- Main Code ----------
