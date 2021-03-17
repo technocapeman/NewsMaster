@@ -164,8 +164,8 @@ def precip_advice(precip_in):
 
 # ----- Home Page (Kapilesh Pennichetty) -----
 
-@app.route("/",
-           methods=['GET'])  # Telling Flask that the url with "/" appended at the end should lead to the home page.
+@app.route("/", methods=['GET'])  # Telling Flask that the url with "/" appended at the end should lead to the home
+# page.
 def home():
     """Home page that shows trending articles. (Done by Kapilesh Pennichetty)"""
     ip_info = request.environ['HTTP_X_FORWARDED_FOR']
@@ -198,8 +198,8 @@ def weather():
                                temp_advice_auto=temp_commentary(get_weather(ip_addr)["temp_f"]),
                                precip_advice_auto=precip_advice(get_weather(ip_addr)["precip_in"]),
                                auto_weather=get_weather(ip_addr))
-        # Rendering the HTML for the home page, passing required variables from
-        # Python to HTML page using Jinja.
+    # Rendering the HTML for the home page, passing required variables from
+    # Python to HTML page using Jinja.
 
 
 @app.route("/<place>")
