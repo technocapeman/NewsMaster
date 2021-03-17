@@ -226,7 +226,10 @@ def weather_search(place):
 def search_error():
     if request.method == "POST":
         location = request.form["nm"]
-        return redirect(url_for("weather_search", place=location))
+        if get_weather(location) == "Invalid Input":
+            return redirect(url_for("search_error"))
+        else:
+            return redirect(url_for("weather_search", place=location))
     else:
         return render_template("search_error.html")
 
