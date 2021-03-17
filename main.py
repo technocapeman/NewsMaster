@@ -208,7 +208,7 @@ def weather_search(place):
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
     if request.method == "POST":
         location = request.form["nm"]
-        return redirect(url_for("weather_search", place=location))
+        return render_template("weather_redirect.html", location_html=location)
     else:
         return render_template("weather_search.html", temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
                                search_weather=get_weather(place),
