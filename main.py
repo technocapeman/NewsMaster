@@ -206,7 +206,7 @@ def weather():
 def weather_search(place):
     """Weather Search Results Page (Done by Kapilesh Pennichetty
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
-    if not place:
+    if (place is False) or (place == ""):
         return "Cannot find location. Please make sure that your search input is correct."
     else:
         return render_template("weather_search.html", temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
