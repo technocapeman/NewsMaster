@@ -183,7 +183,7 @@ def home():
 @app.route("/weather", methods=["GET", "POST"])
 def weather():
     """Page that shows weather info. (Done by Kapilesh Pennichetty and Sanjay Balasubramanian
-    (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/)"""
+    (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
     if request.method == "POST":
         location = request.form["nm"]
         return redirect(url_for("weather_search", place=location))
@@ -208,15 +208,15 @@ def weather_search(place):
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
     if request.method == "POST":
         location = request.form["nm"]
-        return redirect(url_for("weather_search", place=location))
-    else:
-        if place == False:
+        if location == False:
             return redirect(url_for("search_error"))
         else:
-            return render_template("weather_search.html",
-                                   temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
-                                   search_weather=get_weather(place),
-                                   precip_advice_search=precip_advice(get_weather(place)["precip_in"]))
+            return redirect(url_for("weather_search", place=location))
+    else:
+        return render_template("weather_search.html",
+                               temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
+                               search_weather=get_weather(place),
+                               precip_advice_search=precip_advice(get_weather(place)["precip_in"]))
 
 
 @app.route("/search_error", methods=["GET", "POST"])
