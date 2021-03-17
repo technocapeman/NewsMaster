@@ -411,18 +411,6 @@ nav ul ul ul li {
 	left:170px;
 }
 
-div.form
-{
-    display: block;
-    text-align: center;
-}
-form
-{
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-}
 
 
 
@@ -466,10 +454,13 @@ form
     </header>
 
     <!---------- Search Bar (Kapilesh Pennichetty) ---------->
-        <form name="Form1" action="#" method="post">
-                <p><input type="text" name="nm" /></p>
-                <p><input type="submit" value="submit" /></p>
-        </form>
+    <form action="#" method="post" name="Form1">
+        <div class="form-group">
+            <label>Location:</label>
+            <input class="form-control" id="location" name="nm" type="text">
+        </div>
+        <button class="btn btn-default" type="submit">Get Weather</button>
+    </form>
 
     <!---------- Current Temperature details (Kapilesh Pennichetty and Sanjay Balasubramanian) ---------->
     <div class="current-temperature">
