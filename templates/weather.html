@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!---------- Importing Fonts(Sanjay Balasubramanian) ---------->
+<!---------- Importing Fonts(Sanjay Balasubramanian and Kapilesh Pennichetty) ---------->
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -455,9 +455,11 @@ nav ul ul ul li {
 
     <!---------- Search Bar (Kapilesh Pennichetty) ---------->
     <form action="#" method="post">
-        <p>City Name:</p>
-        <p><input type="text" name="nm" /></p>
-        <p><input type="submit" value="submit" /></p>
+        <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Weather Search</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter a City or ZIP Code" name="nm" />
+            <input type="submit" value="submit" />
+        </div>
     </form>
     <!---------- Current Temperature details (Kapilesh Pennichetty and Sanjay Balasubramanian) ---------->
     <div class="current-temperature">
