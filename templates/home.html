@@ -40,6 +40,7 @@
 		.alignright {
 			float: right;
 		}
+
     </style>
 
 </head>
@@ -58,7 +59,7 @@
             <h1 class="alignleft"><a href="/" style="color: #1fbed6">NewsMaster</a></h1>
             <h1 class="alignright">
                 <a href="/weather" style="color: #1fbed6">
-                    <img height="100px" width="100px" src={{weather_icon}}>
+                    <img height="100px" src={{weather_icon}} width="100px">
                 </a>
             </h1>
             <div style="clear: both;"></div>
@@ -84,14 +85,14 @@
             </h3>
             {% endif %}
             {% if article['source']['name'] != None %}
-                <h5>Source: {{article['source']['name']}}</h5>
+            <h5>Source: {{article['source']['name']}}</h5>
             {% endif %}
             {% if article['publishedAt'][0:10] != None %}
-                <h5>Date: {{article['publishedAt'][0:10]}} (UTC)</h5>
+            <h5>Date: {{article['publishedAt'][0:10]}} (UTC)</h5>
             {% endif %}
         </div>
         {% if article['description'] != None %}
-            <p>{{article['description']}}</p>
+        <p>{{article['description']}}</p>
         {% endif %}
         {% if article['urlToImage'] != None %}
         <a href={{article['url']}} rel="noopener noreferrer" target="_blank">
@@ -99,9 +100,9 @@
         </a>
         {% endif %}
         {% if article['url'] != None %}
-            <p><a href={{article['url']}} rel="noopener noreferrer"
-                  style="font-family: 'Lato', sans-serif; color: #1fbed6; font-weight:bold"
-                  target="_blank">Learn More</a></p>
+        <p><a href={{article['url']}} rel="noopener noreferrer"
+              style="font-family: 'Lato', sans-serif; color: #1fbed6; font-weight:bold"
+              target="_blank">Learn More</a></p>
         {% endif %}
     </div>
 </div>
