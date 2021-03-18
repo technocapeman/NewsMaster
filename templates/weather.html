@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>Weather | NewsMaster</title>
+    <title>{{ auto_weather["location"] }} Weather | NewsMaster</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
     <link href="{{ url_for('static', filename='manifest.json') }}" rel="manifest">
     <meta content="yes" name="apple-mobile-web-app-capable">
@@ -12,9 +12,9 @@
     <link href="{{ url_for('static', filename='images/logo.png') }}" rel="apple-touch-icon" sizes="180x180">
     <link href="{{ url_for('static', filename='images/logo.png') }}" rel="apple-touch-startup-image" sizes="512x512">
     <link href="{{ url_for('static', filename='images/logo.png') }}" rel="icon" sizes="96x96">
-    <!-- <link href="{{ url_for('static', filename='css/stylesheet.css') }}" rel="stylesheet"/> -->
 </head>
 <body>
+
 <!--------- Credits ---------->
 <!--
 Popup: https://webdevtrick.com/popup-in-pure-css-and-html-get-example-with-source-code/
