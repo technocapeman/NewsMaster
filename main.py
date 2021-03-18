@@ -100,21 +100,19 @@ def get_weather(location):  # location can be IP address, city, or ZIP
           f"key={weatherapi_key}&" \
           f"q={location}"
     stats = {"temp_f": 0, "wind_mph": 0, "wind_dir": "", "humidity": 0, "precip_in": 0.0, "feelslike_f": 0,
-             "text": "", "icon": "", "location": ""}
+             "text": "", "icon": "", "name": "", "last_updated": "", "tz_id": ""}
     try:
-        weather_data = scrapejson(url)['current']
+        weather_data = scrapejson(url)
         if "error" in weather_data:
             return "Invalid Input"
         else:
             for stat in stats:
-                if stat == "text":
-                    stats[stat] = weather_data['condition'][stat]
-                elif stat == "icon":
-                    stats[stat] = "https:" + weather_data['condition'][stat]
-                elif stat == "location":
-                    stats[stat] = scrapejson(url)[stat]["name"]
+                if stat in weather_data["current"]["condition"]:
+                    stats[stat] = weather_data['current']['condition'][stat]
+                elif stat in weather_data["location"]:
+                    stats[stat] = weather_data['location'][stat]
                 else:
-                    stats[stat] = weather_data[stat]
+                    stats[stat] = weather_data['current'][stat]
             return stats
     except:
         return "Invalid Input"
@@ -172,12 +170,12 @@ def precip_advice(precip_in):
 # page.
 def home():
     """Home page that shows trending articles."""
-    ip_info = request.environ['HTTP_X_FORWARDED_FOR']
+    """ip_info = request.environ['HTTP_X_FORWARDED_FOR']
     if "," in ip_info:
         ip_addr = ip_info[:ip_info.index(",")]
     else:
-        ip_addr = ip_info
-    return render_template('home.html', top_articles=top_headlines, weather_icon=get_weather(ip_addr)["icon"])
+        ip_addr = ip_info"""
+    return render_template('home.html', top_articles=top_headlines, weather_icon=get_weather("Austin")["icon"])
     # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
 
 
@@ -196,16 +194,16 @@ def weather():
         else:
             return redirect(url_for("weather_search", place=location))
     else:
-        ip_info = request.environ['HTTP_X_FORWARDED_FOR']
+        """ip_info = request.environ['HTTP_X_FORWARDED_FOR']
         if "," in ip_info:
             ip_addr = ip_info[:ip_info.index(",")]
         else:
-            ip_addr = ip_info
+            ip_addr = ip_info"""
 
         return render_template('weather.html',
-                               temp_advice_auto=temp_commentary(get_weather(ip_addr)["temp_f"]),
-                               precip_advice_auto=precip_advice(get_weather(ip_addr)["precip_in"]),
-                               auto_weather=get_weather(ip_addr))
+                               temp_advice_auto=temp_commentary(get_weather("Austin")["temp_f"]),
+                               precip_advice_auto=precip_advice(get_weather("Austin")["precip_in"]),
+                               auto_weather=get_weather("Austin"))
     # Rendering the HTML for the weather page, passing required variables from
     # Python to HTML page using Jinja.
 

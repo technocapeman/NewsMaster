@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>{{ search_weather["location"] }} Weather | NewsMaster</title>
+    <title>{{ search_weather["name"] }} Weather | NewsMaster</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
     <link href="{{ url_for('static', filename='manifest.json') }}" rel="manifest">
     <meta content="yes" name="apple-mobile-web-app-capable">
@@ -448,13 +448,14 @@ Popup: https://webdevtrick.com/popup-in-pure-css-and-html-get-example-with-sourc
         width: 100%;
         text-align: center
     }
+
 </style>
 
 <!---------- Header of weather.html ---------->
 <main class="main-container">
     <header class="header">
         <nav>
-            <a class="logo" href="#" style="color:#1fbed6">{{ search_weather["location"] }}</a>
+            <a class="logo" href="#" style="color:#1fbed6">{{ search_weather["name"] }}</a>
             <input class="menu-btn" id="menu-btn" type="checkbox"/>
             <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
             <ul class="menu">
@@ -530,6 +531,10 @@ Popup: https://webdevtrick.com/popup-in-pure-css-and-html-get-example-with-sourc
         </div>
     </div>
 
+    <!---------- Last Updated ---------->
+    <div class="search">
+        <p>Last Updated: {{ search_weather["last_updated"] }} ({{ search_weather["tz_id"] }} Time Zone)</p>
+    </div>
 </main>
 <!------------- Footer ---------->
 <footer style="background-color: #2f2f2f; margin-top: 6em"><p align="center"
