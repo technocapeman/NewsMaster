@@ -26,7 +26,7 @@
     <link href="{{ url_for('static', filename='images/logo.png') }}" rel="apple-touch-startup-image" sizes="512x512">
     <link href="{{ url_for('static', filename='images/logo.png') }}" rel="icon" sizes="96x96">
 
-    <!---------- CSS for home.html (Kapilesh Pennichetty) ---------->
+    <!---------- CSS for home.html ---------->
     <style>
 		.container-fluid {
 			font-family: font-family: 'Lato', sans-serif;
@@ -42,13 +42,14 @@
 		}
 
 
+
     </style>
 
 </head>
 
 <body>
-<!---------- Header of home.html (Kapilesh Pennichetty) ---------->
-<!-- Declaring Bootstrap Template for Header (Kapilesh Pennichetty) -->
+<!---------- Header of home.html ---------->
+<!-- Declaring Bootstrap Template for Header -->
 <div class="container-fluid" style="font-family: 'Lato', sans-serif;
     background-color: #2f2f2f;
     color: #ffffff">
@@ -69,16 +70,16 @@
     <p style="font-size: 25px">The world at your fingertips.</p>
 </div>
 
-<!-- Google-Powered Search Bar (Sanjay Balasubramanian) -->
+<!-- Google-Powered Search Bar -->
 <div class="jumbotron jumbotron-fluid"
      style="background-color: #2f2f2f; padding-bottom: 25px; padding-top: 25px; padding-left: 15px; padding-right: 15px">
     <div class="gcse-searchbox-only"></div>
 </div>
 
-<!---------- Display All Articles from News API using Jinja (Kapilesh Pennichetty) ---------->
-{% for article in top_articles %} <!-- Beginning of For-Each Loop to display all articles (Kapilesh Pennichetty) -->
+<!---------- Display All Articles from News API using Jinja ---------->
+{% for article in top_articles %} <!-- Beginning of For-Each Loop to display all articles -->
 <div class="jumbotron jumbotron-fluid" style="font-family: 'Lato', sans-serif">
-    <!-- Declaring Bootstrap Template for Articles (Kapilesh Pennichetty) -->
+    <!-- Declaring Bootstrap Template for Articles -->
     <div class="container-fluid">
         <div class="page-header">
             {% if (article['title'] != None) and (article['url'] != None) %}
@@ -107,12 +108,12 @@
         {% endif %}
     </div>
 </div>
-{% endfor %} <!-- End of For-Each Loop (Kapilesh Pennichetty) -->
+{% endfor %} <!-- End of For-Each Loop -->
 
-<!-- Footer of Webpage (Kapilesh Pennichetty) -->
+<!-- Footer of Webpage -->
 <footer>
     <p align="center" style="font-family: 'Lato', sans-serif; color: #000000; font-weight:bold"><span>&#169;</span> 2021
-        Kapilesh Pennichetty and Sanjay Balasubramanian</p>
+        Jeff (Alias) and Jack (Alias)</p>
 </footer>
 </body>
 </html>

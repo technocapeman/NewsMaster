@@ -16,7 +16,8 @@ app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojec
 
 # -------- Credits ----------
 """
-- News headlines, source names, publication dates, descriptions, images, and links to articles are from the News API; please visit newsapi.org for more details
+- News headlines, source names, publication dates, descriptions, images, and links to articles are from the News API 
+- please visit newsapi.org for more details
 - Weather data from Weather API; please visit weatherapi.com for more details.
 - Flask tutorials: https://www.techwithtim.net/tutorials/flask/
 """
@@ -120,12 +121,12 @@ def temp_commentary(current_temp):
     """Gives temperature advice to the end user. (Done by Sanjay Balasubramanian)"""
     temperature = int(current_temp)
     temperature_level = {
-        0: "It's scorching hot. Stay inside and be cool!",
-        1: "It's hot and sunny. Don't forget that sunscreen!",
-        2: "It's nice and warm today. Time to flex those flip-flops!",
-        3: "It's nice and cool today. Go play outside in this great weather!",
-        4: "It's gonna be cold today. Make sure you keep yourself warm!",
-        5: "Brrrrrrr!!! Remember to wear your protective wear so you don't freeze!",
+        0: "It's scorching hot right now. Stay inside and be cool!",
+        1: "It's hot and sunny right now. Don't forget that sunscreen!",
+        2: "It's nice and warm right now. Time to flex those flip-flops!",
+        3: "It's nice and cool right now. Go play outside in this great weather!",
+        4: "It's cold right now. Make sure you keep yourself warm!",
+        5: "Brrrrrrr!!! Remember to wear your protective gear so you don't freeze!",
         6: "It's Freezing Cold. Staying inside and a cup of Hot chocolate would be nice!"
     }
 
@@ -147,9 +148,9 @@ def temp_commentary(current_temp):
 
 def precip_advice(precip_in):
     """Gives precipitation advice to the end user (Done by Sanjay Balasubramanian and Kapilesh Pennichetty)"""
-    precipitation_level = {0: "There is low to no chance of rain. No need for an umbrella.",
-                           1: "There is a moderate chance of rain. Grab an umbrella on your way out just in case. ☔",
-                           2: "It is definitely going to rain today! GRAB YOUR UMBRELLA AND YOUR RAINCOAT. ☔ 🧥"}
+    precipitation_level = {0: "There is low to no precipitation.",
+                           1: "There is a moderate amount of precipitation. Take necessary precautions.",
+                           2: "There is a high amount of precipitation! Be careful outside!"}
 
     if precip_in <= .1:
         return precipitation_level[0]
@@ -164,7 +165,7 @@ def precip_advice(precip_in):
 
 # ----- Home Page (Kapilesh Pennichetty) -----
 
-@app.route("/", methods=['GET'])  # Telling Flask that the url with "/" appended at the end should lead to the home
+@app.route("/", methods=['GET'])  # Telling Flask that the URL with "/" appended at the end should lead to the home
 # page.
 def home():
     """Home page that shows trending articles. (Done by Kapilesh Pennichetty)"""
@@ -180,7 +181,8 @@ def home():
 # ----- Weather Page -----
 
 
-@app.route("/weather", methods=["GET", "POST"])
+@app.route("/weather", methods=["GET", "POST"])  # Telling Flask that the URL with "/weather" appended at the end
+# should lead to the weather page
 def weather():
     """Page that shows weather info. (Done by Kapilesh Pennichetty and Sanjay Balasubramanian
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
@@ -201,11 +203,12 @@ def weather():
                                temp_advice_auto=temp_commentary(get_weather(ip_addr)["temp_f"]),
                                precip_advice_auto=precip_advice(get_weather(ip_addr)["precip_in"]),
                                auto_weather=get_weather(ip_addr))
-    # Rendering the HTML for the home page, passing required variables from
+    # Rendering the HTML for the weather page, passing required variables from
     # Python to HTML page using Jinja.
 
 
-@app.route("/<place>", methods=["GET", "POST"])
+@app.route("/<place>", methods=["GET", "POST"])  # Telling Flask that this is a dynamic URL, and that NewsMaster will
+# find the weather for any place appended to the end of the URL.
 def weather_search(place):
     """Weather Search Results Page (Done by Kapilesh Pennichetty
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
@@ -219,11 +222,15 @@ def weather_search(place):
         return render_template("weather_search.html",
                                temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
                                search_weather=get_weather(place),
-                               precip_advice_search=precip_advice(get_weather(place)["precip_in"]))
+                               precip_advice_search=precip_advice(get_weather(place)["precip_in"]))  # Rendering the
+        # HTML for the weather_search page, passing required variables from Python to HTML page using Jinja.
 
 
-@app.route("/search_error", methods=["GET", "POST"])
+@app.route("/search_error", methods=["GET", "POST"])  # Telling Flask that the URL with /search_error appended at the
+# end should lead to the search error page.
 def search_error():
+    """Search Error Page for when the user gives a wrong input to the search bar (Done by Kapilesh Pennichetty
+    w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/)"""
     if request.method == "POST":
         location = request.form["nm"]
         if get_weather(location) == "Invalid Input":
@@ -231,7 +238,7 @@ def search_error():
         else:
             return redirect(url_for("weather_search", place=location))
     else:
-        return render_template("search_error.html")
+        return render_template("search_error.html")  # Rendering HTML for search_error page.
 
 
 # ---------- Main Code ----------
