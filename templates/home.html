@@ -77,8 +77,9 @@
 
 <!---------- Display All Articles from News API using Jinja (Kapilesh Pennichetty) ---------->
 {% for article in top_articles %} <!-- Beginning of For-Each Loop to display all articles (Kapilesh Pennichetty) -->
+<div class="jumbotron jumbotron-fluid" style="font-family: 'Lato', sans-serif">
     <!-- Declaring Bootstrap Template for Articles (Kapilesh Pennichetty) -->
-    <div class="container-fluid" style="font-family: 'Lato', sans-serif>
+    <div class="container-fluid">
         <div class="page-header">
             {% if (article['title'] != None) and (article['url'] != None) %}
             <h3><a href={{article['url']}} rel="noopener noreferrer" style="color:#ffffff" target="_blank">{{article['title']}}</a>
@@ -105,6 +106,7 @@
               target="_blank">Learn More</a></p>
         {% endif %}
     </div>
+</div>
 {% endfor %} <!-- End of For-Each Loop (Kapilesh Pennichetty) -->
 
 <!-- Footer of Webpage (Kapilesh Pennichetty) -->
