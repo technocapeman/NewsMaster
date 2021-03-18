@@ -1,3 +1,7 @@
+# ---------- Running this Program ----------
+# Please visit thenewsmaster.herokuapp.com to see this code run without external plugins (recommended for code testing and evaluation)
+# Please visit newsmaster.us to see this code run with external plugins (recommended for best end-user experience)
+
 # ---------- Import Statements ----------
 from threading import Thread
 from time import sleep
