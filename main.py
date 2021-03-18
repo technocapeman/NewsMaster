@@ -24,7 +24,7 @@ app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojec
 
 # ---------- Functions and Data ----------
 
-# ------- Trending News (Kapilesh Pennichetty) -------
+# ------- Trending News -------
 
 # ----- List and Format Trusted News Sources -----
 
@@ -51,7 +51,7 @@ trusted_news_sources_list = [
 trusted_news_sources = ",".join(trusted_news_sources_list)  # Formatting list for use with API
 
 
-# ----- Fetching and Filtering Article Data (Kapilesh Pennichetty) -----
+# ----- Fetching and Filtering Article Data -----
 
 def get_top_headlines_stats():
     """Fetches Article Data and Metadata from the API (Documentation:
@@ -80,19 +80,18 @@ def background_fetch():
         sleep(1)
 
 
-# ------- Weather (Kapilesh Pennichetty and Sanjay Balasubramanian) -------
+# ------- Weather -------
 
 
 def scrapejson(jsonurl):
-    """This function scrapes a URL to get the JSON file at the URL. (Made by Kapilesh Pennichetty)"""
+    """This function scrapes a URL to get the JSON file at the URL."""
     api_output = requests.get(jsonurl)
     data = api_output.json()
     return data
 
 
 def get_weather(location):  # location can be IP address, city, or ZIP
-    """This function takes the location and outputs the current weather. (Done by
-    Kapilesh Pennichetty)"""
+    """This function takes the location and outputs the current weather."""
     url = f"https://api.weatherapi.com/v1/current.json?" \
           f"key={weatherapi_key}&" \
           f"q={location}"
@@ -118,7 +117,7 @@ def get_weather(location):  # location can be IP address, city, or ZIP
 
 
 def temp_commentary(current_temp):
-    """Gives temperature advice to the end user. (Done by Sanjay Balasubramanian)"""
+    """Gives temperature advice to the end user."""
     temperature = int(current_temp)
     temperature_level = {
         0: "It's scorching hot right now. Stay inside and be cool!",
@@ -147,7 +146,7 @@ def temp_commentary(current_temp):
 
 
 def precip_advice(precip_in):
-    """Gives precipitation advice to the end user (Done by Sanjay Balasubramanian and Kapilesh Pennichetty)"""
+    """Gives precipitation advice to the end user"""
     precipitation_level = {0: "There is low to no precipitation.",
                            1: "There is a moderate amount of precipitation. Take necessary precautions.",
                            2: "There is a high amount of precipitation! Be careful outside!"}
@@ -163,12 +162,12 @@ def precip_advice(precip_in):
 # ------- Webpages (Documentation: https://flask.palletsprojects.com/en/1.1.x/ and
 # https://jinja.palletsprojects.com/en/2.11.x/) -------
 
-# ----- Home Page (Kapilesh Pennichetty) -----
+# ----- Home Page -----
 
 @app.route("/", methods=['GET'])  # Telling Flask that the URL with "/" appended at the end should lead to the home
 # page.
 def home():
-    """Home page that shows trending articles. (Done by Kapilesh Pennichetty)"""
+    """Home page that shows trending articles."""
     ip_info = request.environ['HTTP_X_FORWARDED_FOR']
     if "," in ip_info:
         ip_addr = ip_info[:ip_info.index(",")]
@@ -184,7 +183,7 @@ def home():
 @app.route("/weather", methods=["GET", "POST"])  # Telling Flask that the URL with "/weather" appended at the end
 # should lead to the weather page
 def weather():
-    """Page that shows weather info. (Done by Kapilesh Pennichetty and Sanjay Balasubramanian
+    """Page that shows weather info.
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
     if request.method == "POST":
         location = request.form["nm"]
@@ -210,7 +209,7 @@ def weather():
 @app.route("/<place>", methods=["GET", "POST"])  # Telling Flask that this is a dynamic URL, and that NewsMaster will
 # find the weather for any place appended to the end of the URL.
 def weather_search(place):
-    """Weather Search Results Page (Done by Kapilesh Pennichetty
+    """Weather Search Results Page
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
     if request.method == "POST":
         location = request.form["nm"]
@@ -229,8 +228,8 @@ def weather_search(place):
 @app.route("/search_error", methods=["GET", "POST"])  # Telling Flask that the URL with /search_error appended at the
 # end should lead to the search error page.
 def search_error():
-    """Search Error Page for when the user gives a wrong input to the search bar (Done by Kapilesh Pennichetty
-    w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/)"""
+    """Search Error Page for when the user gives a wrong input to the search bar
+    (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/)"""
     if request.method == "POST":
         location = request.form["nm"]
         if get_weather(location) == "Invalid Input":
@@ -243,13 +242,13 @@ def search_error():
 
 # ---------- Main Code ----------
 
-# ----- Run background_fetch() in a background thread (Kapilesh Pennichetty) -----
+# ----- Run background_fetch() in a background thread -----
 # Reference: https://stackoverflow.com/questions/38254172/infinite-while-true-loop-in-the-background-python
 fetch_articles = Thread(name='background', target=background_fetch)  # Creating thread for background task
 fetch_articles.daemon = True  # Declaring that thread is a daemon (background task)
 fetch_articles.start()  # Initializing the thread
 
-# ----- Run Flask App (Kapilesh Pennichetty) -----
+# ----- Run Flask App -----
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)  # Telling Flask to run the app with the constraints given. (Documentation:
     # https://flask.palletsprojects.com/en/1.1.x/)
