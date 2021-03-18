@@ -133,17 +133,17 @@ def temp_commentary(current_temp):
 
     if temperature >= 95:
         return temperature_level[0]
-    elif 80 <= temperature <= 94:
+    elif 80 <= temperature < 95:
         return temperature_level[1]
-    elif 69 <= temperature <= 79:
+    elif 69 <= temperature < 80:
         return temperature_level[2]
-    elif 59 <= temperature <= 68:
+    elif 59 <= temperature < 69:
         return temperature_level[3]
-    elif 40 <= temperature <= 57:
+    elif 40 <= temperature < 59:
         return temperature_level[4]
-    elif 25 <= temperature <= 39:
+    elif 25 <= temperature < 40:
         return temperature_level[5]
-    elif temperature <= 24:
+    elif temperature < 25:
         return temperature_level[6]
 
 
