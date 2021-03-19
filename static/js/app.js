@@ -1,10 +1,12 @@
 // Credits: https://flaskpwa.com/#_initialSetupJS
 // Register Service Worker
+var swRegistration = null;
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker
     .register('./service-worker.js')
     .then(function(registration) {
         console.log('Service Worker Registered');
+        swRegistration = registration;
         return registration;
     })
     .catch(function(err) {
