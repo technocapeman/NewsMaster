@@ -4,21 +4,17 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>Search Error | NewsMaster</title>
+    <title>Offline | NewsMaster</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-    <link href="{{ url_for('static', filename='manifest.json') }}" rel="manifest">
+    <link href="/static/manifest.json" rel="manifest">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="NewsMaster" name="apple-mobile-web-app-title">
-    <link href="{{ url_for('static', filename='images/logo.png') }}" rel="apple-touch-icon" sizes="180x180">
-    <link href="{{ url_for('static', filename='images/logo.png') }}" rel="apple-touch-startup-image" sizes="512x512">
-    <link href="{{ url_for('static', filename='images/logo.png') }}" rel="icon" sizes="96x96">
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/install.js') }}"></script>
+    <link href="/static/images/logo.png" rel="apple-touch-icon" sizes="180x180">
+    <link href="/static/images/logo.png" rel="apple-touch-startup-image" sizes="512x512">
+    <link href="/static/images/logo.png" rel="icon" sizes="96x96">
 </head>
 <body>
-
-<!--- CSS for weather webpages --->
 <style>
     * {
         -webkit-font-smoothing: antialiased;
@@ -446,36 +442,18 @@
         width: 100%;
         text-align: center
     }
-
-
-
 </style>
 
 <!---------- Header of weather.html ---------->
 <main class="main-container">
     <header class="header">
         <nav>
-            <a class="logo" href="/weather" style="color:#1fbed6">Weather</a>
+            <h1 style="margin-left: 1em">Offline</h1>
             <input class="menu-btn" id="menu-btn" type="checkbox"/>
             <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
 
         </nav>
     </header>
-
-    <!---------- Search Form ---------->
-    <div class="search">
-        <form action="#" method="post">
-            <h3>Search for a Location:</h3>
-            <h3><input name="nm" placeholder="Enter a City Name or ZIP Code" style="width: 280px; height: 35px"
-                       type="text"/>
-                <button style="height:30px; width: 70px; background-color: #1fbed6; border-radius: 7px; border-color: #1fbed6"
-                        type="submit">
-                    <img src="{{ url_for('static', filename='images/Search.png') }}"
-                         style="height:20px; width: 20px; margin-bottom: -5px; margin-top: -3px; margin-right: 2px">
-                </button>
-            </h3>
-        </form>
-    </div>
 
     <!---------- Error Message ---------->
     <div style="font-family: 'Lato', sans-serif; text-align: center; width: 100%; margin-top: 6em">
