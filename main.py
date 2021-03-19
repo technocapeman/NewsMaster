@@ -30,7 +30,7 @@ app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojec
 - please visit newsapi.org for more details
 - Weather data from Weather API; please visit weatherapi.com for more details.
 - Flask tutorials: https://www.techwithtim.net/tutorials/flask/
-- manifest.json, app.js, and install.js from: https://flaskpwa.com/#_initialSetupJS
+- static/manifest.json, static/js/app.js, and static/service-worker.js: https://flaskpwa.com/#_initialSetupJS
 """
 
 # ---------- Functions and Data ----------
@@ -252,7 +252,7 @@ def search_error():
 # ----- Service Worker -----
 @app.route('/service-worker.js')
 def sw():
-    return app.send_static_file('service_worker.js')
+    return app.send_static_file('service-worker.js'), 200, {'Content-Type': 'text/javascript'}
 
 
 # ---------- Main Code ----------
