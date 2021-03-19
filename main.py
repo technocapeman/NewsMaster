@@ -5,6 +5,9 @@
 # Please visit newsmaster.us to see this code run with external plugins (recommended for best end-user experience).
 # Please note that said plugins are implemented by Cloudflare, not the programmers of NewsMaster.
 
+# Please refresh the webpage if you encounter a server error (error code 500); this happens because the server hasn't
+# fully started the program yet.
+
 # ---------- Import Statements ----------
 from threading import Thread
 from time import sleep
