@@ -5,22 +5,22 @@
   "background_color": "#2f2f2f",
   "icons": [
     {
-      "src": "/static/images/logo.png",
+      "src": "/static/images/logo-64.png",
       "type": "image/png",
       "sizes": "64x64"
     },
     {
-      "src": "/static/images/logo.png",
+      "src": "/static/images/logo-96.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "/static/images/logo.png",
+      "src": "/static/images/logo-192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/static/images/logo.png",
+      "src": "/static/images/logo-512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

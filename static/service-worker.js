@@ -1,9 +1,10 @@
-'use strict';
-
+// Credits: https://flaskpwa.com
 const CACHE_NAME = 'static-cache';
 
 const FILES_TO_CACHE = [
-  '/static/offline.html',
+  'https://code.jquery.com/jquery-3.1.0.js',
+  'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap',
+  'static/offline.html',
 ];
 
 self.addEventListener('install', (evt) => {
