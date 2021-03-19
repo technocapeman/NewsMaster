@@ -1,6 +1,9 @@
 # ---------- Running this Program ----------
-# Please visit thenewsmaster.herokuapp.com to see this code run without external plugins (recommended for code testing and evaluation)
-# Please visit newsmaster.us to see this code run with external plugins (recommended for best end-user experience)
+# Please visit thenewsmaster.herokuapp.com to see this code run without external plugins
+# (recommended for code testing and evaluation as it uses only the code written by the programmers of NewsMaster)
+
+# Please visit newsmaster.us to see this code run with external plugins (recommended for best end-user experience).
+# Please note that said plugins are implemented by Cloudflare, not the programmers of NewsMaster.
 
 # ---------- Import Statements ----------
 from threading import Thread
