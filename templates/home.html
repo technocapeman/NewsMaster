@@ -42,10 +42,6 @@
 			float: right;
 		}
 
-
-
-
-
     </style>
 
 </head>
@@ -101,7 +97,7 @@
         {% endif %}
         {% if article['urlToImage'] != None %}
         <a href={{article['url']}} rel="noopener noreferrer" target="_blank">
-            <object data={{article['urlToImage']}} style="max-width: 350px" type="image/jpg"></object>
+            <img src={{article['urlToImage']}} style="max-width: 350px">
         </a>
         {% endif %}
         {% if article['url'] != None %}
