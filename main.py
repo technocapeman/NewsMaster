@@ -14,7 +14,7 @@ from time import sleep
 
 import requests
 import schedule
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, current_app, url_for
 
 # ---------- API and Program Prerequisites ----------
 
@@ -250,9 +250,9 @@ def search_error():
 
 
 # ----- Service Worker -----
-@app.route('/service-worker.js')
+@app.route('/service-worker.js', methods=['GET'])
 def sw():
-    return app.send_static_file('service-worker.js'), 200, {'Content-Type': 'text/javascript'}
+    return current_app.send_static_file('service-worker.js')#, 200, {'Content-Type': 'text/javascript'}
 
 
 # ---------- Main Code ----------
