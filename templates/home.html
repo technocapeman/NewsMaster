@@ -95,10 +95,9 @@
         {% if article['description'] != None %}
         <p>{{article['description']}}</p>
         {% endif %}
-        {% if article['urlToImage'] != None %}
+        {% if (article['urlToImage'] != None) or (article['source']['name'] == "associated-press") %}
         <a href={{article['url']}} rel="noopener noreferrer" target="_blank">
-            <p>{{ article['urlToImage'] }}</p>
-            <img src={{article['urlToImage']}} style="max-width: 350px">
+            <object data={{article['urlToImage']}} style="max-width: 350px" type="image/jpg"></object>
         </a>
         {% endif %}
         {% if article['url'] != None %}
