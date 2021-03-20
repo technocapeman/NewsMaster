@@ -1,48 +1,39 @@
-// Credits: https://github.com/umluizlima/flask-pwa/blob/master/app/static/sw.js
+/*
+  This is all the stuff that we want to save in the cache.
+  In order for the app to work offline/be installable,
+  we have to save not just images but our HTML, JS, and CSS
+  as well - anything we want to use when offline.
+*/
+const ASSETS = [
+    "/static/offline.html"
+];
 
-console.log('Hello from sw.js');
+let cache_name = "NewsMaster"; // The string used to identify our cache
 
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js');
-
-if (workbox) {
-    console.log(`Yay! Workbox is loaded 🎉`);
-
-    workbox.precaching.precacheAndRoute([{
-        "url": "/",
-        "revision": "1"
-    }]);
-
-    workbox.routing.registerRoute(
-        /\.(?:js|css)$/,
-        workbox.strategies.staleWhileRevalidate({
-            cacheName: 'static-resources',
-        }),
+self.addEventListener("install", event => {
+    console.log("installing...");
+    event.waitUntil(
+        caches
+            .open(cache_name)
+            .then(cache => {
+                return cache.addAll(assets);
+            })
+            .catch(err => console.log(err))
     );
+});
 
-    workbox.routing.registerRoute(
-        /\.(?:png|gif|jpg|jpeg|svg)$/,
-        workbox.strategies.cacheFirst({
-            cacheName: 'images',
-            plugins: [
-                new workbox.expiration.Plugin({
-                    maxEntries: 60,
-                    maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
-                }),
-            ],
-        }),
-    );
-
-    workbox.routing.registerRoute(
-        new RegExp('https://fonts.(?:googleapis|gstatic).com/(.*)'),
-        workbox.strategies.cacheFirst({
-            cacheName: 'googleapis',
-            plugins: [
-                new workbox.expiration.Plugin({
-                    maxEntries: 30,
-                }),
-            ],
-        }),
-    );
-} else {
-    console.log(`Boo! Workbox didn't load 😬`);
-}
+self.addEventListener("fetch", event => {
+    if (event.request.url === 'navigate') {
+        event.respondWith(
+            fetch(event.request).catch(err =>
+                self.cache.open(cache_name).then(cache => cache.match("/static/offline.html"))
+            )
+        );
+    } else {
+        event.respondWith(
+            fetch(event.request).catch(err =>
+                caches.match(event.request).then(response => response)
+            )
+        );
+    }
+});
