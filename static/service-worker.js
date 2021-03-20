@@ -1,47 +1,48 @@
-// Credits: https://flaskpwa.com
-const CACHE_NAME = 'static-cache';
+// Credits: https://github.com/umluizlima/flask-pwa/blob/master/app/static/sw.js
 
-const FILES_TO_CACHE = [
-  'https://code.jquery.com/jquery-3.1.0.js',
-  'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap',
-  'static/offline.html',
-];
+console.log('Hello from sw.js');
 
-self.addEventListener('install', (evt) => {
-  console.log('[ServiceWorker] Install');
-  evt.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('[ServiceWorker] Pre-caching offline page');
-      return cache.addAll(FILES_TO_CACHE);
-    })
-  );
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js');
 
-  self.skipWaiting();
-});
+if (workbox) {
+    console.log(`Yay! Workbox is loaded 🎉`);
 
-self.addEventListener('activate', (evt) => {
-  console.log('[ServiceWorker] Activate');
-  evt.waitUntil(
-    caches.keys().then((keyList) => {
-      return Promise.all(keyList.map((key) => {
-        if (key !== CACHE_NAME) {
-          console.log('[ServiceWorker] Removing old cache', key);
-          return caches.delete(key);
-        }
-      }));
-    })
-  );
-  self.clients.claim();
-});
+    workbox.precaching.precacheAndRoute([{
+        "url": "/",
+        "revision": "1"
+    }]);
 
-self.addEventListener('fetch', (evt) => {
-  if (evt.request.mode !== 'navigate') {
-    return;
-  }
-  evt.respondWith(fetch(evt.request).catch(() => {
-      return caches.open(CACHE_NAME).then((cache) => {
-        return cache.match('offline.html');
-      });
-    })
-  );
-});
+    workbox.routing.registerRoute(
+        /\.(?:js|css)$/,
+        workbox.strategies.staleWhileRevalidate({
+            cacheName: 'static-resources',
+        }),
+    );
+
+    workbox.routing.registerRoute(
+        /\.(?:png|gif|jpg|jpeg|svg)$/,
+        workbox.strategies.cacheFirst({
+            cacheName: 'images',
+            plugins: [
+                new workbox.expiration.Plugin({
+                    maxEntries: 60,
+                    maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+                }),
+            ],
+        }),
+    );
+
+    workbox.routing.registerRoute(
+        new RegExp('https://fonts.(?:googleapis|gstatic).com/(.*)'),
+        workbox.strategies.cacheFirst({
+            cacheName: 'googleapis',
+            plugins: [
+                new workbox.expiration.Plugin({
+                    maxEntries: 30,
+                }),
+            ],
+        }),
+    );
+} else {
+    console.log(`Boo! Workbox didn't load 😬`);
+}

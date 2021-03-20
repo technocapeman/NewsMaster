@@ -1,3 +1,4 @@
+# NewsMaster
 NewsMaster is a free, cross-platform news app by Kapilesh Pennichetty and Sanjay Balasubramanian. It is a website and a Progressive Web Application developed on the Flask Web Framework for Python.
 
 Features:

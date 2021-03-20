@@ -1,4 +1,6 @@
 # ---------- Running this Program ----------
+# This program is meant to be run on a production WSGI server that supports multithreading. It will not run locally.
+
 # Please visit thenewsmaster.herokuapp.com to see this code run without external plugins
 # (recommended for code testing and evaluation as it uses only the code written by the programmers of NewsMaster)
 
@@ -26,11 +28,13 @@ app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojec
 
 # -------- Credits ----------
 """
-- News headlines, source names, publication dates, descriptions, images, and links to articles are from the News API 
-- please visit newsapi.org for more details
-- Weather data from Weather API; please visit weatherapi.com for more details.
-- Flask tutorials: https://www.techwithtim.net/tutorials/flask/
-- static/manifest.json, static/js/app.js, and static/service-worker.js: https://flaskpwa.com/#_initialSetupJS
+- News headlines, source names, publication dates, descriptions, images, and links to articles are from News API;
+please visit https://newsapi.org for more details
+- Weather data from Weather API; please visit https://weatherapi.com for more details.
+- Scheduling News Article Fetch: https://schedule.readthedocs.io/en/stable/index.html
+- Search Functionality: https://www.techwithtim.net/tutorials/flask/http-methods-get-post
+- Using Background Threads: https://stackoverflow.com/questions/38254172/infinite-while-true-loop-in-the-background-python
+- Integrating Service Worker with Flask: https://www.reddit.com/r/PWA/comments/bmsed8/this_is_how_i_install_my_service_worker_using/
 """
 
 # ---------- Functions and Data ----------
@@ -65,8 +69,7 @@ trusted_news_sources = ",".join(trusted_news_sources_list)  # Formatting list fo
 # ----- Fetching and Filtering Article Data -----
 
 def get_top_headlines_stats():
-    """Fetches Article Data and Metadata from the API (Documentation:
-    https://newsapi.org/docs/endpoints/top-headlines)"""
+    """Fetches Article Data and Metadata from the API"""
     url = f'https://newsapi.org/v2/top-headlines?' \
           f'sources={trusted_news_sources}&' \
           f'apiKey={newsapi_key}'
@@ -168,8 +171,7 @@ def precip_advice(precip_in):
         return precipitation_level[2]
 
 
-# ------- Webpages (Documentation: https://flask.palletsprojects.com/en/1.1.x/ and
-# https://jinja.palletsprojects.com/en/2.11.x/) -------
+# ------- Webpages -------
 
 # ----- Home Page -----
 
@@ -249,10 +251,12 @@ def search_error():
         return render_template("search_error.html")  # Rendering HTML for search_error page.
 
 
-# ----- Service Worker -----
+# ----- Service Worker (Credits:
+# https://www.reddit.com/r/PWA/comments/bmsed8/this_is_how_i_install_my_service_worker_using/) -----
 @app.route('/service-worker.js', methods=['GET'])
 def sw():
-    return current_app.send_static_file('service-worker.js')#, 200, {'Content-Type': 'text/javascript'}
+    """Integrates Service Worker with Flask."""
+    return current_app.send_static_file('service-worker.js')
 
 
 # ---------- Main Code ----------
