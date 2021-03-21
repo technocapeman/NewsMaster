@@ -251,11 +251,11 @@ def search_error():
         return render_template("search_error.html")  # Rendering HTML for search_error page.
 
 
-# ----- Service Worker (Credits:
-# https://www.reddit.com/r/PWA/comments/bmsed8/this_is_how_i_install_my_service_worker_using/) -----
+# ----- Service Worker -----
 @app.route('/service-worker.js', methods=['GET'])
 def sw():
-    """Integrates Service Worker with Flask."""
+    """Integrates Service Worker with Flask (Credits:
+    https://www.reddit.com/r/PWA/comments/bmsed8/this_is_how_i_install_my_service_worker_using/)"""
     return current_app.send_static_file('service-worker.js')
 
 
