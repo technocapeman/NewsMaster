@@ -12,7 +12,7 @@ static/js/app.js:
 - https://github.com/umluizlima/flask-pwa/blob/master/app/static/js/app.js
 
 static/service-worker.js:
-- https://github.com/umluizlima/flask-pwa/blob/master/app/static/sw.js
+- https://www.pwabuilder.com/serviceworker
 
 static/manifest.json:
 - https://flaskpwa.com
