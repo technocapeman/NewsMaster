@@ -14,6 +14,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>Search Error | NewsMaster</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
+    <meta content="#4f4f4f" name="theme-color">
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
     <link href="{{ url_for('static', filename='manifest.json') }}" rel="manifest">
     <meta content="yes" name="apple-mobile-web-app-capable">
@@ -26,8 +27,8 @@
 
 <body>
 
-    <!--- CSS for weather webpages --->
-    <style>
+<!--- CSS for weather webpages --->
+<style>
         * {
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -455,44 +456,48 @@
             width: 100%;
             text-align: center
         }
-    </style>
 
-    <!---------- Header of search_error.html ---------->
-    <main class="main-container">
-        <header class="header">
-            <nav>
-                <a class="logo" href="/weather" style="color:#1fbed6">Weather</a>
-                <input class="menu-btn" id="menu-btn" type="checkbox" />
-                <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-                <ul class="menu">
-                    <li><a class="button" href="/" style="color:#1fbed6">Home</a></li>
-                </ul>
-            </nav>
-        </header>
+</style>
 
-        <!---------- Search Form (Credits: https://www.techwithtim.net/tutorials/flask/http-methods-get-post) ---------->
-        <div class="search">
-            <form action="#" method="post">
-                <h3>Search for a Location:</h3>
-                <h3><input name="nm" placeholder="Enter a City Name or ZIP Code" style="width: 280px; height: 35px" type="text" />
-                    <button style="height:30px; width: 70px; background-color: #1fbed6; border-radius: 7px; border-color: #1fbed6" type="submit">
+<!---------- Header of search_error.html ---------->
+<main class="main-container">
+    <header class="header">
+        <nav>
+            <a class="logo" href="/weather" style="color:#1fbed6">Weather</a>
+            <input class="menu-btn" id="menu-btn" type="checkbox"/>
+            <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+            <ul class="menu">
+                <li><a class="button" href="/" style="color:#1fbed6">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!---------- Search Form (Credits: https://www.techwithtim.net/tutorials/flask/http-methods-get-post) ---------->
+    <div class="search">
+        <form action="#" method="post">
+            <h3>Search for a Location:</h3>
+            <h3><input name="nm" placeholder="Enter a City Name or ZIP Code" style="width: 280px; height: 35px"
+                       type="text"/>
+                <button style="height:30px; width: 70px; background-color: #1fbed6; border-radius: 7px; border-color: #1fbed6"
+                        type="submit">
                     <img src="{{ url_for('static', filename='images/Search.png') }}"
                          style="height:20px; width: 20px; margin-bottom: -5px; margin-top: -3px; margin-right: 2px">
                 </button>
-                </h3>
-            </form>
-        </div>
+            </h3>
+        </form>
+    </div>
 
-        <!---------- Error Message ---------->
-        <div style="font-family: 'Lato', sans-serif; text-align: center; width: 100%; margin-top: 6em">
-            <h3>Sorry, we cannot find the requested location.</h3>
-            <h3>Please check your search parameters and try again.</h3>
-        </div>
-    </main>
-    <!---------- Footer ---------->
-    <footer style="background-color: #2f2f2f; margin-top: 6em">
-        <p align="center" style="font-family: 'Lato', sans-serif; color: #ffffff; font-weight:bold">Powered by <a href="https://www.weatherapi.com/" style="color: #ffffff" title="Weather API">WeatherAPI.com</a></p>
-    </footer>
+    <!---------- Error Message ---------->
+    <div style="font-family: 'Lato', sans-serif; text-align: center; width: 100%; margin-top: 6em">
+        <h3>Sorry, we cannot find the requested location.</h3>
+        <h3>Please check your search parameters and try again.</h3>
+    </div>
+</main>
+<!---------- Footer ---------->
+<footer style="background-color: #2f2f2f; margin-top: 6em">
+    <p align="center" style="font-family: 'Lato', sans-serif; color: #ffffff; font-weight:bold">Powered by <a
+            href="https://www.weatherapi.com/" style="color: #ffffff" title="Weather API">WeatherAPI.com</a></p>
+</footer>
 </body>
 
 </html>
