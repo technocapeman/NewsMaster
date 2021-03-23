@@ -1,6 +1,7 @@
 # ---------- Running this Program ----------
 
-# This program is meant to be run on a production WSGI server that supports multithreading. It will not run locally.
+# This program is meant to be run on a production WSGI server that supports multithreading. It will not run on
+# localhost.
 
 # ---------- Import Statements ----------
 from threading import Thread
@@ -25,34 +26,36 @@ please visit https://newsapi.org for more details
 - Weather data from Weather API; please visit https://weatherapi.com for more details.
 - Scheduling News Article Fetch: https://schedule.readthedocs.io/en/stable/index.html
 - Search Functionality: https://www.techwithtim.net/tutorials/flask/http-methods-get-post
-- Using Background Threads: https://stackoverflow.com/questions/38254172/infinite-while-true-loop-in-the-background-python
-- Integrating Service Worker with Flask: https://www.reddit.com/r/PWA/comments/bmsed8/this_is_how_i_install_my_service_worker_using/
+- Using Background Threads: 
+https://stackoverflow.com/questions/38254172/infinite-while-true-loop-in-the-background-python
+- Integrating Service Worker with Flask: 
+https://www.reddit.com/r/PWA/comments/bmsed8/this_is_how_i_install_my_service_worker_using/
 """
 
+
 # ---------- Functions and Data ----------
+
+def scrapejson(jsonurl):
+    """This function scrapes a URL to get the JSON file at the URL."""
+    api_output = requests.get(jsonurl)
+    data = api_output.json()
+    return data
+
 
 # ------- Trending News -------
 
 # ----- List and Format Trusted News Sources -----
 
 trusted_news_sources_list = [
-    "bbc-news", "abc-news", "abc-news-au", "al-jazeera-english",
-    "ars-technica", "associated-press", "australian-financial-review", "axios",
-    "bbc-sport", "bleacher-report", "bloomberg", "breitbart-news",
-    "business-insider", "cbc-news", "cbs-news", "cnn", "crypto-coins-news",
-    "engadget", "espn", "financial-post", "football-italia",
-    "fortune", "four-four-two", "fox-news", "fox-sports",
-    "google-news", "google-news-au", "google-news-ca", "google-news-in",
-    "google-news-uk", "independent", "mashable", "medical-news-today",
-    "msnbc", "mtv-news", "mtv-news-uk", "national-geographic",
-    "national-review", "nbc-news", "new-scientist", "news-com-au", "newsweek",
-    "new-york-magazine", "nfl-news", "nhl-news", "politico", "polygon",
-    "recode", "reuters", "rte", "talksport", "techcrunch", "techradar",
-    "the-globe-and-mail", "the-hill", "the-hindu", "the-huffington-post",
-    "the-irish-times", "the-jerusalem-post", "the-next-web",
-    "the-times-of-india", "the-verge", "the-wall-street-journal",
-    "the-washington-post", "the-washington-times", "time", "usa-today",
-    "vice-news", "wired"
+    "bbc-news", "abc-news", "abc-news-au", "al-jazeera-english", "ars-technica", "associated-press",
+    "australian-financial-review", "axios", "bbc-sport", "bleacher-report", "bloomberg", "business-insider", "cbc-news",
+    "cbs-news", "cnn", "engadget", "espn", "financial-post", "football-italia", "fortune", "four-four-two",
+    "fox-sports", "google-news", "google-news-au", "google-news-ca", "google-news-in", "google-news-uk", "independent",
+    "mashable", "medical-news-today", "msnbc", "mtv-news", "mtv-news-uk", "national-geographic", "national-review",
+    "nbc-news", "new-scientist", "news-com-au", "newsweek", "new-york-magazine", "nfl-news", "nhl-news", "politico",
+    "polygon", "recode", "reuters", "rte", "techcrunch", "techradar", "the-globe-and-mail", "the-hill", "the-hindu",
+    "the-huffington-post", "the-irish-times", "the-jerusalem-post", "the-next-web", "the-times-of-india", "the-verge",
+    "the-wall-street-journal", "the-washington-post", "the-washington-times", "time", "usa-today", "vice-news", "wired"
 ]
 
 trusted_news_sources = ",".join(trusted_news_sources_list)  # Formatting list for use with API
@@ -65,36 +68,22 @@ def get_top_headlines_stats():
     url = f'https://newsapi.org/v2/top-headlines?' \
           f'sources={trusted_news_sources}&' \
           f'apiKey={newsapi_key}'
-    api_output = requests.get(url)
-    top_headlines_stats = api_output.json()
-    return top_headlines_stats["articles"]
-
-
-def fetch_top_headlines():
-    """This function runs fetches top headlines when called."""
+    top_headlines_stats = scrapejson(url)
     global top_headlines
-    top_headlines = get_top_headlines_stats()
+    top_headlines = top_headlines_stats["articles"]
+    return top_headlines
 
 
 def background_fetch():
-    """This function repeatedly calls fetch_top_headlines() every 45 minutes
-     (Documentation: https://schedule.readthedocs.io/en/stable/index.html)."""
-    fetch_top_headlines()
-    schedule.every(45).minutes.do(fetch_top_headlines)
+    """This function repeatedly fetches top headlines every 45 minutes."""
+    get_top_headlines_stats()
+    schedule.every(45).minutes.do(get_top_headlines_stats)
     while True:
         schedule.run_pending()
         sleep(1)
 
 
 # ------- Weather -------
-
-
-def scrapejson(jsonurl):
-    """This function scrapes a URL to get the JSON file at the URL."""
-    api_output = requests.get(jsonurl)
-    data = api_output.json()
-    return data
-
 
 def get_weather(location):  # location can be IP address, city, or ZIP
     """This function takes the location and outputs the current weather."""
@@ -180,6 +169,12 @@ def home():
     # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
 
 
+@app.route("/news-reliability")
+def news_cred():
+    """This webpage talks about the reliability and bias of the news that the app shows to the end user."""
+    return render_template("news-reliability.html")
+
+
 # ----- Weather Page -----
 
 
@@ -200,7 +195,6 @@ def weather():
             ip_addr = ip_info[:ip_info.index(",")]
         else:
             ip_addr = ip_info
-
         return render_template('weather.html',
                                temp_advice_auto=temp_commentary(get_weather(ip_addr)["temp_f"]),
                                precip_advice_auto=precip_advice(get_weather(ip_addr)["precip_in"]),

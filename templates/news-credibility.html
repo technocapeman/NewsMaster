@@ -1,18 +1,12 @@
 <!DOCTYPE html>
 
-<!--------- Credits ---------->
-<!--
-    - Popup: https://webdevtrick.com/popup-in-pure-css-and-html-get-example-with-source-code/
-    - Search Functionality: https://www.techwithtim.net/tutorials/flask/http-methods-get-post
--->
-
 <!---------- Importing Fonts ---------->
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>{{ search_weather["name"] }} Weather | NewsMaster</title>
+    <title>News Reliability and Bias | NewsMaster</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
     <meta content="#4f4f4f" name="theme-color">
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
@@ -456,98 +450,55 @@
             width: 100%;
             text-align: center
         }
+
+
+
+
 </style>
 
-<!---------- Header of weather_search.html ---------->
+<!---------- Header of news-reliability.html ---------->
 <main class="main-container">
     <header class="header">
         <nav>
-            <a class="logo" href="#" style="color:#1fbed6">{{ search_weather["name"] }}</a>
+            <a class="logo" href="/weather" style="color:#1fbed6">News Reliability and Bias</a>
             <input class="menu-btn" id="menu-btn" type="checkbox"/>
             <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
             <ul class="menu">
                 <li><a class="button" href="/" style="color:#1fbed6">Home</a></li>
-                <li><a class="button" href="#temp_advice" style="color:#1fbed6">Temperature Advice</a></li>
-                <div class="popup" id="temp_advice">
-                    <div class="popup-inner">
-                        <div class="popuptext">
-                            <h1 align="center">Temperature Advice</h1>
-                            <p align="center"> {{ temp_advice_search }} </p>
-                        </div>
-                        <a class="closepopup" href="#">X</a>
-                    </div>
-                </div>
-                </div>
-
-                <li><a class="button" href="#precip_advice" style="color:#1fbed6">Precipitation Advice</a></li>
-                <div class="popup2" id="precip_advice">
-                    <div class="popup2-inner">
-                        <div class="popuptext2">
-                            <h1 align="center">Precipitation Advice</h1>
-                            <p align="center"> {{ precip_advice_search }} </p>
-                        </div>
-                        <a class="closepopup" href="#">X</a>
-                    </div>
-                </div>
-                </div>
-
+                <li><a class="button" href="/weather" style="color:#1fbed6">Weather</a></li>
             </ul>
         </nav>
     </header>
 
-    <!---------- Search Form (Credits: https://www.techwithtim.net/tutorials/flask/http-methods-get-post) ---------->
-    <div class="search">
-        <form action="#" method="post">
-            <h3>Search for a Location:</h3>
-            <h3><input name="nm" placeholder="Enter a City Name or ZIP Code" style="width: 280px; height: 35px"
-                       type="text"/>
-                <button style="height:30px; width: 70px; background-color: #1fbed6; border-radius: 7px; border-color: #1fbed6"
-                        type="submit">
-                    <img src="{{ url_for('static', filename='images/Search.png') }}"
-                         style="height:20px; width: 20px; margin-bottom: -5px; margin-top: -3px; margin-right: 2px">
-                </button>
-            </h3>
-        </form>
-    </div>
-
-    <!---------- Current Temperature details ---------->
-    <div class="current-temperature">
-        <div class="current-temperature__icon-container"></div>
-        <div class="current-temperature__content-container">
-            <div class="current-temperature__value">{{ search_weather["temp_f"] }} &#8457;</div>
-        </div>
-    </div>
-    <div class="current-stats">
-        <div>
-            <div class="current-stats__value">{{ search_weather["text"] }}</div>
-            <div class="current-stats__label">Description</div>
-            <div class="current-stats__value">{{ search_weather["feelslike_f"] }} &#8457;</div>
-            <div class="current-stats__label">Feels Like</div>
-        </div>
-        <div>
-            <div class="current-stats__value">{{ search_weather["wind_mph"] }} mph</div>
-            <div class="current-stats__label">Wind Speed</div>
-            <div class="current-stats__value">{{ search_weather["wind_dir"] }}</div>
-            <div class="current-stats__label">Wind Direction</div>
-        </div>
-        <div>
-            <div class="current-stats__value">{{ search_weather["precip_in"] }} in</div>
-            <div class="current-stats__label">Precipitation</div>
-            <div class="current-stats__value">{{ search_weather["humidity"] }}%</div>
-            <div class="current-stats__label">Humidity</div>
-        </div>
-    </div>
-
-    <!---------- Last Updated ---------->
-    <div class="search">
-        <p>Last Updated: {{ search_weather["last_updated"] }} ({{ search_weather["tz_id"] }} Time Zone)</p>
+    <!---------- Message about News reliability ---------->
+    <div style="font-family: 'Lato', sans-serif; text-align: center; width: 100%; margin-top: 6em">
+        <h1 style="margin-top:3em; margin-left: 2em; margin-right: 2em">Reliability and Bias of News Sources</h1>
+        <p style="margin-top:5em; margin-left: 2em; margin-right: 2em; font-size: 20px; color: #ffffff">We at NewsMaster
+            strive to deliver you with reliable and unbiased news. To do this, we use a strict approval process to
+            minimize bias and the risk of
+            misinformation.</p>
+        <h2 style="margin-top:5em; margin-left: 2em; margin-right: 2em">Stages of Approving a News Source:</h2>
+        <ol style="color: #ffffff; font-size: 20px; margin-top: 3em; margin-left: 2em; margin-right: 2em">
+            <li style="margin-top: 1em">Checking the news source against <a
+                    href="https://en.wikipedia.org/wiki/Wikipedia:Reliable_sources/Perennial_sources#Sources"
+                    style="color: #1fbed6" target="_blank">Wikipedia's list of reliable sources</a> to determine
+                reliability. The news source is only added if it is reliable.
+            </li>
+            <li style="margin-top: 1em">Checking the news source against the <a href="https://mediabiasfactcheck.com/"
+                                                                                style="color:#1fbed6" target="_blank">Media
+                Bias Fact Check</a> database to determine political bias. If the news source has a moderate to high
+                bias on either side of the political spectrum,
+                then it will not be added to NewsMaster.
+            </li>
+            <li style="margin-top: 1em">Searching the internet for the general public's comments about a news source. A
+                news source is only added if it is well-rated by the general public.
+            </li>
+        </ol>
+        <h5 style="margin-top: 5em; font-size: 20px">We hope you enjoy using NewsMaster! We always aim to provide you
+            with the most reliable and trustworthy information.</h5>
     </div>
 </main>
-<!---------- Footer ---------->
-<footer style="background-color: #2f2f2f; margin-top: 6em">
-    <p align="center" style="font-family: 'Lato', sans-serif; color: #ffffff; font-weight:bold">Powered by <a
-            href="https://www.weatherapi.com/" style="color: #ffffff" title="Weather API">WeatherAPI.com</a></p>
-</footer>
+
 </body>
 
 </html>
