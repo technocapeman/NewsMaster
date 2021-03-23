@@ -222,7 +222,7 @@ def weather_search(place):
         # HTML for the weather_search page, passing required variables from Python to HTML page using Jinja.
 
 
-@app.route("/search_error", methods=["GET", "POST"])  # Telling Flask that the URL with /search_error appended at the
+@app.route("/search-error", methods=["GET", "POST"])  # Telling Flask that the URL with /search_error appended at the
 # end should lead to the search error page.
 def search_error():
     """Search Error Page for when the user gives a wrong input to the search bar
