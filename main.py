@@ -49,9 +49,9 @@ def scrapejson(jsonurl):
 trusted_news_sources_list = [
     "bbc-news", "abc-news", "abc-news-au", "al-jazeera-english", "ars-technica", "associated-press",
     "australian-financial-review", "axios", "bbc-sport", "bleacher-report", "bloomberg", "business-insider", "cbc-news",
-    "cnn", "engadget", "espn", "financial-post", "football-italia", "fortune", "four-four-two",
+    "cnn", "engadget", "espn", "financial-post", "football-italia", "fortune",
     "fox-sports", "google-news", "google-news-au", "google-news-ca", "google-news-in", "google-news-uk", "independent",
-    "mashable", "medical-news-today", "msnbc", "mtv-news", "mtv-news-uk", "national-geographic", "national-review",
+    "mashable", "medical-news-today", "mtv-news", "mtv-news-uk", "national-geographic", "national-review",
     "nbc-news", "new-scientist", "news-com-au", "newsweek", "new-york-magazine", "nfl-news", "nhl-news", "politico",
     "polygon", "recode", "reuters", "rte", "techcrunch", "techradar", "the-globe-and-mail", "the-hill", "the-hindu",
     "the-huffington-post", "the-irish-times", "the-jerusalem-post", "the-next-web", "the-times-of-india", "the-verge",
