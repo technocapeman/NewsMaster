@@ -94,7 +94,7 @@
         </div>
         {% if article['description'] != None %}
         <p>{{article['description']}}</p>
-        {% endif %} {% if (article['urlToImage'] == None) or (article['urlToImage'][0:4] != "http") %}
+        {% endif %} {% if (article['urlToImage'] == None) or (article['urlToImage'][0:4] == "http") %}
         <a href={{article['url']}} rel="noopener noreferrer" target="_blank">
         <object style="max-width: 350px" type="image/jpg" data={{article['urlToImage']}}></object>
         </a>
