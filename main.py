@@ -15,6 +15,8 @@ from flask import Flask, render_template, request, redirect, current_app, url_fo
 
 newsapi_key = '421c30c9f3514f82947322b9061b3099'  # Defining API Key for use with News API
 
+article_num = 100  # Defining number of news articles to show
+
 weatherapi_key = '84cc8564105d4969874221517212502'  # Defining API Key for use with Weather API
 
 app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojects.com/en/1.1.x/)
@@ -47,15 +49,14 @@ def scrapejson(jsonurl):
 # ----- List and Format Trusted News Sources -----
 
 trusted_news_sources_list = [
-    "bbc-news", "abc-news", "abc-news-au", "al-jazeera-english", "ars-technica", "associated-press",
-    "australian-financial-review", "axios", "bbc-sport", "bleacher-report", "bloomberg", "business-insider", "cbc-news",
-    "cnn", "engadget", "espn", "financial-post", "football-italia", "fortune",
-    "fox-sports", "google-news", "google-news-au", "google-news-ca", "google-news-in", "google-news-uk", "independent",
-    "mashable", "medical-news-today", "mtv-news", "mtv-news-uk", "national-geographic", "national-review",
-    "nbc-news", "new-scientist", "news-com-au", "newsweek", "new-york-magazine", "nfl-news", "nhl-news", "politico",
-    "polygon", "recode", "reuters", "rte", "techcrunch", "techradar", "the-globe-and-mail", "the-hill", "the-hindu",
-    "the-huffington-post", "the-irish-times", "the-jerusalem-post", "the-next-web", "the-times-of-india", "the-verge",
-    "the-wall-street-journal", "the-washington-post", "the-washington-times", "time", "usa-today", "vice-news", "wired"
+    "abc-news", "abc-news-au", "al-jazeera-english", "ars-technica", "associated-press", "australian-financial-review",
+    "axios", "bbc-news", "bbc-sport", "bleacher-report", "bloomberg", "business-insider", "cbc-news", "engadget",
+    "espn", "financial-post", "fortune", "fox-sports", "google-news", "google-news-au", "google-news-ca",
+    "google-news-in", "google-news-uk", "independent", "medical-news-today", "national-geographic", "nbc-news",
+    "new-scientist", "news-com-au", "newsweek", "nfl-news", "nhl-news", "politico", "polygon", "recode", "reuters",
+    "rte", "techcrunch", "techradar", "the-globe-and-mail", "the-hill", "the-hindu", "the-irish-times",
+    "the-jerusalem-post", "the-next-web", "the-times-of-india", "the-verge", "the-wall-street-journal",
+    "the-washington-post", "time", "usa-today", "vice-news", "wired"
 ]
 
 trusted_news_sources = ",".join(trusted_news_sources_list)  # Formatting list for use with API
@@ -67,11 +68,11 @@ def get_top_headlines_stats():
     """Fetches Article Data and Metadata from the API"""
     url = f'https://newsapi.org/v2/top-headlines?' \
           f'sources={trusted_news_sources}&' \
-          f'apiKey={newsapi_key}'
+          f'apiKey={newsapi_key}&' \
+          f'pageSize={article_num}'
     top_headlines_stats = scrapejson(url)
     global top_headlines
     top_headlines = top_headlines_stats["articles"]
-    return top_headlines
 
 
 def background_fetch():
