@@ -165,7 +165,8 @@ def home():
         ip_addr = ip_info[:ip_info.index(",")]
     else:
         ip_addr = ip_info
-    return render_template('home.html', top_articles=top_headlines, weather_icon=get_weather(ip_addr)["icon"])
+    return render_template('home.html', top_articles=top_headlines, weather_icon=get_weather(ip_addr)["icon"],
+                           temp=get_weather(ip_addr)["temp_f"])
     # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
 
 
