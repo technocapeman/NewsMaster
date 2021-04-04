@@ -15,7 +15,7 @@ from flask import Flask, render_template, request, redirect, current_app, url_fo
 
 newsapi_key = '421c30c9f3514f82947322b9061b3099'  # Defining API Key for use with News API
 
-article_num = 100  # Defining number of news articles to show
+article_num = 45  # Defining number of news articles to show
 
 weatherapi_key = '84cc8564105d4969874221517212502'  # Defining API Key for use with Weather API
 
