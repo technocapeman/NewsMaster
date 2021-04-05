@@ -15,8 +15,6 @@ from flask import Flask, render_template, request, redirect, current_app, url_fo
 
 newsapi_key = 'YOUR_NEWSAPI_KEY_HERE'  # Defining API Key for use with News API
 
-article_num = 45  # Defining number of news articles to show
-
 weatherapi_key = 'YOUR_WEATHERAPI_KEY_HERE'  # Defining API Key for use with Weather API
 
 app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojects.com/en/1.1.x/)
@@ -45,6 +43,8 @@ def scrapejson(jsonurl):
 
 
 # ------- Trending News -------
+
+article_num = 45  # Defining number of news articles to show
 
 # ----- List and Format Trusted News Sources -----
 
@@ -77,7 +77,7 @@ def get_top_headlines_stats():
 def background_fetch():
     """This function repeatedly fetches top headlines every 45 minutes."""
     get_top_headlines_stats()
-    schedule.every(45).minutes.do(get_top_headlines_stats)
+    schedule.every(15).minutes.do(get_top_headlines_stats)
     while True:
         schedule.run_pending()
         sleep(1)
