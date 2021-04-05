@@ -30,17 +30,17 @@
     <!---------- CSS for home.html ---------->
     <style>
         .container-fluid {
-        			font-family: font-family: 'Lato', sans-serif;
-        			font-size 25px;
-        			background-color: #2f2f2f;
-        			color: #ffffff;
-        		}
-        		.alignleft {
-        			float: left;
-        		}
-        		.alignright {
-        			float: right;
-        		}
+        	font-family: font-family: 'Lato', sans-serif;
+        	font-size 25px;
+        	background-color: #2f2f2f;
+        	color: #ffffff;
+        }
+        .alignleft {
+        	float: left;
+        }
+        .alignright {
+        	float: right;
+        }
     </style>
 
 </head>
@@ -76,8 +76,9 @@
 </div>
 
 <!---------- Display All Articles from News API using Jinja ---------->
-{% for article in top_articles %}
 <!-- Beginning of For-Each Loop to display all articles -->
+{% for article in top_articles %}
+<!-- Start of Article -->
 <div class="jumbotron jumbotron-fluid" style="font-family: 'Lato', sans-serif">
     <!-- Declaring Bootstrap Template for Articles -->
     <div class="container-fluid">
@@ -104,6 +105,7 @@
         {% endif %}
     </div>
 </div>
+<!-- End of Article -->
 {% endfor %}
 <!-- End of For-Each Loop -->
 <footer>
