@@ -84,8 +84,7 @@
     <div class="container-fluid">
         <div class="page-header">
             {% if (article['title'] != None) and (article['url'] != None) %}
-            <h3><a href={{article['url']}} rel="noopener noreferrer" style="color:#ffffff"
-                target="_blank">{{article['title']}}</a>
+            <h3><a href={{article['url']}} rel="noopener noreferrer" style="color:#ffffff">{{article['title']}}</a>
             </h3>
             {% endif %} {% if article['source']['name'] != None %}
             <h5>Source: {{article['source']['name']}}</h5>
@@ -96,12 +95,12 @@
         {% if article['description'] != None %}
         <p>{{article['description']}}</p>
         {% endif %} {% if (article['urlToImage'] != None) and (article['urlToImage'][0:4] == "http") %}
-        <a href={{article['url']}} rel="noopener noreferrer" target="_blank">
+        <a href={{article['url']}} rel="noopener noreferrer">
         <object style="max-width: 350px" type="image/jpg" data={{article['urlToImage']}}></object>
         </a>
         {% endif %} {% if article['url'] != None %}
         <p><a href={{article['url']}} rel="noopener noreferrer" style="font-family: 'Lato', sans-serif; color: #1fbed6;
-            font-weight:bold" target="_blank">Learn More</a></p>
+            font-weight:bold">Learn More</a></p>
         {% endif %}
     </div>
 </div>
@@ -109,7 +108,7 @@
 {% endfor %}
 <!-- End of For-Each Loop -->
 <footer>
-    <p align="center" style="color: #000000; font-weight:bold">NewsMaster only shows articles from <a href="/news-reliability" target="_blank" style="color: #0f5f6b; font-weight:bold">trusted news sources</a>.</p>
+    <p align="center" style="color: #000000; font-weight:bold">NewsMaster only shows articles from <a href="/news-reliability" style="color: #0f5f6b; font-weight:bold">trusted news sources</a>.</p>
 </footer>
 </body>
 
