@@ -4,6 +4,7 @@
 # localhost.
 
 # ---------- Import Statements ----------
+from os import environ
 from threading import Thread
 from time import sleep
 
@@ -13,9 +14,9 @@ from flask import Flask, render_template, request, redirect, current_app, url_fo
 
 # ---------- API and Program Prerequisites ----------
 
-newsapi_key = 'YOUR_NEWSAPI_KEY_HERE'  # Defining API Key for use with News API
+newsapi_key = environ(NEWSAPI_KEY)  # Defining API Key for use with News API
 
-weatherapi_key = 'YOUR_WEATHERAPI_KEY_HERE'  # Defining API Key for use with Weather API
+weatherapi_key = environ(WEATHERAPI_KEY)  # Defining API Key for use with Weather API
 
 app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojects.com/en/1.1.x/)
 
