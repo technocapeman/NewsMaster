@@ -14,9 +14,9 @@ from flask import Flask, render_template, request, redirect, current_app, url_fo
 
 # ---------- API and Program Prerequisites ----------
 
-newsapi_key = os.environ["NEWSAPI_KEY"]  # Defining API Key for use with News API
+newsapi_key = os.environ.get("NEWSAPI_KEY")  # Defining API Key for use with News API
 
-weatherapi_key = os.environ["WEATHERAPI_KEY"]  # Defining API Key for use with Weather API
+weatherapi_key = os.environ.get("WEATHERAPI_KEY")  # Defining API Key for use with Weather API
 
 app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojects.com/en/1.1.x/)
 
