@@ -44,6 +44,7 @@
         .jumbotron {
             padding-top: 0px;
             padding-bottom: 0px;
+            border-radius: 25px;
         }
     </style>
 
@@ -85,7 +86,7 @@
 <!-- Start of Article -->
 <div class="jumbotron jumbotron-fluid" style="font-family: 'Lato', sans-serif">
     <!-- Declaring Bootstrap Template for Articles -->
-    <div class="container-fluid">
+    <div class="container-fluid" style="border-radius: 25px">
         <div class="page-header">
             {% if (article['title'] != None) and (article['url'] != None) %}
             <h3><a href={{article['url']}} rel="noopener noreferrer" style="color:#ffffff">{{article['title']}}</a>
