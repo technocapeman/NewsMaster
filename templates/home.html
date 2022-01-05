@@ -100,7 +100,7 @@
         <p>{{article['description']}}</p>
         {% endif %} {% if (article['urlToImage'] != None) and (article['urlToImage'][0:4] == "http") %}
         <a href={{article['url']}} rel="noopener noreferrer">
-        <object style="max-width: 350px" type="image/jpg" data={{article['urlToImage']}}></object>
+        <object style="max-width: 330px" type="image/jpg" data={{article['urlToImage']}}></object>
         </a>
         {% endif %} {% if article['url'] != None %}
         <p><a href={{article['url']}} rel="noopener noreferrer" style="font-family: 'Lato', sans-serif; color: #1fbed6;
