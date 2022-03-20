@@ -8,4 +8,4 @@ Features:
 - Weather Search: Allows you to search for the current weather at any location in the world.
 - Weather Advice Features: Temperature and Precipitation Advice features advise you about safe practices for your current weather.
 
-To use the application, please visit [newsmaster.us](newsmaster.us)!
+To use the application, please visit [thenewsmaster.herokuapp.com](thenewsmaster.herokuapp.com)!
