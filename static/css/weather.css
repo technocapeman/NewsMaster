@@ -166,7 +166,7 @@ body {
 
 /* current-temperature */
 .current-temperature {
-    align: center
+    align: center;
     display: flex;
     margin-top: 4em;
     width: 100%
