@@ -174,7 +174,8 @@ def home():
 @app.route("/news-reliability")
 def news_cred():
     """This webpage talks about the reliability and bias of the news that the app shows to the end user."""
-    return render_template("news-reliability.html")
+    title = "News Reliability and Bias | NewsMaster"
+    return render_template("news-reliability.html", title=title)
 
 
 # ----- Weather Page -----
@@ -197,10 +198,11 @@ def weather():
             ip_addr = ip_info[:ip_info.index(",")]
         else:
             ip_addr = ip_info
+        title = f"{get_weather(ip_addr)['title']}"
         return render_template('weather.html',
                                temp_advice_auto=temp_commentary(get_weather(ip_addr)["temp_f"]),
                                precip_advice_auto=precip_advice(get_weather(ip_addr)["precip_in"]),
-                               auto_weather=get_weather(ip_addr))
+                               auto_weather=get_weather(ip_addr), title=title)
     # Rendering the HTML for the weather page, passing required variables from
     # Python to HTML page using Jinja.
 
@@ -217,10 +219,12 @@ def weather_search(place):
         else:
             return redirect(url_for("weather_search", place=location))
     else:
+        title = f"{get_weather(place)['title']}"
         return render_template("weather_search.html",
                                temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
                                search_weather=get_weather(place),
-                               precip_advice_search=precip_advice(get_weather(place)["precip_in"]))  # Rendering the
+                               precip_advice_search=precip_advice(get_weather(place)["precip_in"]), title=title)  #
+        # Rendering the
         # HTML for the weather_search page, passing required variables from Python to HTML page using Jinja.
 
 
@@ -236,7 +240,8 @@ def search_error():
         else:
             return redirect(url_for("weather_search", place=location))
     else:
-        return render_template("search_error.html")  # Rendering HTML for search_error page.
+        title = "Search Error | NewsMaster"
+        return render_template("search_error.html", title=title)  # Rendering HTML for search_error page.
 
 
 # ----- Service Worker -----
