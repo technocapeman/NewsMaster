@@ -1,32 +1,6 @@
-<!DOCTYPE html>
+{% extends 'weather_base.html' %}
 
-<!--------- Credits ---------->
-<!--
-    - Popup: https://webdevtrick.com/popup-in-pure-css-and-html-get-example-with-source-code/
-    - Search Functionality: https://www.techwithtim.net/tutorials/flask/http-methods-get-post
--->
-
-<!---------- Importing Fonts ---------->
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>Search Error | NewsMaster</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
-    <meta content="#4f4f4f" name="theme-color">
-    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-    <link href="{{ url_for('static', filename='manifest.json') }}" rel="manifest">
-    <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta content="NewsMaster" name="apple-mobile-web-app-title">
-    <link href="{{ url_for('static', filename='images/logo.png') }}" rel="apple-touch-icon" sizes="180x180">
-    <link href="{{ url_for('static', filename='images/logo.png') }}" rel="apple-touch-startup-image" sizes="512x512">
-    <link href="{{ url_for('static', filename='images/logo.png') }}" rel="icon" sizes="96x96">
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/weather.css') }}">
-</head>
-
-<body>
+{% block main %}
 
 <!---------- Header of search_error.html ---------->
 <main class="main-container">
@@ -74,6 +48,4 @@
         Kapilesh Pennichetty and Sanjay Balasubramanian. All rights reserved.</p>
 </footer>
 
-</body>
-
-</html>
+{% endblock %}
