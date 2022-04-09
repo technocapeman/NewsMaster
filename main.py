@@ -198,7 +198,7 @@ def weather():
             ip_addr = ip_info[:ip_info.index(",")]
         else:
             ip_addr = ip_info
-        title = f"{get_weather(ip_addr)['title']}"
+        title = f"{get_weather(ip_addr)['name']}"
         return render_template('weather.html',
                                temp_advice_auto=temp_commentary(get_weather(ip_addr)["temp_f"]),
                                precip_advice_auto=precip_advice(get_weather(ip_addr)["precip_in"]),
@@ -219,7 +219,7 @@ def weather_search(place):
         else:
             return redirect(url_for("weather_search", place=location))
     else:
-        title = f"{get_weather(place)['title']}"
+        title = f"{get_weather(place)['name']}"
         return render_template("weather_search.html",
                                temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
                                search_weather=get_weather(place),
