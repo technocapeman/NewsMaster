@@ -206,7 +206,7 @@ def weather():
         return render_template('weather.html',
                                temp_advice=temp_commentary(get_weather(ip_addr)["temp_f"]),
                                precip_advice=precip_advice(get_weather(ip_addr)["precip_in"]),
-                               weather=get_weather(ip_addr), title=title)
+                               weather=get_weather(ip_addr), isValid=True, title=title)
     # Rendering the HTML for the weather page, passing required variables from
     # Python to HTML page using Jinja.
 

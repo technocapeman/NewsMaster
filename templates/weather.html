@@ -2,7 +2,7 @@
 
 {% block main %}
 
-{% if isValid == True %}
+{% if (isValid) %}
 <!---------- Header of weather.html ---------->
 <main class="main-container">
     <header class="header">
@@ -87,7 +87,7 @@
 </main>
 {% endif %}
 
-{% if isValid == False %}
+{% if (! isValid) %}
 <!---------- Header of search error ---------->
 <main class="main-container">
     <header class="header">
