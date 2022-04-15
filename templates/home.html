@@ -30,17 +30,20 @@
     <!---------- CSS for home.html ---------->
     <style>
         .container-fluid {
-        	font-family: 'Lato', sans-serif;
-        	font-size: 25px;
-        	background-color: #2f2f2f;
-        	color: #ffffff;
+            font-family: 'Lato', sans-serif;
+            font-size: 25px;
+            background-color: #2f2f2f;
+            color: #ffffff;
         }
+
         .alignleft {
-        	float: left;
+            float: left;
         }
+
         .alignright {
-        	float: right;
+            float: right;
         }
+
         .jumbotron {
             padding-top: 0px;
             padding-bottom: 0px;
@@ -85,7 +88,8 @@
 <!-- Beginning of For-Each Loop to display all articles -->
 {% for article in top_articles %}
 <!-- Start of Article -->
-<div class="jumbotron jumbotron-fluid" style="font-family: 'Lato', sans-serif; border-radius: 25px; margin-left: 10px; margin-right: 10px">
+<div class="jumbotron jumbotron-fluid"
+     style="font-family: 'Lato', sans-serif; border-radius: 25px; margin-left: 10px; margin-right: 10px">
     <!-- Declaring Bootstrap Template for Articles -->
     <div class="container-fluid" style="border-radius: 25px">
         <div class="page-header">
@@ -102,7 +106,7 @@
         <p>{{article['description']}}</p>
         {% endif %} {% if (article['urlToImage'] != None) and (article['urlToImage'][0:4] == "http") %}
         <a href={{article['url']}} rel="noopener noreferrer">
-        <object style="max-width: 500px" type="image/jpg" data={{article['urlToImage']}}></object>
+            <object style="max-width: 500px" type="image/jpg" data={{article['urlToImage']}}></object>
         </a>
         {% endif %} {% if article['url'] != None %}
         <p><a href={{article['url']}} rel="noopener noreferrer" style="font-family: 'Lato', sans-serif; color: #1fbed6;
@@ -114,12 +118,14 @@
 {% endfor %}
 <!-- End of For-Each Loop -->
 <footer>
-    <p align="center" style="color: #000000; font-weight:bold">NewsMaster only shows articles from <a href="/news-reliability" style="color: #0f5f6b; font-weight:bold">trusted news sources</a>.</p>
+    <p align="center" style="color: #000000; font-weight:bold">NewsMaster only shows articles from <a
+            href="/news-reliability" style="color: #0f5f6b; font-weight:bold">trusted news sources</a>.</p>
 </footer>
 <!-- Footer of Webpage -->
 <footer>
-    <p align="center" style="font-family: 'Lato', sans-serif; color: #000000; font-weight:bold">Copyright <span>&#169;</span>2021
-        Kapilesh Pennichetty and Sanjay Balasubramanian. All rights reserved.</p>
+    <p align="center" style="font-family: 'Lato', sans-serif; color: #000000; font-weight:bold">Copyright
+        <span>&#169;</span>2021 - 2022
+        Kapilesh Pennichetty. All rights reserved.</p>
 </footer>
 </body>
 
