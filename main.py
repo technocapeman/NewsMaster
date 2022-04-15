@@ -182,7 +182,7 @@ def news_cred():
 
 @app.route("/weather", methods=["GET", "POST"])  # Telling Flask that the URL with "/weather" appended at the end
 # should lead to the weather page
-def weather(place):
+def weather():
     """Page that shows weather info.
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
     if request.method == "POST":
