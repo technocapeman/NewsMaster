@@ -64,7 +64,7 @@ trusted_news_sources = ",".join(trusted_news_sources_list)  # Formatting list fo
 
 # ----- Fetching and Filtering Article Data -----
 
-def get_top_headlines_stats():
+def fetch_top_headlines():
     """Fetches Article Data and Metadata from the API"""
     url = f'https://newsapi.org/v2/top-headlines?' \
           f'sources={trusted_news_sources}&' \
@@ -77,8 +77,8 @@ def get_top_headlines_stats():
 
 def background_fetch():
     """This function repeatedly fetches top headlines every 45 minutes."""
-    get_top_headlines_stats()
-    schedule.every(15).minutes.do(get_top_headlines_stats)
+    fetch_top_headlines()
+    schedule.every(15).minutes.do(fetch_top_headlines())
     while True:
         schedule.run_pending()
         sleep(1)
@@ -191,7 +191,11 @@ def weather():
         if get_weather(location) == "Invalid Input":
             return redirect(url_for("search_error"))
         else:
-            return redirect(url_for("weather_search", place=location))
+            title = f"{get_weather(location)['name']} Weather | NewsMaster"
+            return render_template('weather.html',
+                                   temp_advice=temp_commentary(get_weather(location)["temp_f"]),
+                                   precip_advice=precip_advice(get_weather(location)["precip_in"]),
+                                   weather=get_weather(location), title=title)
     else:
         ip_info = request.environ['HTTP_X_FORWARDED_FOR']
         if "," in ip_info:
@@ -200,32 +204,11 @@ def weather():
             ip_addr = ip_info
         title = f"{get_weather(ip_addr)['name']} Weather | NewsMaster"
         return render_template('weather.html',
-                               temp_advice_auto=temp_commentary(get_weather(ip_addr)["temp_f"]),
-                               precip_advice_auto=precip_advice(get_weather(ip_addr)["precip_in"]),
-                               auto_weather=get_weather(ip_addr), title=title)
+                               temp_advice=temp_commentary(get_weather(ip_addr)["temp_f"]),
+                               precip_advice=precip_advice(get_weather(ip_addr)["precip_in"]),
+                               weather=get_weather(ip_addr), title=title)
     # Rendering the HTML for the weather page, passing required variables from
     # Python to HTML page using Jinja.
-
-
-@app.route("/<place>", methods=["GET", "POST"])  # Telling Flask that this is a dynamic URL, and that NewsMaster will
-# find the weather for any place appended to the end of the URL.
-def weather_search(place):
-    """Weather Search Results Page
-    (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
-    if request.method == "POST":
-        location = request.form["nm"]
-        if get_weather(location) == "Invalid Input":
-            return redirect(url_for("search_error"))
-        else:
-            return redirect(url_for("weather_search", place=location))
-    else:
-        title = f"{get_weather(place)['name']} Weather | NewsMaster"
-        return render_template("weather_search.html",
-                               temp_advice_search=temp_commentary(get_weather(place)["temp_f"]),
-                               search_weather=get_weather(place),
-                               precip_advice_search=precip_advice(get_weather(place)["precip_in"]), title=title)  #
-        # Rendering the
-        # HTML for the weather_search page, passing required variables from Python to HTML page using Jinja.
 
 
 @app.route("/search-error", methods=["GET", "POST"])  # Telling Flask that the URL with /search_error appended at the
