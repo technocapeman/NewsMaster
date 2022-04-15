@@ -10,7 +10,7 @@ from time import sleep
 
 import requests
 import schedule
-from flask import Flask, render_template, request, redirect, current_app, url_for
+from flask import Flask, render_template, request, current_app
 
 # ---------- API and Program Prerequisites ----------
 
@@ -180,22 +180,22 @@ def news_cred():
 
 # ----- Weather Page -----
 
-
 @app.route("/weather", methods=["GET", "POST"])  # Telling Flask that the URL with "/weather" appended at the end
 # should lead to the weather page
-def weather():
+def weather(place):
     """Page that shows weather info.
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
     if request.method == "POST":
         location = request.form["nm"]
         if get_weather(location) == "Invalid Input":
-            return redirect(url_for("search_error"))
+            title = "Search Error | NewsMaster"
+            return render_template('weather.html', isValid=False, title=title)
         else:
             title = f"{get_weather(location)['name']} Weather | NewsMaster"
             return render_template('weather.html',
                                    temp_advice=temp_commentary(get_weather(location)["temp_f"]),
                                    precip_advice=precip_advice(get_weather(location)["precip_in"]),
-                                   weather=get_weather(location), title=title)
+                                   weather=get_weather(location), isValid=True, title=title)
     else:
         ip_info = request.environ['HTTP_X_FORWARDED_FOR']
         if "," in ip_info:
@@ -209,22 +209,6 @@ def weather():
                                weather=get_weather(ip_addr), title=title)
     # Rendering the HTML for the weather page, passing required variables from
     # Python to HTML page using Jinja.
-
-
-@app.route("/search-error", methods=["GET", "POST"])  # Telling Flask that the URL with /search_error appended at the
-# end should lead to the search error page.
-def search_error():
-    """Search Error Page for when the user gives a wrong input to the search bar
-    (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/)"""
-    if request.method == "POST":
-        location = request.form["nm"]
-        if get_weather(location) == "Invalid Input":
-            return redirect(url_for("search_error"))
-        else:
-            return redirect(url_for("weather_search", place=location))
-    else:
-        title = "Search Error | NewsMaster"
-        return render_template("search_error.html", title=title)  # Rendering HTML for search_error page.
 
 
 # ----- Service Worker -----
