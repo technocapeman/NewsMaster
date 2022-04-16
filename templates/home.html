@@ -35,7 +35,6 @@
             background-color: #2f2f2f;
             color: #ffffff;
         }
-
         .alignleft {
             float: left;
         }
@@ -47,6 +46,11 @@
         .jumbotron {
             padding-top: 0px;
             padding-bottom: 0px;
+        }
+        .responsive {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
         }
     </style>
 
@@ -106,7 +110,7 @@
         <p>{{article['description']}}</p>
         {% endif %} {% if (article['urlToImage'] != None) and (article['urlToImage'][0:4] == "http") %}
         <a href={{article['url']}} rel="noopener noreferrer">
-            <object style="max-width: 500px" type="image/jpg" data={{article['urlToImage']}}></object>
+            <img src={{article['urlToImage']}} class="responsive">
         </a>
         {% endif %} {% if article['url'] != None %}
         <p><a href={{article['url']}} rel="noopener noreferrer" style="font-family: 'Lato', sans-serif; color: #1fbed6;
