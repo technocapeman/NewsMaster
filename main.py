@@ -169,7 +169,7 @@ def home():
 
 
 @app.route("/news-reliability")
-def news_cred():
+def news_reliability():
     """This webpage talks about the reliability and bias of the news that the app shows to the end user."""
     title = "News Reliability and Bias | NewsMaster"
     return render_template("news-reliability.html", title=title)
