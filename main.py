@@ -96,7 +96,7 @@ def get_weather(location):  # location can be IP address, city, or ZIP
     try:
         weather_data = scrapejson(url)
         if "error" in weather_data:
-            return "Invalid Input"
+            return False
         else:
             for stat in stats:
                 if stat in weather_data["current"]["condition"]:
@@ -107,7 +107,7 @@ def get_weather(location):  # location can be IP address, city, or ZIP
                     stats[stat] = weather_data['current'][stat]
             return stats
     except:
-        return "Invalid Input"
+        return False
 
 
 def temp_commentary(current_temp):
@@ -161,13 +161,10 @@ def precip_advice(precip_in):
 # page.
 def home():
     """Home page that shows trending articles."""
-    ip_info = request.environ['HTTP_X_FORWARDED_FOR']
-    if "," in ip_info:
-        ip_addr = ip_info[:ip_info.index(",")]
-    else:
-        ip_addr = ip_info
-    return render_template('home.html', top_articles=top_headlines, weather_icon=get_weather(ip_addr)["icon"],
-                           temp=get_weather(ip_addr)["temp_f"])
+    ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+    weather = get_weather(ip_addr)
+    return render_template('home.html', top_articles=top_headlines, weather_icon=weather["icon"],
+                           temp=weather["temp_f"])
     # Rendering the HTML for the home page, passing required variables from Python to the HTML page using Jinja.
 
 
@@ -187,26 +184,24 @@ def weather():
     (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
     if request.method == "POST":
         location = request.form["nm"]
-        if get_weather(location) == "Invalid Input":
+        weather = get_weather(location)
+        if not weather:
             title = "Search Error | NewsMaster"
             return render_template('weather.html', isValid=False, title=title)
         else:
-            title = f"{get_weather(location)['name']} Weather | NewsMaster"
+            title = f"{weather['name']} Weather | NewsMaster"
             return render_template('weather.html',
-                                   temp_advice=temp_commentary(get_weather(location)["temp_f"]),
-                                   precip_advice=precip_advice(get_weather(location)["precip_in"]),
-                                   weather=get_weather(location), isValid=True, title=title)
+                                   temp_advice=temp_commentary(weather["temp_f"]),
+                                   precip_advice=precip_advice(weather["precip_in"]),
+                                   weather=weather, isValid=True, title=title)
     else:
-        ip_info = request.environ['HTTP_X_FORWARDED_FOR']
-        if "," in ip_info:
-            ip_addr = ip_info[:ip_info.index(",")]
-        else:
-            ip_addr = ip_info
-        title = f"{get_weather(ip_addr)['name']} Weather | NewsMaster"
+        ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+        weather = get_weather(ip_addr)
+        title = f"{weather['name']} Weather | NewsMaster"
         return render_template('weather.html',
-                               temp_advice=temp_commentary(get_weather(ip_addr)["temp_f"]),
-                               precip_advice=precip_advice(get_weather(ip_addr)["precip_in"]),
-                               weather=get_weather(ip_addr), isValid=True, title=title)
+                               temp_advice=temp_commentary(weather["temp_f"]),
+                               precip_advice=precip_advice(weather["precip_in"]),
+                               weather=weather, isValid=True, title=title)
     # Rendering the HTML for the weather page, passing required variables from
     # Python to HTML page using Jinja.
 
