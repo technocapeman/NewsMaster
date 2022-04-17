@@ -1,0 +1,29 @@
+name: Replace IP Address (PR)
+on:
+  pull_request:
+    branches: dev
+    types: [assigned, opened, synchronize, reopened]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          token: ${{ secrets.GH_PAT }}
+          ref: dev
+      - name: Find and Replace
+        run: |
+          sed -i "s|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|requests.get('https://ipinfo.io/ip').text|g" app.py
+      - name: Commit files
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Replace external IP with internal IP for testing purposes."
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          branch: ${{ github.ref }}
+          github_token: ${{ secrets.GH_PAT }}
