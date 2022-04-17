@@ -3,7 +3,7 @@ NewsMaster is an open-source, cross-platform news app founded by Kapilesh Pennic
 
 Features:
 - Trending News: Shows international trending news on the home page.
-- News Search Bar (Powered by Google Programmable Search Engine): Allows you to search for news articles.
+- News Search (Powered by Google Programmable Search Engine): Allows you to search for news articles.
 - Automatic Weather: Detects your location using your IP address, and gives you the current weather information for your location.
 - Weather Search: Allows you to search for the current weather at any location in the world.
 - Weather Advice Features: Temperature and Precipitation Advice features advise you about safe practices for your current weather.
