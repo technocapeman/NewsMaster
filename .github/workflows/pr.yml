@@ -14,7 +14,7 @@ jobs:
           token: ${{ secrets.GH_PAT }}
       - name: Find and Replace
         run: |
-          sed -i "s|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|requests.get('https://ipinfo.io/ip').text|g" app.py
+          sed -i "s|requests.get('https://ipinfo.io/ip').text|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|g" app.py
       - name: Commit files
         run: |
           git config user.name github-actions
