@@ -162,7 +162,7 @@ def precip_advice(precip_in):
 # page.
 def home():
     """Home page that shows trending articles."""
-    ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+    ip_addr = requests.get('https://ipinfo.io/ip').text
     weather = get_weather(ip_addr)
     return render_template('home.html', top_articles=top_headlines, weather_icon=weather["icon"],
                            temp=weather["temp_f"])
@@ -196,7 +196,7 @@ def weather():
                                    precip_advice=precip_advice(weather["precip_in"]),
                                    weather=weather, isValid=True, title=title)
     else:
-        ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+        ip_addr = requests.get('https://ipinfo.io/ip').text
         weather = get_weather(ip_addr)
         title = f"{weather['name']} Weather | NewsMaster"
         return render_template('weather.html',
