@@ -1,10 +1,14 @@
 name: Replace IP Address
-on: [push]
+on:
+  push:
+    branches: dev
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          ref: dev
       - name: Find and Replace
         run: sed -i "s|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|requests.get('https://ipinfo.io/ip').text|g" app.py
       - name: Push changes
