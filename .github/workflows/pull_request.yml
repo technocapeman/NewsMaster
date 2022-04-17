@@ -1,8 +1,8 @@
 name: Replace IP Address (PR)
 on:
-  pull_request:
+  pull_request_target:
     branches: dev
-    types: [opened, synchronize, closed]
+    types: [assigned, opened, synchronize, reopened]
 jobs:
   build:
     runs-on: ubuntu-latest
