@@ -163,6 +163,10 @@ def precip_advice(precip_in):
 # page.
 def home():
     """Home page that shows trending articles."""
+    # Get the IP address of the user and fetch weather data for the ip address.
+    # NOTE: The IP address code for the production (stable) branch is not the same as the code for the dev branch
+    # For testing purposes, the dev branch uses code for server IP rather than client IP.
+    # This code will automatically be modified to client IP when merging from dev to stable.
     ip_addr = requests.get('https://ipinfo.io/ip').text
     weather = get_weather(ip_addr)
     return render_template('home.html', top_articles=top_headlines, weather_icon=weather["icon"],
@@ -197,6 +201,10 @@ def weather():
                                    precip_advice=precip_advice(weather["precip_in"]),
                                    weather=weather, isValid=True, title=title)
     else:
+        # Get the IP address of the user and fetch weather data for the ip address.
+        # NOTE: The IP address code for the production (stable) branch is not the same as the code for the dev branch
+        # For testing purposes, the dev branch uses code for server IP rather than client IP.
+        # This code will automatically be modified to client IP when merging from dev to stable.
         ip_addr = requests.get('https://ipinfo.io/ip').text
         weather = get_weather(ip_addr)
         title = f"{weather['name']} Weather | NewsMaster"
