@@ -1,7 +1,7 @@
 # ---------- Running this Program ----------
 
-# This program is meant to be run on a production WSGI server that supports multithreading. It will not run on
-# localhost.
+# Ensure to install all requirements from requirements.txt prior to running this program. Use the following command:
+# pip install -r requirements.txt
 
 # ---------- Import Statements ----------
 import os
