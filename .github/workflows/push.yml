@@ -1,4 +1,4 @@
-name: Replace IP Address
+name: Replace IP Address (Push)
 on:
   push:
     branches: dev
