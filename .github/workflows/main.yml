@@ -6,9 +6,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Find and Replace
-        run: sed "s;request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr);requests.get('https://ipinfo.io/ip').text;g" app.py
+        run: sed -i "s;request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr);requests.get('https://ipinfo.io/ip').text;g" app.py
       - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
+        uses: actions-x/commit@v5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          name: capeman_bot
+          message: Replacing external IP addr with internal IP addr for testing purposes.
