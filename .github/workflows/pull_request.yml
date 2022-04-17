@@ -10,10 +10,10 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - name: Find and Replace
-        run: sed -i "s|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|requests.get('https://ipinfo.io/ip').text|g" app.py
-      - name: Push changes
-        uses: actions-x/commit@v5
-        with:
-          name: capeman_bot
-          message: Replacing external IP addr with internal IP addr for testing purposes.
+      - run: |
+          sed -i "s|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|requests.get('https://ipinfo.io/ip').text|g" app.py
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Replace external IP with internal IP for testing purposes"
+          git push
