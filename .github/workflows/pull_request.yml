@@ -1,1 +1,19 @@
-
+name: Replace IP Address (PR)
+on:
+  pull_request:
+    branches: dev
+    types: [opened, synchronize, closed]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: dev
+      - name: Find and Replace
+        run: sed -i "s|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|requests.get('https://ipinfo.io/ip').text|g" app.py
+      - name: Push changes
+        uses: actions-x/commit@v5
+        with:
+          name: capeman_bot
+          message: Replacing external IP addr with internal IP addr for testing purposes.
