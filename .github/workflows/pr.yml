@@ -21,10 +21,4 @@ jobs:
           git config user.email github-actions@github.com
           git add .
           git commit -m "Replace external IP with internal IP for testing purposes."
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          repository: ${{github.event.pull_request.head.repo.full_name}}
-          branch: ${{ github.ref }}
-          force: true
-          github_token: ${{ secrets.GH_PAT }}
+          git push || true
