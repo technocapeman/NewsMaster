@@ -5,6 +5,7 @@ pyproject.toml
 .env
 /.DS_Store
 /api_keys.txt
+/__pycache__
 templates/.DS_Store
 static/.DS_Store
 static/images/.DS_Store
