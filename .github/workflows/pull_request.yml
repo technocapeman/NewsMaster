@@ -17,4 +17,4 @@ jobs:
           git config user.email github-actions@github.com
           git add .
           git commit -m "Replace external IP with internal IP for testing purposes"
-          git push origin HEAD:dev
+          git push origin dev:${{ github.event.pull_request.head.sha }}
