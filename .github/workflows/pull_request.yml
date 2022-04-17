@@ -11,7 +11,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Find and Replace
-        run: sed -i "s|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|requests.get('https://ipinfo.io/ip').text|g" app.py
+        run: sed "s|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|requests.get('https://ipinfo.io/ip').text|g" app.py
       - name: Push changes
         uses: actions-x/commit@v5
         with:
