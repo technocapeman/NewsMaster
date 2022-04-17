@@ -7,14 +7,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - uses: actions/checkout@v3
+        with:
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          ref: dev
+      - name: Find and Replace
+        run: |
+          sed -i "s|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|requests.get('https://ipinfo.io/ip').text|g" app.py
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git clone git@github.com:technocapeman/NewsMaster.git
-          git remote add pull_request git@github.com:${{github.event.pull_request.head.repo.full_name}}.git
-          git fetch pull_request
-          git checkout -b pr-local pull_request/dev
-          sed -i "s|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|requests.get('https://ipinfo.io/ip').text|g" app.py
           git add .
-          git commit -am "Replace external IP with internal IP for testing purposes"
-          git push pull_request HEAD:dev
+          git commit -m "Replace external IP with internal IP for testing purposes."
+          git push
