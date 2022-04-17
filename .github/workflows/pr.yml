@@ -1,6 +1,6 @@
 name: Replace IP Address (PR)
 on:
-  pull_request:
+  pull_request_target:
     branches: dev
     types: [assigned, opened, synchronize, reopened]
 jobs:
@@ -10,13 +10,12 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: ${{github.event.pull_request.head.repo.full_name}}
-          token: ${{ secrets.GH_PAT }}
           ref: dev
       - name: Find and Replace
         run: |
           sed -i "s|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|requests.get('https://ipinfo.io/ip').text|g" app.py
       - name: Commit files
-      - run: |
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
