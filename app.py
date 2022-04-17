@@ -78,7 +78,7 @@ def fetch_top_headlines():
 def background_fetch():
     """This function repeatedly fetches top headlines every 45 minutes."""
     fetch_top_headlines()
-    schedule.every(15).minutes.do(fetch_top_headlines())
+    schedule.every(15).minutes.do(fetch_top_headlines)
     while True:
         schedule.run_pending()
         sleep(1)
