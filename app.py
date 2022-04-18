@@ -3,7 +3,7 @@
 # Install all requirements from requirements.txt before running this program. Use the following command:
 # pip install -r requirements.txt
 
-# The stable branch of this program should only be run on a production WSGI server, such as Heroku.
+# The production branch of this program should only be run on a production WSGI server, such as Heroku.
 
 # ---------- Import Statements ----------
 import os
