@@ -4,7 +4,7 @@ pyproject.toml
 /venv
 .env
 /.DS_Store
-/api_keys.txt
+/notes.txt
 /__pycache__
 templates/.DS_Store
 static/.DS_Store

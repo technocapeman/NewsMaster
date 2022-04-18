@@ -47,7 +47,7 @@ def scrapejson(jsonurl):
 
 # ------- Trending News -------
 
-article_num = 31  # Defining number of news articles to show
+article_num = 30  # Defining number of news articles to show
 
 # ----- List and Format Trusted News Sources -----
 
