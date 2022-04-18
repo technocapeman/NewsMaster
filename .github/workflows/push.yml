@@ -1,14 +1,14 @@
 name: Replace IP/Deploy to Heroku (Push)
 on:
   push:
-    branches: production
+    branches: main
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: production
+          ref: main
       - name: Find and Replace
         run: sed -i "s|requests.get('https://ipinfo.io/ip').text|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|g" app.py
       - name: Commit files
@@ -22,4 +22,4 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: thenewsmaster
           heroku_email: ${{secrets.EMAIL}}
-          branch: production
+          branch: main
