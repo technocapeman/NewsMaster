@@ -9,3 +9,4 @@ pyproject.toml
 templates/.DS_Store
 static/.DS_Store
 static/images/.DS_Store
+/notes.txt
