@@ -21,7 +21,7 @@ To use the application, please visit [thenewsmaster.herokuapp.com](thenewsmaster
 Contributions to NewsMaster are greatly appreciated. Please abide by the following guidelines when contributing:
 1. Please contribute to the dev branch of this repository rather than the main branch which is used for production.
 2. Please ensure that your code is well-documented and well-formatted.
-3. When making a Pull Request, please enable "Allow edits from Maintainers." This allows for the aforementioned GitHub Actions to find and replace the appropriate IP address code.
+3. When making a Pull Request, please enable "Allow edits from maintainers." This allows for the aforementioned GitHub Actions to find and replace the appropriate IP address code.
 
 ## Credits
 Special thanks to [Mr. Bailey Hulsey](https://github.com/BaileyH) for educating and inspiring us with his knowledge of computer science!
