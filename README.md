@@ -1,5 +1,5 @@
 # NewsMaster
-NewsMaster is an open-source, cross-platform news app founded by Kapilesh Pennichetty and Sanjay Balasubramanian and currently maintained by Kapilesh Pennichetty. It is a website and a Progressive Web Application developed on the Flask Web Framework for Python.
+NewsMaster is an open-source, cross-platform news app founded by Kapilesh Pennichetty and Sanjay Balasubramanian, and currently maintained by Kapilesh Pennichetty. It is a website and a Progressive Web Application developed on the Flask Web Framework for Python.
 
 Features:
 - Trending News: Shows international trending news on the home page.
@@ -13,9 +13,12 @@ To use the application, please visit [thenewsmaster.herokuapp.com](thenewsmaster
 ## Production Workflow
 1. Commits are pushed and tested on the downstream dev branch.
 2. Once all commits have been thoroughly tested for stability, a pull request will be made to the upstream main branch.
-3. Once all checks have passed on the pull request, the commits will be merged into the upstream main branch. An action will automatically deploy the changed main branch to production.
+3. Once all checks have passed on the pull request, the commits will be merged into the upstream main branch. A GitHub action will then automatically deploy the main branch to production.
 
-Please note that the code to retrieve IP addresses is different between the dev and the main branches. This is because the code used to retrieve IP addresses in production will not work for testing on a local machine, and likewise, code used for testing will not work for production. Therefore, when a pull request or commit is made to the repository, actions will automatically find and replace this code depending on the branch.
+**PLEASE NOTE**: The code to retrieve IP addresses is different between the dev and main branches. This is because the code used to retrieve IP addresses in production will fail when testing on a local machine, and likewise, the code used for testing locally is not appropriate for production. Therefore, when a pull request or commit is issued to the repository, the repository's GitHub Actions will automatically find and replace this code according to the branch.
 
 ## Contributions
-Contributions (such as Pull Requests and Issues) to NewsMaster are greatly appreciated. Please contribute to the dev branch of this repository rather than the main branch which is used for production.
+Contributions to NewsMaster are greatly appreciated. Please abide by the following guidelines when contributing:
+1. Please contribute to the dev branch of this repository rather than the main branch which is used for production.
+2. Please ensure that your code is well-documented and well-formatted.
+3. When making a Pull Request, please enable "Allow edits from Maintainers." This allows for the aforementioned GitHub Actions to find and replace the appropriate IP address code.
