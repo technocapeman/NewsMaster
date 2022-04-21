@@ -6,6 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
       - uses: actions/checkout@v3
         with:
           ref: main
@@ -17,9 +18,3 @@ jobs:
           git config user.email github-actions@github.com
           git add .
           git commit -m "Replace internal IP with external IP for production." && git push || true
-      - uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: thenewsmaster
-          heroku_email: ${{secrets.EMAIL}}
-          branch: main
