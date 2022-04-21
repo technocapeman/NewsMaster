@@ -14,7 +14,8 @@ from time import sleep
 import requests
 import schedule
 from flask import Flask, render_template, request, current_app
-#-----------this is phadke's comment
+
+# -----------this is phadke's comment
 # ---------- API and Program Prerequisites ----------
 
 newsapi_key = os.environ.get("NEWSAPI_KEY")  # Defining API Key for use with News API
@@ -168,7 +169,7 @@ def home():
     # NOTE: The IP address code for the production (stable) branch is not the same as the code for the dev branch
     # For testing purposes, the dev branch uses code for server IP rather than client IP.
     # This code will automatically be modified to client IP when merging from dev to stable.
-    ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+    ip_addr = requests.get('https://ipinfo.io/ip').text
     weather = get_weather(ip_addr)
     return render_template('home.html', top_articles=top_headlines, weather_icon=weather["icon"],
                            temp=weather["temp_f"])
@@ -206,7 +207,7 @@ def weather():
         # NOTE: The IP address code for the production (stable) branch is not the same as the code for the dev branch
         # For testing purposes, the dev branch uses code for server IP rather than client IP.
         # This code will automatically be modified to client IP when merging from dev to stable.
-        ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+        ip_addr = requests.get('https://ipinfo.io/ip').text
         weather = get_weather(ip_addr)
         title = f"{weather['name']} Weather | NewsMaster"
         return render_template('weather.html',

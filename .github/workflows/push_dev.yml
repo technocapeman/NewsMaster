@@ -1,0 +1,20 @@
+name: Format Dev Code (on Push)
+on:
+  push:
+    branches: dev
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: dev
+      - name: Replace Client IP with Server IP
+        run: sed -i "s|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|requests.get('https://ipinfo.io/ip').text|g" app.py
+      - name: Commit files
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Replace external IP with internal IP for development and testing." && git push || true
