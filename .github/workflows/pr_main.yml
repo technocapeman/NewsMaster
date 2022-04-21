@@ -1,0 +1,32 @@
+name: Format Production Code (on Pull Request)
+on:
+  pull_request_target:
+    branches: main
+    types: [assigned, opened, synchronize, reopened]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+      - uses: actions/checkout@v3
+        with:
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          ref: main
+          token: ${{ secrets.GH_PAT }}
+      - name: Replace Server IP with Client IP
+        run: sed -i "s|requests.get('https://ipinfo.io/ip').text|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|g" app.py
+      - name: Remove Debugger Option
+        run: sed -i "s|app.run(host="0.0.0.0", debug=True)|app.run(host="0.0.0.0")|g" app.py
+      - name: Commit files
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Replace internal IP with external IP for production." && git push || true
+      - name: Repository Dispatch
+        if: success()
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          event-type: codeql
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
