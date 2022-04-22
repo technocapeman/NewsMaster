@@ -23,7 +23,7 @@ Contributions to NewsMaster are greatly appreciated. Please abide by the followi
 2. Please ensure that your code is well-documented and well-formatted.
 3. When making a Pull Request, please enable "Allow edits from maintainers." This allows for the aforementioned GitHub Actions to find and replace the appropriate IP address code.
 
-Thank you for your contributions to NewsMaster!
+Thank you for contributing to NewsMaster!
 
 ## Credits
 Special thanks to [Mr. Bailey Hulsey](https://github.com/BaileyH) for educating and inspiring us with his knowledge of computer science!
