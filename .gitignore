@@ -1,12 +1,6 @@
-poetry.lock
-pyproject.toml
 /.idea
 /venv
-.env
-/.DS_Store
 /notes.txt
 /__pycache__
-templates/.DS_Store
-static/.DS_Store
-static/images/.DS_Store
-/notes.txt
+/.github/workflows/pr_dev.yml
+/.github/workflows/push_dev.yml
