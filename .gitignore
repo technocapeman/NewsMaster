@@ -2,6 +2,3 @@
 /venv
 /notes.txt
 /__pycache__
-/.github/workflows/codeql-analysis.yml
-/.github/workflows/deploy.yml
-/.github/workflows/pr_main.yml
