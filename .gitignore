@@ -2,5 +2,3 @@
 /venv
 /notes.txt
 /__pycache__
-/.github/workflows/pr_dev.yml
-/.github/workflows/push_dev.yml
