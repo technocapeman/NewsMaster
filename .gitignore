@@ -1,12 +1,7 @@
-poetry.lock
-pyproject.toml
 /.idea
 /venv
-.env
-/.DS_Store
 /notes.txt
 /__pycache__
-templates/.DS_Store
-static/.DS_Store
-static/images/.DS_Store
-/notes.txt
+/.github/workflows/codeql-analysis.yml
+/.github/workflows/deploy.yml
+/.github/workflows/pr_main.yml
