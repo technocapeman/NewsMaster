@@ -1,7 +1,7 @@
 name: Production Deployment (on Push)
 on:
-  push:
-    branches: main
+  repository_dispatch:
+    types: deploy
 jobs:
   build:
     runs-on: ubuntu-latest
