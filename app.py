@@ -236,5 +236,5 @@ fetch_articles.start()  # Initializing the thread
 
 # ----- Run Flask App -----
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)  # Telling Flask to run the app with the constraints given. (Documentation:
+    app.run(host="0.0.0.0")  # Telling Flask to run the app with the constraints given. (Documentation:
     # https://flask.palletsprojects.com/en/1.1.x/)
