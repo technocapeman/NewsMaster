@@ -12,6 +12,8 @@ jobs:
           ref: dev
       - name: Replace Client IP with Server IP
         run: sed -i "s|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|requests.get('https://ipinfo.io/ip').text|g" app.py
+      - name: Enable Debugger Option
+        run: sed -i 's|app.run(host="0.0.0.0")|app.run(host="0.0.0.0", debug=True)|g' app.py
       - name: Commit files
         run: |
           git config user.name github-actions
