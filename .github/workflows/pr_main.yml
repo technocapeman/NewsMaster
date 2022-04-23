@@ -15,7 +15,7 @@ jobs:
           token: ${{ secrets.GH_PAT }}
       - name: Replace Server IP with Client IP
         run: sed -i "s|requests.get('https://ipinfo.io/ip').text|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|g" app.py
-      - name: Remove Debugger Option
+      - name: Disable Debugger Option
         run: sed -i 's|app.run(host="0.0.0.0", debug=True)|app.run(host="0.0.0.0")|g' app.py
       - name: Commit files
         run: |
