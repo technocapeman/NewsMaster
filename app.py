@@ -15,6 +15,7 @@ import requests
 import schedule
 from flask import Flask, render_template, request, current_app
 
+# DO NOT DELETE THE NEXT LINE OR ILL STEAL UR COOKIES
 # -----------this is phadke's comment
 # ---------- API and Program Prerequisites ----------
 
