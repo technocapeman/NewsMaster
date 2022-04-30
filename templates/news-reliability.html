@@ -2,47 +2,51 @@
 
 {% block main %}
 
-<!---------- Header of news-reliability.html ---------->
-<main class="main-container">
-    <header class="header">
-        <nav>
-            <a class="logo" href="/weather" style="color:#1fbed6">News Reliability</a>
-            <input class="menu-btn" id="menu-btn" type="checkbox"/>
-            <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-            <ul class="menu">
-                <li><a class="button" href="/" style="color:#1fbed6">Home</a></li>
-                <li><a class="button" href="/weather" style="color:#1fbed6">Weather</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!---------- Header of news-reliability.html ---------->
+    <main class="main-container">
+        <header class="header">
+            <nav>
+                <a class="logo" href="/weather" style="color:#1fbed6">News Reliability</a>
+                <input class="menu-btn" id="menu-btn" type="checkbox"/>
+                <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+                <ul class="menu">
+                    <li><a class="button" href="/" style="color:#1fbed6">Home</a></li>
+                    <li><a class="button" href="/weather" style="color:#1fbed6">Weather</a></li>
+                </ul>
+            </nav>
+        </header>
 
-    <!---------- Message about News reliability ---------->
-    <div style="font-family: 'Lato', sans-serif; text-align: center; width: 100%; margin-top: 6em">
-        <h1 style="margin-top:3em; margin-left: 2em; margin-right: 2em">Reliability and Bias of News Sources</h1>
-        <p style="margin-top:5em; margin-left: 2em; margin-right: 2em; font-size: 20px; color: #ffffff">We at NewsMaster
-            strive to deliver you with reliable and unbiased news. To do this, we use a strict approval process to
-            minimize bias and the risk of
-            misinformation.</p>
-        <h2 style="margin-top:5em; margin-left: 2em; margin-right: 2em">Stages of Approving a News Source:</h2>
-        <ol style="color: #ffffff; font-size: 20px; margin-top: 3em; margin-left: 2em; margin-right: 2em">
-            <li style="margin-top: 1em">Checking the news source against <a
-                    href="https://en.wikipedia.org/wiki/Wikipedia:Reliable_sources/Perennial_sources#Sources"
-                    style="color: #1fbed6" target="_blank">Wikipedia's list of reliable sources</a> to determine
-                reliability. The news source is only added if it is reliable.
-            </li>
-            <li style="margin-top: 1em">Checking the news source against the <a href="https://mediabiasfactcheck.com/"
-                                                                                style="color:#1fbed6" target="_blank">Media
-                Bias Fact Check</a> database to determine political bias. If the news source has a moderate to high
-                bias on either side of the political spectrum,
-                then it will not be added to NewsMaster.
-            </li>
-            <li style="margin-top: 1em">Searching the internet for the general public's comments about a news source. A
-                news source is only added if it is well-rated by the general public.
-            </li>
-        </ol>
-        <h5 style="margin-top: 5em; font-size: 20px">We hope you enjoy using NewsMaster! We always aim to provide you
-            with the most reliable and trustworthy information.</h5>
-    </div>
-</main>
+        <!---------- Message about News reliability ---------->
+        <div style="font-family: 'Lato', sans-serif; text-align: center; width: 100%; margin-top: 6em">
+            <h1 style="margin-top:3em; margin-left: 2em; margin-right: 2em">Reliability and Bias of News Sources</h1>
+            <p style="margin-top:5em; margin-left: 2em; margin-right: 2em; font-size: 20px; color: #ffffff">We at
+                NewsMaster
+                strive to deliver you with reliable and unbiased news. To do this, we use a strict approval process to
+                minimize bias and the risk of
+                misinformation.</p>
+            <h2 style="margin-top:5em; margin-left: 2em; margin-right: 2em">Stages of Approving a News Source:</h2>
+            <ol style="color: #ffffff; font-size: 20px; margin-top: 3em; margin-left: 2em; margin-right: 2em">
+                <li style="margin-top: 1em">Checking the news source against <a
+                        href="https://en.wikipedia.org/wiki/Wikipedia:Reliable_sources/Perennial_sources#Sources"
+                        style="color: #1fbed6" target="_blank">Wikipedia's list of reliable sources</a> to determine
+                    reliability. The news source is only added if it is reliable.
+                </li>
+                <li style="margin-top: 1em">Checking the news source against the <a
+                        href="https://mediabiasfactcheck.com/"
+                        style="color:#1fbed6" target="_blank">Media
+                    Bias Fact Check</a> database to determine political bias. If the news source has a moderate to high
+                    bias on either side of the political spectrum,
+                    then it will not be added to NewsMaster.
+                </li>
+                <li style="margin-top: 1em">Searching the internet for the general public's comments about a news
+                    source. A
+                    news source is only added if it is well-rated by the general public.
+                </li>
+            </ol>
+            <h5 style="margin-top: 5em; font-size: 20px">We hope you enjoy using NewsMaster! We always aim to provide
+                you
+                with the most reliable and trustworthy information.</h5>
+        </div>
+    </main>
 
 {% endblock %}
