@@ -3,7 +3,7 @@
 # Install all requirements from requirements.txt before running this program. Use the following command:
 # pip install -r requirements.txt
 
-# The main branch of this app should only be run on a production WSGI server.
+# The main branch of this app should only be run on a production WSGI server, e.g. Heroku.
 # The dev branch of this app should only be used for development and testing.
 
 # ---------- Import Statements ----------
@@ -17,6 +17,7 @@ from flask import Flask, render_template, request, current_app
 
 # DO NOT DELETE THE NEXT LINE OR ILL STEAL UR COOKIES
 # -----------this is phadke's comment
+
 # ---------- API and Program Prerequisites ----------
 
 newsapi_key = os.environ.get("NEWSAPI_KEY")  # Defining API Key for use with News API
