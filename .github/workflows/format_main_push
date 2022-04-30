@@ -1,0 +1,32 @@
+name: Format Production Code (on Push)
+on:
+  push:
+    branches: main
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Replace Server IP with Client IP
+        run: sed -i "s|requests.get('https://ipinfo.io/ip').text|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|g" app.py
+      - name: Disable Debugger Option
+        run: sed -i 's|app.run(host="0.0.0.0", debug=True)|app.run(host="0.0.0.0")|g' app.py
+      - name: Commit files
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Formatting code for production." && git push || true
+  trigger:
+    needs: format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger CodeQL Analysis
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.GH_PAT }}
+          repository: ${{ github.repository }}
+          event-type: codeql
