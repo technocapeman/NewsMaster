@@ -2,7 +2,7 @@ name: Format Development Code (on Pull Request)
 on:
   pull_request_target:
     branches: dev
-    types: [assigned, opened, synchronize, reopened]
+    types: [ assigned, opened, synchronize, reopened ]
 jobs:
   format:
     runs-on: ubuntu-latest
