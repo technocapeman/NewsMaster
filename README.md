@@ -11,9 +11,9 @@ Features:
 To use the application, please visit [thenewsmaster.herokuapp.com](thenewsmaster.herokuapp.com)!
 
 ## Production Workflow
-1. Commits are pushed and tested on the downstream dev branch.
-2. Once all commits have been thoroughly tested for stability, a pull request will be made to the upstream main branch.
-3. Once all checks have passed on the pull request, the commits will be merged into the upstream main branch. A GitHub action will then automatically deploy the main branch to production.
+1. Commits are pushed and tested on the downstream dev branch. CodeQL scanning will automate security testing of the code, and the code will be manually tested for stability.
+2. Once all commits have been thoroughly tested for stability and security, a pull request will be made to the upstream main branch.
+3. Once all checks have passed, the commits will be merged into the upstream main branch. A GitHub action will then automatically deploy the main branch to production.
 
 **PLEASE NOTE**: The code to retrieve IP addresses is different between the dev and main branches. This is because the code used to retrieve IP addresses in production will fail when testing on a local machine, and likewise, the code used for testing locally is not appropriate for production. Therefore, when a pull request or commit is issued to the repository, the repository's GitHub Actions will automatically find and replace this code according to the branch.
 
