@@ -1,10 +1,8 @@
-name: Format Production Code
+name: Format Production Code (on Pull Request)
 on:
   pull_request_target:
     branches: main
     types: [ assigned, opened, synchronize, reopened ]
-  push:
-    branches: main
 jobs:
   format:
     runs-on: ubuntu-latest
