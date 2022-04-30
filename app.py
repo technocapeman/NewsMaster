@@ -158,7 +158,7 @@ def home():
     # NOTE: The IP address code for the production (stable) branch is not the same as the code for the dev branch
     # For testing purposes, the dev branch uses code for server IP rather than client IP.
     # This code will automatically be modified to client IP when merging from dev to stable.
-    ip_addr = requests.get('https://ipinfo.io/ip').text
+    ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
     weather = get_weather(ip_addr)
     return render_template('home.html', top_articles=top_headlines, weather_icon=weather["icon"],
                            temp=weather["temp_f"])
@@ -194,8 +194,13 @@ def weather():
         # Get the IP address of the user and fetch weather data for the ip address.
         # NOTE: The IP address code for the production (stable) branch is not the same as the code for the dev branch
         # For testing purposes, the dev branch uses code for server IP rather than client IP.
+<<<<<<< HEAD
         # This code will automatically be modified to client IP when merging from dev to production.
         ip_addr = requests.get('https://ipinfo.io/ip').text
+=======
+        # This code will automatically be modified to client IP when merging from dev to stable.
+        ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+>>>>>>> main
         weather = get_weather(ip_addr)
         title = f"{weather['name']} Weather | NewsMaster"
         return render_template('weather.html',
@@ -222,4 +227,8 @@ fetch_articles.start()  # Initializing the thread
 
 # ----- Run Flask App -----
 if __name__ == "__main__":
+<<<<<<< HEAD
     app.run(host="0.0.0.0", debug=True)  # Telling Flask to run the app with the constraints given.
+=======
+    app.run(host="0.0.0.0", debug=True) # Telling Flask to run the app with the constraints given.
+>>>>>>> main
