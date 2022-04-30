@@ -1,4 +1,6 @@
 # NewsMaster
+[![CodeQL Production](https://github.com/technocapeman/NewsMaster/actions/workflows/codeql_main.yml/badge.svg)](https://github.com/technocapeman/NewsMaster/actions/workflows/codeql_main.yml)
+[![CodeQL Development](https://github.com/technocapeman/NewsMaster/actions/workflows/codeql_dev.yml/badge.svg)](https://github.com/technocapeman/NewsMaster/actions/workflows/codeql_dev.yml)
 
 NewsMaster is an open-source, cross-platform news app founded by Kapilesh Pennichetty and Sanjay Balasubramanian, and
 currently maintained by Kapilesh Pennichetty. It is a website and a Progressive Web Application developed on the Flask
