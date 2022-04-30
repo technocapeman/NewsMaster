@@ -37,7 +37,7 @@ Contributions to NewsMaster are greatly appreciated. Please abide by the followi
 1. Please contribute to the dev branch of this repository rather than the main branch which is used for production.
 2. Please ensure that your code is well-documented and well-formatted.
 3. When making a Pull Request, please enable "Allow edits from maintainers." This allows for the aforementioned GitHub
-   Actions to find and replace the appropriate IP address code.
+   Actions to find and replace the appropriate IP address code, as well as perform other formatting measures.
 
 Thank you for contributing to NewsMaster!
 
