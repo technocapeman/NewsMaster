@@ -1,7 +1,7 @@
-name: Format Production Code
+name: Format Development Code (on Pull Request)
 on:
   pull_request_target:
-    branches: main
+    branches: dev
     types: [assigned, opened, synchronize, reopened]
 jobs:
   format:
@@ -11,15 +11,15 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: ${{github.event.pull_request.head.repo.full_name}}
-          ref: main
+          ref: dev
           token: ${{ secrets.GH_PAT }}
-      - name: Replace Server IP with Client IP
-        run: sed -i "s|requests.get('https://ipinfo.io/ip').text|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|g" app.py
-      - name: Disable Debugger Option
-        run: sed -i 's|app.run(host="0.0.0.0", debug=True)|app.run(host="0.0.0.0")|g' app.py
+      - name: Replace Client IP with Server IP
+        run: sed -i "s|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|requests.get('https://ipinfo.io/ip').text|g" app.py
+      - name: Enable Debugger Option
+        run: sed -i 's|app.run(host="0.0.0.0")|app.run(host="0.0.0.0", debug=True)|g' app.py
       - name: Commit files
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
-          git commit -m "Formatting code for production." && git push || true
+          git commit -m "Formatting code for development and testing." && git push || true

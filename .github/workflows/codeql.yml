@@ -12,8 +12,8 @@
 name: "CodeQL"
 
 on:
-  push:
-    branches: dev
+  repository_dispatch:
+    types: codeql
   schedule:
     - cron: '16 14 * * 5'
 

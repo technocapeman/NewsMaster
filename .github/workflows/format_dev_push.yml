@@ -1,20 +1,15 @@
-name: Format Development Code (on Pull Request)
+name: Format Development Code (on Push)
 on:
-  pull_request_target:
-    branches: dev
-    types: [assigned, opened, synchronize, reopened]
   push:
     branches: dev
 jobs:
-  build:
+  format:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          repository: ${{github.event.pull_request.head.repo.full_name}}
           ref: dev
-          token: ${{ secrets.GH_PAT }}
       - name: Replace Client IP with Server IP
         run: sed -i "s|request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)|requests.get('https://ipinfo.io/ip').text|g" app.py
       - name: Enable Debugger Option
@@ -25,3 +20,12 @@ jobs:
           git config user.email github-actions@github.com
           git add .
           git commit -m "Formatting code for development and testing." && git push || true
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger CodeQL Analysis
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.GH_PAT }}
+          repository: ${{ github.repository }}
+          event-type: codeql
