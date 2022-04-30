@@ -21,10 +21,10 @@ jobs:
           git add .
           git commit -m "Formatting code for development and testing." && git push || true
   trigger:
+    needs: format
     runs-on: ubuntu-latest
     steps:
       - name: Trigger CodeQL Analysis
-        if: success()
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.GH_PAT }}
