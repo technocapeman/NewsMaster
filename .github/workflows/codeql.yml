@@ -13,7 +13,7 @@ name: "CodeQL"
 
 on:
   repository_dispatch:
-    types: codeql
+    types: [codeql]
   schedule:
     - cron: '16 14 * * 5'
 
