@@ -30,3 +30,9 @@ jobs:
           token: ${{ secrets.GH_PAT }}
           repository: ${{ github.repository }}
           event-type: codeql-main
+      - name: Trigger Production Deployment
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.GH_PAT }}
+          repository: ${{ github.repository }}
+          event-type: deploy
