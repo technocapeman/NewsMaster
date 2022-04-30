@@ -24,20 +24,7 @@ newsapi_key = os.environ.get("NEWSAPI_KEY")  # Defining API Key for use with New
 
 weatherapi_key = os.environ.get("WEATHERAPI_KEY")  # Defining API Key for use with Weather API
 
-app = Flask(__name__)  # Defining Flask App (Source: https://flask.palletsprojects.com/en/1.1.x/)
-
-# -------- Credits ----------
-"""
-- News headlines, source names, publication dates, descriptions, images, and links to articles are from News API;
-please visit https://newsapi.org for more details
-- Weather data from Weather API; please visit https://weatherapi.com for more details.
-- Scheduling News Article Fetch: https://schedule.readthedocs.io/en/stable/index.html
-- Search Functionality: https://www.techwithtim.net/tutorials/flask/http-methods-get-post
-- Using Background Threads: 
-https://stackoverflow.com/questions/38254172/infinite-while-true-loop-in-the-background-python
-- Integrating Service Worker with Flask: 
-https://www.reddit.com/r/PWA/comments/bmsed8/this_is_how_i_install_my_service_worker_using/
-"""
+app = Flask(__name__)  # Defining Flask App
 
 
 # ---------- Functions and Data ----------
@@ -170,8 +157,8 @@ def home():
     # Get the IP address of the user and fetch weather data for the ip address.
     # NOTE: The IP address code for the production (stable) branch is not the same as the code for the dev branch
     # For testing purposes, the dev branch uses code for server IP rather than client IP.
-    # This code will automatically be modified to client IP when merging from dev to stable.
-    ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+    # This code will automatically be modified to client IP when merging from dev to production.
+    ip_addr = requests.get('https://ipinfo.io/ip').text
     weather = get_weather(ip_addr)
     return render_template('home.html', top_articles=top_headlines, weather_icon=weather["icon"],
                            temp=weather["temp_f"])
@@ -190,8 +177,7 @@ def news_reliability():
 @app.route("/weather", methods=["GET", "POST"])  # Telling Flask that the URL with "/weather" appended at the end
 # should lead to the weather page
 def weather():
-    """Page that shows weather info.
-    (w/Assistance from https://www.techwithtim.net/tutorials/flask/http-methods-get-post/))"""
+    """Page that shows weather info."""
     if request.method == "POST":
         location = request.form["nm"]
         weather = get_weather(location)
@@ -209,7 +195,7 @@ def weather():
         # NOTE: The IP address code for the production (stable) branch is not the same as the code for the dev branch
         # For testing purposes, the dev branch uses code for server IP rather than client IP.
         # This code will automatically be modified to client IP when merging from dev to stable.
-        ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+        ip_addr = requests.get('https://ipinfo.io/ip').text
         weather = get_weather(ip_addr)
         title = f"{weather['name']} Weather | NewsMaster"
         return render_template('weather.html',
@@ -223,20 +209,17 @@ def weather():
 # ----- Service Worker -----
 @app.route('/service-worker.js', methods=['GET'])
 def sw():
-    """Integrates Service Worker with Flask (Credits:
-    https://www.reddit.com/r/PWA/comments/bmsed8/this_is_how_i_install_my_service_worker_using/)"""
+    """Integrates Service Worker with Flask"""
     return current_app.send_static_file('service-worker.js')
 
 
 # ---------- Main Code ----------
 
 # ----- Run background_fetch() in a background thread -----
-# Reference: https://stackoverflow.com/questions/38254172/infinite-while-true-loop-in-the-background-python
 fetch_articles = Thread(name='background', target=background_fetch)  # Creating thread for background task
 fetch_articles.daemon = True  # Declaring that thread is a daemon (background task)
 fetch_articles.start()  # Initializing the thread
 
 # ----- Run Flask App -----
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")  # Telling Flask to run the app with the constraints given. (Documentation:
-    # https://flask.palletsprojects.com/en/1.1.x/)
+    app.run(host="0.0.0.0", debug=True)  # Telling Flask to run the app with the constraints given.
