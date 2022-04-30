@@ -2,7 +2,7 @@ name: Format Production Code
 on:
   pull_request_target:
     branches: main
-    types: [assigned, opened, synchronize, reopened]
+    types: [ assigned, opened, synchronize, reopened ]
 jobs:
   format:
     runs-on: ubuntu-latest
