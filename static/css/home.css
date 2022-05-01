@@ -29,3 +29,7 @@
     max-width: 550px;
     height: auto;
 }
+
+a:link {
+    text-decoration: none;
+}

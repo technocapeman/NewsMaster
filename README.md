@@ -1,4 +1,5 @@
 # NewsMaster
+
 [![CodeQL Production](https://github.com/technocapeman/NewsMaster/actions/workflows/codeql_main.yml/badge.svg)](https://github.com/technocapeman/NewsMaster/actions/workflows/codeql_main.yml)
 [![CodeQL Development](https://github.com/technocapeman/NewsMaster/actions/workflows/codeql_dev.yml/badge.svg)](https://github.com/technocapeman/NewsMaster/actions/workflows/codeql_dev.yml)
 
