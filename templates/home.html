@@ -8,8 +8,8 @@
     <title>Home | NewsMaster</title>
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <meta content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1" name="viewport">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
-          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
     <script async src="https://cse.google.com/cse.js?cx=5a17426da7fe17b85"></script>
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -32,13 +32,13 @@
 <!-- Declaring Bootstrap Template for Header -->
 <div class="container-fluid" style="font-family: 'Lato', sans-serif;
     background-color: #2f2f2f;
-    color: #ffffff">
-    <div class="page-header" style="background-color: #2f2f2f;
+    color: #ffffff;">
+    <div class="page-header" style="padding-top: 50px; margin-top: 0px; background-color: #2f2f2f;
     color: #1fbed6;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 45px;">
         <div id="textbox">
-            <h1 class="alignleft"><a href="/" style="color: #1fbed6">NewsMaster</a></h1>
+            <h1 style="font-size: 36px" class="alignleft"><a href="/" style="color: #1fbed6">NewsMaster</a></h1>
             <h1 class="alignright">
                 <a href="/weather" style="color: #1fbed6">
                     <img height="90px" src={{ weather_icon }} width="90px">
@@ -49,26 +49,25 @@
         </div>
     </div>
     <p style="font-size: 25px">The world at your fingertips.</p>
-</div>
-
-<!-- Google-Powered Search Bar -->
-<div class="jumbotron jumbotron-fluid"
-     style="background-color: #2f2f2f; padding-bottom: 25px; padding-top: 25px; padding-left: 15px; padding-right: 15px">
-    <div class="gcse-searchbox-only"></div>
+    <!-- Google-Powered Search Bar -->
+    <div class="jumbotron jumbotron-fluid"
+         style="background-color: #2f2f2f; padding-bottom: 25px; padding-top: 30px;">
+        <div class="gcse-searchbox-only"></div>
+    </div>
 </div>
 
 <!---------- Display All Articles from News API using Jinja ---------->
 <!-- Beginning of For-Each Loop to display all articles -->
 {% for article in top_articles %}
     <!-- Start of Article -->
-    <div class="jumbotron jumbotron-fluid"
-         style="font-family: 'Lato', sans-serif; border-radius: 25px; margin-left: 10px; margin-right: 10px">
+    <div class="p-2 mb-3 big-light rounded-3"
+         style="font-family: 'Lato', sans-serif; border-radius: 25px; margin-top: 25px; margin-left: 10px; margin-right: 10px">
         <!-- Declaring Bootstrap Template for Articles -->
-        <div class="container-fluid" style="border-radius: 25px">
+        <div class="container-fluid" style="border-radius: 25px; padding: 5px; padding-left: 15px; padding-right: 15px">
             <div class="page-header">
                 {% if (article['title'] != None) and (article['url'] != None) %}
-                    <h3><a href={{ article['url'] }} target="_blank"
-                           style="color:#ffffff">{{ article['title'] }}</a>
+                    <h3 style="font-size: 26px"><a href={{ article['url'] }} target="_blank"
+                                                   style="color:#ffffff">{{ article['title'] }}</a>
                     </h3>
                 {% endif %} {% if article['source']['name'] != None %}
                 <h5>Source: {{ article['source']['name'] }}</h5>
@@ -77,7 +76,7 @@
             {% endif %}
             </div>
             {% if article['description'] != None %}
-                <p>{{ article['description'] }}</p>
+                <p class="fs-4" style="font-size: 24px">{{ article['description'] }}</p>
             {% endif %} {% if (article['urlToImage'] != None) and (article['urlToImage'][0:4] == "http") %}
             <a href={{ article['url'] }} target="_blank">
                 <img src={{ article['urlToImage'] }} class="responsive" alt="Image from News Article">
