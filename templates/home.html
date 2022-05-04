@@ -80,11 +80,12 @@
             {% endif %} {% if (article['urlToImage'] != None) and (article['urlToImage'][0:4] == "http") %}
             <a href={{ article['url'] }} target="_blank">
                 <img src={{ article['urlToImage'] }} class="responsive" alt="Image from News Article">
-            </a>
+            </a><br>
         {% endif %} {% if article['url'] != None %}
-            <p><a href={{ article['url'] }} target="_blank" style="font-family: 'Lato', sans-serif; color:
-                #1fbed6;
-                font-weight:bold">Learn More</a></p>
+            <button type="button" class="btn btn-lg btn-info" style="margin-top: 20px; margin-bottom: 20px"><a
+                    href={{ article['url'] }} target="_blank" style="font-family: 'Lato', sans-serif; color:
+                #000000;
+                font-weight:bold">Read More</a></button>
         {% endif %}
         </div>
     </div>
