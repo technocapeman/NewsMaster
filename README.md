@@ -17,7 +17,7 @@ Features:
 - Weather Advice Features: Temperature and Precipitation Advice features advise you about safe practices for your
   current weather.
 
-To use the application, please visit [thenewsmaster.herokuapp.com](thenewsmaster.herokuapp.com)!
+To use the application, please visit [thenewsmaster.info/](https://thenewsmaster.info/)!
 
 ## Production Workflow
 
